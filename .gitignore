@@ -1,0 +1,35 @@
+# R session artifacts
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Quarto / knitr build caches
+.quarto/
+_freeze/
+*_cache/
+
+# Credentials and environment
+.env
+.env.*
+.Renviron
+*.pem
+*.p12
+*.key
+id_rsa
+id_ed25519
+credentials.json
+secrets.yml
+
+# Temporary / OS files
+*.tmp
+*.temp
+*~
+*.swp
+.DS_Store
+Thumbs.db
+
+# Intentionally NOT ignored: .qmd .Rmd .R .sql sources, .csv datasets,
+# rendered .html / .pdf submissions, and *_files/ asset directories that
+# rendered HTML reports need in order to open correctly.

@@ -23,7 +23,7 @@ Collect simple movie-rating data, store it in a SQL database, and analyze it in 
 
 ## Files in this Repository
 
-### 1. `movie_ratings.sql`
+### 1. `code/movie_ratings.sql`
 - SQL script to create normalized database
 - Creates 3 tables: `users`, `movies`, `ratings`
 - Includes sample data with intentional missing values
@@ -36,7 +36,7 @@ movies (movie_id, title, year, genre)
 ratings (rating_id, user_id, movie_id, rating)
 ```
 
-### 2. `movie_ratings_analysis.Rmd`
+### 2. `assignment/movie_ratings_analysis.Rmd`
 - R Markdown file with complete analysis
 - Connects to SQLite database
 - Loads data using SQL queries
@@ -82,20 +82,20 @@ install.packages(c("DBI", "RSQLite", "dplyr", "tidyr", "ggplot2", "knitr"))
 ### Option 1: Run in R/RStudio
 
 1. Clone this repository
-2. Open `movie_ratings_analysis.Rmd` in RStudio
+2. Open `Week02/assignment/movie_ratings_analysis.Rmd` in RStudio
 3. Click "Knit" to generate HTML report
 4. The R Markdown file creates an in-memory SQLite database automatically
 
 ### Option 2: Use SQL File Separately
 
 1. Install SQLite or PostgreSQL
-2. Run `movie_ratings.sql` to create database:
+2. Run `Week02/code/movie_ratings.sql` to create database:
    ```bash
    # SQLite
-   sqlite3 movie_ratings.db < movie_ratings.sql
+   sqlite3 movie_ratings.db < Week02/code/movie_ratings.sql
    
    # PostgreSQL
-   psql -d your_database -f movie_ratings.sql
+   psql -d your_database -f Week02/code/movie_ratings.sql
    ```
 3. Modify R Markdown connection string if using external database
 
@@ -152,7 +152,7 @@ This assignment demonstrates:
 ## GitHub Repository
 
 **Repository:** https://github.com/athomsonsps/DATA607  
-**Assignment Folder:** Week2/
+**Assignment Folder:** Week02/
 
 ## Author
 
