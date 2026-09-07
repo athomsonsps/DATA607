@@ -1,9 +1,3 @@
-# DATA 607 - Data Acquisition and Management
-
-**Author:** Andre Thomson
-
-CUNY School of Professional Studies. Coursework repository - each assignment lives in a WeekNN folder.
-
 ## Weekly assignment tracker
 
 | Week | Assignment | Due date | Files | Status |
