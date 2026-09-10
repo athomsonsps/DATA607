@@ -348,50 +348,6 @@ The strongest result was the positive relationship between log cancer volume and
 
 To extend this assignment, I would use a larger prostate cancer dataset and compare more variables with PSA. I would also check another dataset to see if the same patterns appear.
 
-## Speaker Notes
-
-Hi, my name is Andre Thomson, and this is my Week 1 assignment for DATA 607.
-
-For this assignment, I used a prostate cancer dataset from Kaggle.
-
-The dataset has 97 observations and 10 variables. Some of the variables include age, prostate weight, cancer volume, Gleason score, seminal vesicle invasion, PSA, and a training indicator.
-
-I chose this dataset because prostate cancer affects many men, and I am interested in health data. I wanted to use this dataset to look at some of the factors connected to prostate cancer.
-
-My research question is: What relationships can be seen between age, cancer volume, Gleason score, seminal vesicle invasion, and PSA in this dataset?
-
-I connected the CSV file to the assignment and loaded it into R using the tidyverse package.
-
-After loading the data, I checked the first few rows, the number of rows and columns, the column names, and the data types.
-
-The dataset has 97 rows and 10 columns. I also checked for missing values and duplicate rows. There were no missing values and no duplicate rows.
-
-Next, I selected the variables I wanted to focus on and renamed some of the abbreviated columns.
-
-For example, `lcavol` was renamed to log cancer volume, `lweight` was renamed to log prostate weight, and `lpsa` was renamed to log PSA.
-
-For the charts, I kept them simple.
-
-The first bar chart shows the number of observations in each Gleason score group.
-
-The next barplot shows the number of observations in three age groups: under 60, 60 to 69, and 70 and older.
-
-The grouped bar chart compares Gleason score groups by seminal vesicle invasion status.
-
-The final graph compares log cancer volume and log PSA.
-
-The correlation between log cancer volume and log PSA is about 0.73, so the two variables have a positive relationship in this dataset.
-
-The other charts show how the observations are grouped by Gleason score, age, and seminal vesicle invasion.
-
-These results only describe this dataset. They do not show cause and effect.
-
-Thank you.
-
-## AI Assistance
-
-GitHub Copilot in Visual Studio Code was used to help review code and troubleshoot errors. I reviewed the code and made the final changes used in this assignment.
-
 ## References
 
 Kaggle. (n.d.). *Prostate cancer dataset*. https://www.kaggle.com/datasets/soujanyahp/prostate-cancer-dataset
