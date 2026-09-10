@@ -1,0 +1,370 @@
+---
+title: "DATA607_Week1_Assignment"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+editor: visual
+---
+
+## Approach
+
+For this assignment, I used a prostate cancer dataset from Kaggle. It has 97 observations and 10 variables, including age, prostate weight, cancer volume, Gleason score, seminal vesicle invasion, PSA, and a training indicator.
+
+I chose this dataset because I am interested in health data. I will use R to check the data, select and rename variables, and create a few charts and tables to look for patterns.
+
+**Source:** The dataset is from Kaggle:
+
+<https://www.kaggle.com/datasets/soujanyahp/prostate-cancer-dataset>
+
+## Research Question
+
+What relationships can be seen between age, cancer volume, Gleason score, seminal vesicle invasion, and PSA in this prostate cancer dataset?
+
+To help answer this question, I will also look at:
+
+- Is log cancer volume related to log PSA?
+- How does average log PSA differ across Gleason score groups?
+- How does seminal vesicle invasion status differ across Gleason score groups?
+
+## Load the Data
+
+I used `tidyverse` to load and work with the prostate cancer dataset from Kaggle.
+
+```{r}
+#| label: load-packages
+#| message: false
+#| warning: false
+
+library(tidyverse)
+```
+
+```{r}
+#| label: load-prostate-data
+
+# Download the prostate cancer dataset from Kaggle.
+download.file(
+  "https://www.kaggle.com/api/v1/datasets/download/soujanyahp/prostate-cancer-dataset",
+  destfile = "prostate.zip",
+  mode = "wb"
+)
+
+# Extract the CSV file.
+unzip("prostate.zip", files = "prostate.csv")
+
+# Load the dataset into R.
+prostate <- read_csv(
+  "prostate.csv",
+  show_col_types = FALSE
+)
+```
+
+## Check the Data
+
+I checked the first few rows, the size of the dataset, the column names, and the data types.
+
+```{r}
+#| label: inspect-prostate-data
+
+# Look at the first few rows of the dataset.
+head(prostate)
+
+# Check the number of rows and columns.
+dim(prostate)
+
+# View the column names.
+names(prostate)
+
+# Check the structure and data types.
+glimpse(prostate)
+```
+
+The dataset has `r nrow(prostate)` rows and `r ncol(prostate)` columns.
+
+## Missing Values and Duplicates
+
+I checked for missing values and duplicate rows before changing the data.
+
+```{r}
+#| label: check-missing-and-duplicates
+
+# Count missing values in each column.
+missing_values <- colSums(is.na(prostate))
+total_missing <- sum(is.na(prostate))
+
+# Count duplicate rows.
+duplicate_rows <- sum(duplicated(prostate))
+
+missing_values
+cat("Total missing values:", total_missing, "\n")
+cat("Duplicate rows:", duplicate_rows, "\n")
+```
+
+The dataset has `r total_missing` missing values and `r duplicate_rows` duplicate rows.
+
+## Select and Rename Variables
+
+I selected the variables I wanted to use and renamed the abbreviated columns so they are easier to read.
+
+```{r}
+#| label: select-and-rename-variables
+
+# Keep the variables I want to use for this assignment.
+prostate_selected <- prostate |>
+  select(
+    lcavol,
+    lweight,
+    age,
+    svi,
+    gleason,
+    lpsa
+  ) |>
+  # Rename abbreviated columns so they are easier to understand.
+  rename(
+    log_cancer_volume = lcavol,
+    log_prostate_weight = lweight,
+    seminal_vesicle_invasion = svi,
+    gleason_score = gleason,
+    log_psa = lpsa
+  )
+
+head(prostate_selected)
+```
+
+## Summary
+
+I created a short summary of the selected data.
+
+```{r}
+#| label: summarize-prostate-data
+
+# Create a small summary of the selected variables.
+summary_results <- prostate_selected |>
+  summarise(
+    observations = n(),
+    average_age = mean(age, na.rm = TRUE),
+    minimum_age = min(age, na.rm = TRUE),
+    maximum_age = max(age, na.rm = TRUE),
+    average_log_psa = mean(log_psa, na.rm = TRUE)
+  )
+
+# Display the summary as a simple table.
+knitr::kable(
+  summary_results |>
+    mutate(across(where(is.numeric), ~ round(.x, 2))),
+  caption = "Basic summary of the prostate dataset"
+)
+```
+
+## Gleason Score and Log PSA
+
+This chart compares the average log PSA for each Gleason score group. The error bars show one standard error above and below the mean.
+
+```{r}
+#| label: plot-gleason-psa-error-bars
+
+# Calculate the mean log PSA and standard error for each Gleason score.
+gleason_psa_summary <- prostate_selected |>
+  group_by(gleason_score) |>
+  summarise(
+    n = n(),
+    mean_log_psa = mean(log_psa, na.rm = TRUE),
+    sd_log_psa = sd(log_psa, na.rm = TRUE),
+    se_log_psa = sd_log_psa / sqrt(n)
+  )
+
+# Plot the mean log PSA with standard error bars.
+ggplot(
+  gleason_psa_summary,
+  aes(
+    x = factor(gleason_score),
+    y = mean_log_psa,
+    fill = factor(gleason_score)
+  )
+) +
+  geom_col(width = 0.7) +
+  geom_errorbar(
+    aes(
+      ymin = mean_log_psa - se_log_psa,
+      ymax = mean_log_psa + se_log_psa
+    ),
+    width = 0.15
+  ) +
+  scale_fill_manual(
+    values = c(
+      "6" = "#4E79A7",
+      "7" = "#59A14F",
+      "8" = "#F28E2B",
+      "9" = "#E15759"
+    ),
+    guide = "none"
+  ) +
+  labs(
+    title = "Average Log PSA by Gleason Score",
+    x = "Gleason Score",
+    y = "Average Log PSA"
+  ) +
+  theme_minimal()
+```
+
+## Gleason Score and Seminal Vesicle Invasion
+
+This grouped bar chart compares Gleason score groups by seminal vesicle invasion status.
+
+```{r}
+#| label: plot-gleason-by-svi
+
+# Create counts for Gleason score and seminal vesicle invasion status.
+svi_gleason_counts <- prostate_selected |>
+  mutate(
+    svi_status = factor(
+      seminal_vesicle_invasion,
+      levels = c(0, 1),
+      labels = c("No", "Yes")
+    )
+  ) |>
+  count(gleason_score, svi_status)
+
+# Create a grouped bar chart to compare the two invasion groups.
+ggplot(
+  svi_gleason_counts,
+  aes(
+    x = factor(gleason_score),
+    y = n,
+    fill = svi_status
+  )
+) +
+  geom_col(position = "dodge") +
+  scale_fill_manual(
+    values = c(
+      "No" = "#4E79A7",
+      "Yes" = "#E15759"
+    )
+  ) +
+  labs(
+    title = "Gleason Score by Seminal Vesicle Invasion",
+    x = "Gleason Score",
+    y = "Count",
+    fill = "Seminal Vesicle Invasion"
+  ) +
+  theme_minimal()
+```
+
+## Cancer Volume and PSA
+
+I grouped the observations into five cancer volume groups to make the relationship with log PSA easier to see.
+
+```{r}
+#| label: binned-cancer-volume-psa
+
+# Put the observations into five groups based on log cancer volume.
+binned_data <- prostate_selected |>
+  mutate(
+    volume_group = ntile(log_cancer_volume, 5)
+  ) |>
+  group_by(volume_group) |>
+  summarise(
+    average_log_cancer_volume = mean(log_cancer_volume, na.rm = TRUE),
+    average_log_psa = mean(log_psa, na.rm = TRUE)
+  )
+
+# Create a binned scatter plot using the group averages.
+ggplot(
+  binned_data,
+  aes(
+    x = average_log_cancer_volume,
+    y = average_log_psa
+  )
+) +
+  geom_point(size = 3) +
+  geom_line() +
+  labs(
+    title = "Average Log PSA by Log Cancer Volume",
+    x = "Average Log Cancer Volume",
+    y = "Average Log PSA"
+  ) +
+  theme_minimal()
+```
+
+As average log cancer volume increases, average log PSA also increases.
+
+```{r}
+#| label: cancer-volume-psa-correlation
+
+# Calculate the correlation using all observations.
+cancer_volume_correlation <- cor(
+  prostate_selected$log_cancer_volume,
+  prostate_selected$log_psa,
+  use = "complete.obs"
+)
+
+round(cancer_volume_correlation, 2)
+```
+
+The correlation is about `r round(cancer_volume_correlation, 2)`, which supports the positive relationship shown in the graph.
+
+```{r}
+#| label: binned-cancer-volume-psa-table
+
+# Show the values used in the binned scatter plot.
+binned_table <- binned_data |>
+  mutate(
+    average_log_cancer_volume = round(average_log_cancer_volume, 2),
+    average_log_psa = round(average_log_psa, 2)
+  )
+
+knitr::kable(
+  binned_table,
+  col.names = c(
+    "Group",
+    "Average Log Cancer Volume",
+    "Average Log PSA"
+  ),
+  caption = "Values used in the binned scatter plot"
+)
+```
+
+## Findings
+
+The clearest relationship in the data is between log cancer volume and log PSA. The binned scatter plot shows that average log PSA rises as average log cancer volume increases. The correlation is about `r round(cancer_volume_correlation, 2)`.
+
+The Gleason score chart compares average log PSA across score groups, while the grouped bar chart shows how seminal vesicle invasion differs across those groups. These results describe this dataset only and do not show cause and effect.
+
+## Conclusion
+
+This assignment gave me practice loading a dataset into R, checking the data, selecting variables, renaming columns, and creating simple charts.
+
+The strongest result was the positive relationship between log cancer volume and log PSA. The charts also showed differences across Gleason score groups and seminal vesicle invasion status.
+
+To extend this assignment, I would use a larger prostate cancer dataset and compare more variables with PSA. I would also check another dataset to see if the same patterns appear.
+
+## AI Assistance
+
+GitHub Copilot in Visual Studio Code was used to help review code and troubleshoot errors. I reviewed the code and made the final changes used in this assignment.
+
+## References
+
+Kaggle. (n.d.). *Prostate cancer dataset*. <https://www.kaggle.com/datasets/soujanyahp/prostate-cancer-dataset>
+
+GitHub. (2026). *GitHub Copilot*. <https://github.com/features/copilot>
+
+Martin, G. (2025, May 7). *RStudio for beginners* \[Video\]. YouTube. <https://www.youtube.com/watch?v=Kgwfuycn9_I>
+
+Posit Software, PBC. (2026). *RStudio User Guide: Get Started*. <https://docs.posit.co/ide/user/ide/get-started/>
+
+R Graph Gallery. (n.d.). *Barplot with error bars*. <https://r-graph-gallery.com/4-barplot-with-error-bar.html>
+
+Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). *R for Data Science* (2nd ed.). O'Reilly Media. <https://r4ds.hadley.nz/>
+
+Wickham, H., Navarro, D., & Pedersen, T. L. (n.d.). *ggplot2 documentation*. <https://ggplot2.tidyverse.org/>
+
+Posit Software, PBC. (n.d.). *Cheatsheets*. <https://posit.co/resources/cheatsheets/>
+
+swirl. (n.d.). *Learn R, in R*. <https://swirlstats.com/>
+
+## Published
+
+**RPubs:** <https://rpubs.com/AndreT/1457474>
+
+**GitHub:** <https://github.com/athomsonsps/DATA607>
