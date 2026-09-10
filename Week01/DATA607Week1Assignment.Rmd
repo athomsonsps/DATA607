@@ -7,7 +7,7 @@ output:
     self_contained: true
 ---
 
-## Overview
+## Approach
 
 For this assignment, I used a prostate cancer dataset from Kaggle. The dataset has 97 observations and 10 variables. Some of the variables include age, prostate weight (the weight of the prostate gland), cancer volume (the amount of cancer found in the prostate tissue), Gleason score (a grading system used to describe how abnormal prostate cancer cells look), seminal vesicle invasion (whether the cancer has spread into the seminal vesicles), PSA (prostate-specific antigen, a protein measured in the blood), and a training indicator (shows whether an observation was part of the original training set or test set used for statistical modeling).
 
