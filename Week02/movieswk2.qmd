@@ -1,0 +1,272 @@
+---
+title: "MovieWk2"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    code-fold: false
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Approach
+
+For this assignment, I asked six people to rate six animated movies. I used participant numbers instead of names. The rating scale was:
+
+- 1 = Did not like it
+- 2 = It was okay
+- 3 = I liked it
+- 4 = I really liked it
+- 5 = Loved it
+
+Each person rated only the movies they had seen. If they had not seen a movie, they could leave it blank. I saved the ratings in SQLite and used R to look at the results.
+
+## Database design
+
+I split the data into three tables. The `users` table has the participant numbers, the `movies` table has the movie titles, and the `ratings` table has the scores.
+
+The `ratings` table uses `user_id` and `movie_id` together as its primary key. This keeps a person from rating the same movie twice. I also used foreign keys to connect the tables and a `CHECK` rule to keep the ratings between 1 and 5.
+
+The `movie_ratings.sql` file has all the code used to create the tables, add the ratings, and check the results.
+
+## Tools used
+
+I used Google Forms to collect the ratings. I used SQLite for the database and ran the SQL in SQLiteOnline. I used Posit Cloud for the R work and to render this report. SQLite uses a local database file, so there is no database password in my code.
+
+I also used Visual Studio Code with GitHub Copilot to help fix errors in the SQL and R code. I checked the suggestions against the final output.
+
+## Load the database
+
+The SQLite database must be saved as `movie_ratings.sqlite` in the same folder as this Quarto file.
+
+```{r}
+#| label: setup
+
+library(DBI)
+library(RSQLite)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(knitr)
+
+db_file <- "movie_ratings.sqlite"
+
+if (!file.exists(db_file)) {
+  stop("movie_ratings.sqlite is missing. Run movie_ratings.sql first.")
+}
+
+con <- dbConnect(SQLite(), db_file)
+```
+
+## Load the SQL data into R
+
+I joined the three tables so I could see the participant number, movie title, and rating in one dataframe. Each row is one completed rating.
+
+```{r}
+#| label: load-data
+
+ratings <- dbGetQuery(
+  con,
+  "SELECT
+      u.user_id,
+      u.participant_id,
+      m.movie_id,
+      m.title AS movie_title,
+      r.rating
+   FROM ratings AS r
+   INNER JOIN users AS u
+      ON r.user_id = u.user_id
+   INNER JOIN movies AS m
+      ON r.movie_id = m.movie_id
+   ORDER BY u.user_id, m.movie_id"
+) |>
+  as_tibble()
+
+users <- dbReadTable(con, "users") |> as_tibble()
+movies <- dbReadTable(con, "movies") |> as_tibble()
+```
+
+I checked the data before calculating the results.
+
+```{r}
+#| label: data-checks
+
+if (nrow(users) < 5) {
+  stop("The assignment requires at least five participants.")
+}
+
+if (any(!ratings$rating %in% 1:5)) {
+  stop("A rating is outside the 1–5 scale.")
+}
+
+if (anyDuplicated(ratings[c("user_id", "movie_id")]) > 0) {
+  stop("A participant rated the same movie more than once.")
+}
+
+data_check <- tibble(
+  check = c("Participants", "Movies", "Completed ratings"),
+  result = c(nrow(users), nrow(movies), nrow(ratings))
+)
+
+kable(data_check, col.names = c("Check", "Result"))
+```
+
+## Collected ratings
+
+```{r}
+#| label: ratings-table
+
+ratings |>
+  select(participant_id, movie_title, rating) |>
+  kable(
+    col.names = c("Participant", "Movie", "Rating"),
+    align = c("l", "l", "r")
+  )
+```
+
+## Missing ratings
+
+I did not use zero when somebody had not seen a movie. Zero is not part of the scale, and using it would make the average too low. A blank answer is stored by leaving out that rating row.
+
+I checked every person against every movie. If a rating was not there, R showed it as `NA`.
+
+```{r}
+#| label: missing-data
+
+all_combinations <- crossing(
+  users |> select(user_id, participant_id),
+  movies |> select(movie_id, movie_title = title)
+)
+
+complete_ratings <- all_combinations |>
+  left_join(
+    ratings |> select(user_id, movie_id, rating),
+    by = c("user_id", "movie_id")
+  )
+
+missing_ratings <- complete_ratings |>
+  filter(is.na(rating))
+
+if (nrow(missing_ratings) == 0) {
+  cat("There are no missing ratings in this dataset.")
+} else {
+  missing_ratings |>
+    select(participant_id, movie_title) |>
+    kable(col.names = c("Participant", "Movie left blank"))
+}
+```
+
+No one left a movie blank in this set of responses. The code still looks for missing ratings and would keep them as `NA` rather than zero.
+
+## Ratings by participant
+
+```{r}
+#| label: participant-summary
+
+participant_summary <- complete_ratings |>
+  group_by(participant_id) |>
+  summarise(
+    movies_rated = sum(!is.na(rating)),
+    movies_left_blank = sum(is.na(rating)),
+    .groups = "drop"
+  )
+
+kable(
+  participant_summary,
+  col.names = c("Participant", "Movies rated", "Movies left blank")
+)
+```
+
+## Average rating by movie
+
+```{r}
+#| label: movie-summary
+
+movie_summary <- complete_ratings |>
+  group_by(movie_title) |>
+  summarise(
+    number_of_ratings = sum(!is.na(rating)),
+    average_rating = mean(rating, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    average_rating = if_else(
+      is.nan(average_rating),
+      NA_real_,
+      average_rating
+    )
+  ) |>
+  arrange(desc(average_rating), movie_title)
+
+movie_summary |>
+  mutate(average_rating = round(average_rating, 2)) |>
+  kable(
+    col.names = c("Movie", "Number of ratings", "Average rating"),
+    align = c("l", "r", "r")
+  )
+```
+
+I showed the number of ratings with each average so it is clear how many answers were used.
+
+## Chart
+
+```{r}
+#| label: ratings-chart
+#| fig-width: 8
+#| fig-height: 5
+
+ggplot(
+  movie_summary,
+  aes(x = reorder(movie_title, average_rating), y = average_rating)
+) +
+  geom_col(fill = "#315A7D", width = 0.7, na.rm = TRUE) +
+  geom_text(
+    aes(label = sprintf("%.2f", average_rating)),
+    hjust = -0.15,
+    size = 3.8,
+    na.rm = TRUE
+  ) +
+  coord_flip() +
+  scale_y_continuous(
+    limits = c(0, 5.35),
+    breaks = 0:5,
+    expand = expansion(mult = c(0, 0))
+  ) +
+  labs(
+    title = "Average rating for each movie",
+    subtitle = "Ratings are on a 1–5 scale",
+    x = NULL,
+    y = "Average rating"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.major.y = element_blank())
+```
+
+## Findings
+
+The Super Mario Bros. Movie came out on top for this group, while Inside Out 2 had the lowest average. Everyone answered all six movie questions, so the averages are based on the same group of people. I did not have to remove or fill in any blank ratings for this set of responses.
+
+This was only a group of six people, so the results apply to this group and not to everyone who watches these movies.
+
+## Conclusion
+
+This assignment showed me how SQL and R can work together. I created the tables in SQLite, joined them by their IDs, and loaded the results into R. I then checked for blanks and calculated the average rating for each movie.
+
+## Sources and references
+
+- [SQLite CREATE TABLE documentation](https://www.sqlite.org/lang_createtable.html) for primary keys, foreign keys, and rating checks.
+- [DBI introduction](https://dbi.r-dbi.org/articles/DBI.html) for connecting R to the SQLite database.
+- [SQLBolt lessons](https://sqlbolt.com/) for a tutorial review of joins and queries.
+- Wickham, Çetinkaya-Rundel, and Grolemund, [R for Data Science (2e), Chapter 21: Databases](https://r4ds.hadley.nz/databases.html), for the R/database workflow.
+- [Quarto's RStudio tutorial](https://quarto.org/docs/get-started/hello/rstudio.html) for the report format and rendering steps.
+- Mine Çetinkaya-Rundel, [Get started with Quarto](https://www.youtube.com/watch?v=_f3latmOhew), a video overview of Quarto.
+
+```{r}
+#| label: disconnect
+#| include: false
+
+dbDisconnect(con)
+```

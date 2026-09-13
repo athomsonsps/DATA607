@@ -1,0 +1,38 @@
+"1","https://sql-page.com/","SQLPage turns SQL queries into interactive web pages, forms, maps, and dashboards."
+"2","https://fullconvert.com/","Full Convert is industry standard for database migration. Over 40 database formats supported with unparalleled speed, ease of use, and migration customization."
+"3","https://cmsnap.sqliteonline.com/","CMSnap – one self-hosted binary, 10k sites, 10k SQLite DBs, site-scoped MCP, 1M req/s."
+"4","SQL Online IDE","Next-Gen AI Development Environment | 10+ years of superior SLA, Performance & UX"
+"5","Corporate License","full access, local deployment, no external servers, for businesses and educational institutions"
+"6","https://t.me/s/sqliteonlinecom","Telegram channel with news about the project"
+"7","N`Kirill.","https://www.linkedin.com/in/sqliteonlinecom"
+"8","Import","➕ → Import"
+"9","Export","[RightClick] mouse on Table OR It’s now the first one at the bottom right of the table."
+"10","SQLite OpFS (storage)","Enable OpFS on settings"
+"11","Chart","LINE-SELECT name, cos(id), sin(id) FROM demo;"
+"12","Short CODE","s* tableName => SELECT * FROM tableName
+sf tableName => SELECT columns FROM tableName
+sc tableName => SELECT count(*) FROM tableName
+sl tableName => SELECT * FROM tableName ORDER BY key DESC LIMIT 100;
+ct => CREATE TABLE
+ii tableName => INSERT INTO
+us tableName => UPDATE SET
+uw tableName => UPDATE SET WHERE
+df tableName => DELETE FROM
+dw tableName => DELETE FROM WHERE"
+"13","SQLite 3.53.0","SQL OnLine on JavaScript"
+"14","[RightClick] mouse","Opens many additional features"
+"15","Left-Panel, Table","[RightClick] mouse ""Context menu"""
+"16","Tabs","mouse: [RightClick] , [MiddleClick] , [Wheel] , [LeftClick]"
+"17","SQL Editor","autocomplete: [Ctrl-Space] or [Alt-Space]; run: [Shift-Enter]"
+"18","Size table","Fast scroll million rows"
+"19","Share","Create public link DB"
+"20","21","Number of color themes"
+"21","ai.Url","https://sqliteonline.com/LICENSE"
+"22","ai.Color","#9393ad"
+"23","ai.Image","Blob - png, jpg, gif or String(base64) [DbClick] row"
+"24","SQL","Syntax example library"
+"25","CREATE","CREATE TABLE table_name (col1, col2)"
+"26","SELECT","SELECT * FROM table_name"
+"27","INSERT","INSERT INTO table_name (col1, col2) VALUES (""example"",""test"")"
+"28","UPDATE","UPDATE table_name SET col1=""work"" WHERE col2=""test"""
+"29","DELETE","DELETE FROM table_name"
