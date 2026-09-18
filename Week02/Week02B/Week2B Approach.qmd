@@ -1,0 +1,20 @@
+---
+title: "Week 2B Approach"
+author: "Andre Thomson"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## Approach
+
+I will use the penguin_predictions.csv file provided in the course materials. It contains the predicted probability of the female class, a predicted class, and the actual sex for 93 penguins.
+
+The downloaded file stores .pred_class as the words female and male. I will ignore that column at first and calculate new predictions directly from .pred_female, as the assignment requires.
+
+I will first count the actual classes, create a class distribution plot, and calculate the null error rate. This will give me a baseline for evaluating the model. I will then create new predictions using probability thresholds of 0.2, 0.5, and 0.8. I will treat female as the positive class.
+
+For each threshold, I will calculate the true positives, false positives, true negatives, and false negatives. I will use those counts to calculate accuracy, precision, recall, and F1 score. I will compare the results and explain why a lower or higher threshold may be appropriate in different situations.
+
+I will use R and Quarto for the analysis. I will use Visual Studio Code to review the code and organize the files before uploading them to GitHub.
