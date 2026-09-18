@@ -1,0 +1,37 @@
+user_id,participant_id,movie_id,movie_title,rating
+1,Participant 1,1,Puss in Boots: The Last Wish,5
+1,Participant 1,2,The Wild Robot,5
+1,Participant 1,3,Inside Out 2,5
+1,Participant 1,4,Moana 2,5
+1,Participant 1,5,Dog Man,3
+1,Participant 1,6,The Super Mario Bros. Movie,4
+2,Participant 2,1,Puss in Boots: The Last Wish,5
+2,Participant 2,2,The Wild Robot,5
+2,Participant 2,3,Inside Out 2,3
+2,Participant 2,4,Moana 2,5
+2,Participant 2,5,Dog Man,2
+2,Participant 2,6,The Super Mario Bros. Movie,4
+3,Participant 3,1,Puss in Boots: The Last Wish,3
+3,Participant 3,2,The Wild Robot,2
+3,Participant 3,3,Inside Out 2,1
+3,Participant 3,4,Moana 2,2
+3,Participant 3,5,Dog Man,5
+3,Participant 3,6,The Super Mario Bros. Movie,5
+4,Participant 4,1,Puss in Boots: The Last Wish,3
+4,Participant 4,2,The Wild Robot,5
+4,Participant 4,3,Inside Out 2,2
+4,Participant 4,4,Moana 2,3
+4,Participant 4,5,Dog Man,4
+4,Participant 4,6,The Super Mario Bros. Movie,5
+5,Participant 5,1,Puss in Boots: The Last Wish,5
+5,Participant 5,2,The Wild Robot,4
+5,Participant 5,3,Inside Out 2,1
+5,Participant 5,4,Moana 2,1
+5,Participant 5,5,Dog Man,1
+5,Participant 5,6,The Super Mario Bros. Movie,5
+6,Participant 6,1,Puss in Boots: The Last Wish,5
+6,Participant 6,2,The Wild Robot,5
+6,Participant 6,3,Inside Out 2,3
+6,Participant 6,4,Moana 2,3
+6,Participant 6,5,Dog Man,2
+6,Participant 6,6,The Super Mario Bros. Movie,5
