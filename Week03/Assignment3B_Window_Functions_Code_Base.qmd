@@ -1,0 +1,302 @@
+---
+title: "Assignment 3B: Window Functions"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+editor: visual
+execute:
+  warning: false
+  message: false
+---
+
+## Approach
+
+I used a generated dataset with daily values for Item A and Item B. The dates run from December 22, 2025 to January 12, 2026. I used two years so I could check whether the year-to-date average starts over on January 1.
+
+I used SQL window functions inside R. The YTD calculation is grouped by item and year. The six-day average is grouped by item and uses the current row plus the five rows before it.
+
+## Data source and changes
+
+The assignment allows a generated dataset. The values are made up for this project. They are not stock prices or work data.
+
+I made the following changes after loading the CSV:
+
+1. I read the date column as an R date.
+2. I checked for missing values and repeated item-date combinations.
+3. I changed the date to `YYYY-MM-DD` text before writing it to SQLite so SQLite could read the year.
+4. I did not remove, replace, or standardize any values.
+5. I created the YTD average and six-day moving average as new calculated columns. The original values were not changed.
+
+## Load packages and data
+
+This code loads the packages and reads the CSV.
+
+```{r}
+#| label: setup
+
+library(tidyverse)
+library(DBI)
+library(RSQLite)
+library(knitr)
+
+# Read the generated daily data and set each column type.
+daily_values <- read_csv(
+  "daily_item_values.csv",
+  col_types = cols(
+    date = col_date(),
+    item = col_character(),
+    value = col_double()
+  )
+)
+
+glimpse(daily_values)
+```
+
+Each row represents the value of one item on one date.
+
+## Check the data
+
+I checked the row count, item count, missing values, repeated dates, and date gaps.
+
+```{r}
+#| label: check-data
+
+# Check the basic size and quality of the data.
+data_check <- daily_values |>
+  summarise(
+    rows = n(),
+    items = n_distinct(item),
+    first_date = min(date),
+    last_date = max(date),
+    missing_values = sum(is.na(value)),
+    duplicate_item_dates = n() - n_distinct(item, date)
+  )
+
+# Stop the report if the main checks fail.
+stopifnot(
+  data_check$rows == 44,
+  data_check$items == 2,
+  data_check$missing_values == 0,
+  data_check$duplicate_item_dates == 0
+)
+
+kable(data_check)
+
+# Confirm that each item has 22 daily records with no skipped dates.
+date_check <- daily_values |>
+  arrange(item, date) |>
+  group_by(item) |>
+  summarise(
+    observations = n(),
+    consecutive_dates = all(as.integer(diff(date)) == 1),
+    .groups = "drop"
+  )
+
+stopifnot(
+  all(date_check$observations == 22),
+  all(date_check$consecutive_dates)
+)
+
+kable(date_check)
+```
+
+The dataset has 44 rows. Each item has 22 dates with no gaps. The SQL window counts rows, so this check confirms that six rows also mean six days here.
+
+## Add the data to SQLite
+
+I saved the CSV data in a SQLite table before running the window query.
+
+```{r}
+#| label: create-database
+
+# Open a local SQLite database.
+connection <- dbConnect(
+  RSQLite::SQLite(),
+  "window_functions.sqlite"
+)
+
+# Store the date as text in year-month-day order for SQLite.
+sql_data <- daily_values |>
+  mutate(date = as.character(date))
+
+# Create or replace the daily_values table.
+dbWriteTable(
+  connection,
+  "daily_values",
+  sql_data,
+  overwrite = TRUE
+)
+
+# Check the number of rows written to the database.
+dbGetQuery(
+  connection,
+  "SELECT COUNT(*) AS row_count FROM daily_values"
+)
+```
+
+I stored the date as `YYYY-MM-DD` text so SQLite could get the year from it.
+
+## Calculate the window functions
+
+The SQL below calculates the YTD average and six-day moving average. It keeps every daily row in the result.
+
+```{r}
+#| label: window-query
+
+window_results <- dbGetQuery(
+  connection,
+  "
+  -- First calculate both averages and count the rows in the moving window.
+  WITH calculated AS (
+      SELECT
+          date,
+          item,
+          value,
+
+          -- Restart the YTD average for each item and each year.
+          AVG(value) OVER (
+              PARTITION BY item, strftime('%Y', date)
+              ORDER BY date
+              ROWS BETWEEN UNBOUNDED PRECEDING
+                       AND CURRENT ROW
+          ) AS ytd_average,
+
+          -- Use the current row and the five rows before it.
+          AVG(value) OVER (
+              PARTITION BY item
+              ORDER BY date
+              ROWS BETWEEN 5 PRECEDING
+                       AND CURRENT ROW
+          ) AS moving_average_partial,
+
+          -- Count the rows so partial windows can be left blank.
+          COUNT(*) OVER (
+              PARTITION BY item
+              ORDER BY date
+              ROWS BETWEEN 5 PRECEDING
+                       AND CURRENT ROW
+          ) AS moving_window_count
+
+      FROM daily_values
+  )
+
+  SELECT
+      date,
+      item,
+      value,
+      ROUND(ytd_average, 2) AS ytd_average,
+      -- Show an average only when all six daily rows are available.
+      CASE
+          WHEN moving_window_count = 6
+          THEN ROUND(moving_average_partial, 2)
+          ELSE NULL
+      END AS six_day_moving_average
+  FROM calculated
+  ORDER BY item, date
+  "
+)
+
+# Change the date back to an R date for the table and chart.
+window_results <- window_results |>
+  mutate(date = as.Date(date))
+
+kable(
+  window_results,
+  caption = "Year-to-date and six-day moving averages"
+)
+```
+
+`PARTITION BY item` stops the two items from being mixed. The YTD calculation also uses the year, so it starts over on January 1. The first five moving averages are blank because six days are not available yet.
+
+## Verify the year change
+
+```{r}
+#| label: verify-year-change
+
+# Keep the last day of 2025 and the first day of 2026.
+year_change_check <- window_results |>
+  filter(
+    date %in% as.Date(
+      c("2025-12-31", "2026-01-01")
+    )
+  )
+
+kable(
+  year_change_check,
+  caption = "Results around the start of 2026"
+)
+```
+
+The table shows the difference between the two calculations. The YTD average starts over on January 1. The moving average continues because it uses the most recent six days.
+
+## Plot the moving averages
+
+```{r}
+#| label: moving-average-plot
+#| fig-width: 8
+#| fig-height: 5
+
+# Put the daily value and moving average into one plotting column.
+window_results |>
+  pivot_longer(
+    cols = c(value, six_day_moving_average),
+    names_to = "series",
+    values_to = "amount"
+  ) |>
+  mutate(
+    series = recode(
+      series,
+      value = "Daily value",
+      six_day_moving_average = "Six-day moving average"
+    )
+  ) |>
+  ggplot(
+    aes(
+      x = date,
+      y = amount,
+      color = series
+    )
+  ) +
+  geom_line(linewidth = 0.8, na.rm = TRUE) +
+  facet_wrap(
+    ~ item,
+    scales = "free_y"
+  ) +
+  labs(
+    title = "Daily values and six-day moving averages",
+    x = "Date",
+    y = "Value",
+    color = NULL
+  ) +
+  theme_minimal()
+```
+
+The moving average is smoother because each point uses six daily values.
+
+## Conclusion
+
+The YTD average uses the values from the start of the year through each date. The six-day average uses the current date and the five dates before it. Item and year are both needed for the YTD calculation. The moving average only needs the item.
+
+## Tools and assistance
+
+I used R, Quarto, and SQLite. I used GitHub Copilot in Visual Studio Code to check the code structure, comments, and file names. I checked the numbers by running the SQL separately. Copilot was not the source of the data or final results. The HTML report lets the reader show or hide the code.
+
+```{r}
+#| label: disconnect
+
+# Close the database connection after the report is finished.
+dbDisconnect(connection)
+```
+
+## References
+
+- CUNY School of Professional Studies. *DATA 607 Assignment 3B: Window Functions Requirements*. Brightspace course material, 2026.
+- GitHub. *GitHub Copilot documentation*. <https://docs.github.com/en/copilot>
+- Posit. *RSQLite*. <https://rsqlite.r-dbi.org/>
+- Quarto. *HTML Code Blocks: Code Folding*. <https://quarto.org/docs/output-formats/html-code.html#folding-code>
+- SQLite. *Window Functions*. <https://sqlite.org/windowfunctions.html>

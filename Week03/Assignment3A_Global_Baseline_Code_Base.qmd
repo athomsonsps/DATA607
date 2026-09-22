@@ -1,0 +1,247 @@
+---
+title: "Assignment 3A: Global Baseline Estimate"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+editor: visual
+execute:
+  warning: false
+  message: false
+---
+
+## Approach
+
+I used the movie ratings from my Week 2 survey. There are six participants and six movies. Everyone rated all six movies, so there was no missing rating to estimate.
+
+To test the Global Baseline Estimate, I held out the last rating in the file. That rating belongs to Participant 6 for *The Super Mario Bros. Movie*. I used the other 35 ratings to make the estimate. The original CSV stays unchanged.
+
+## Load the packages and data
+
+This code loads the CSV and checks the three columns I need.
+
+```{r}
+#| label: load-data
+
+library(tidyverse)
+library(knitr)
+
+# Read the ratings exported from the Week 2 database.
+ratings <- read_csv(
+  "movie_ratings_query.csv",
+  show_col_types = FALSE
+)
+
+# Make sure the expected columns are present.
+required_columns <- c(
+  "participant_id",
+  "movie_title",
+  "rating"
+)
+
+stopifnot(
+  all(required_columns %in% names(ratings)),
+  all(ratings$rating %in% 1:5),
+  !anyDuplicated(ratings[c("participant_id", "movie_title")])
+)
+
+glimpse(ratings)
+```
+
+## Check the ratings
+
+I checked the number of participants, movies, and ratings before doing the calculation.
+
+```{r}
+#| label: check-data
+
+# Count the records and make sure the Week 2 data is complete.
+data_check <- ratings |>
+  summarise(
+    participants = n_distinct(participant_id),
+    movies = n_distinct(movie_title),
+    ratings = n(),
+    missing_ratings = sum(is.na(rating))
+  )
+
+stopifnot(
+  data_check$participants == 6,
+  data_check$movies == 6,
+  data_check$ratings == 36,
+  data_check$missing_ratings == 0
+)
+
+kable(data_check)
+```
+
+## Set aside one rating
+
+The course spreadsheet estimates a question-mark value. My survey has no blanks, so I set aside the last rating for this demonstration.
+
+```{r}
+#| label: hold-out-rating
+
+target_user <- "Participant 6"
+target_movie <- "The Super Mario Bros. Movie"
+
+# Save the real value so it can be checked after the estimate.
+held_out_rating <- ratings |>
+  filter(
+    participant_id == target_user,
+    movie_title == target_movie
+  )
+
+stopifnot(nrow(held_out_rating) == 1)
+
+# Remove only the target row from the calculation data.
+training_ratings <- ratings |>
+  anti_join(
+    held_out_rating,
+    by = c("participant_id", "movie_title", "rating")
+  )
+
+stopifnot(nrow(training_ratings) == 35)
+
+kable(held_out_rating)
+```
+
+## Calculate the global average
+
+The global average is the mean of the 35 ratings used in the estimate.
+
+```{r}
+#| label: global-average
+
+global_average <- mean(training_ratings$rating)
+
+tibble(
+  calculation = "Global average",
+  value = global_average
+) |>
+  kable(digits = 3)
+```
+
+## Calculate the participant bias
+
+Participant bias shows whether the participant normally rates above or below the global average.
+
+```{r}
+#| label: participant-bias
+
+participant_summary <- training_ratings |>
+  group_by(participant_id) |>
+  summarise(
+    participant_average = mean(rating),
+    .groups = "drop"
+  ) |>
+  mutate(
+    participant_bias = participant_average - global_average
+  )
+
+target_participant <- participant_summary |>
+  filter(participant_id == target_user)
+
+kable(target_participant, digits = 3)
+```
+
+## Calculate the movie bias
+
+Movie bias shows whether the movie is normally rated above or below the global average.
+
+```{r}
+#| label: movie-bias
+
+movie_summary <- training_ratings |>
+  group_by(movie_title) |>
+  summarise(
+    movie_average = mean(rating),
+    .groups = "drop"
+  ) |>
+  mutate(
+    movie_bias = movie_average - global_average
+  ) |>
+  arrange(desc(movie_average))
+
+target_movie_summary <- movie_summary |>
+  filter(movie_title == target_movie)
+
+kable(target_movie_summary, digits = 3)
+```
+
+## Estimate the missing rating
+
+I used the same formula shown in the course spreadsheet:
+
+\[
+\text{estimate} = \text{global average} + \text{participant bias} + \text{movie bias}
+\]
+
+```{r}
+#| label: baseline-estimate
+
+# Add the three parts of the Global Baseline Estimate.
+baseline_estimate <- global_average +
+  target_participant$participant_bias +
+  target_movie_summary$movie_bias
+
+# Put the calculation into a small table.
+estimate_result <- tibble(
+  participant = target_user,
+  movie = target_movie,
+  global_average = global_average,
+  participant_bias = target_participant$participant_bias,
+  movie_bias = target_movie_summary$movie_bias,
+  estimated_rating = baseline_estimate,
+  actual_rating = held_out_rating$rating,
+  difference = held_out_rating$rating - baseline_estimate
+)
+
+# These values independently check the calculation used in this report.
+stopifnot(
+  isTRUE(all.equal(global_average, 3.6)),
+  isTRUE(all.equal(baseline_estimate, 4.6))
+)
+
+kable(estimate_result, digits = 2)
+```
+
+The estimated rating is `r sprintf("%.2f", baseline_estimate)`. The original rating was `r held_out_rating$rating`, so the estimate is `r sprintf("%.2f", abs(held_out_rating$rating - baseline_estimate))` points away from the actual rating.
+
+## Recommendation
+
+```{r}
+#| label: recommendation
+
+# The held-out movie is the only unrated movie in the demonstration data.
+recommendation <- tibble(
+  participant = target_user,
+  recommended_movie = target_movie,
+  estimated_rating = baseline_estimate
+)
+
+kable(recommendation, digits = 2)
+```
+
+For this demonstration, I would recommend *The Super Mario Bros. Movie* to Participant 6 because its estimated rating is 4.60 out of 5.
+
+This is a small example. Since the original survey has only six people and everyone rated every movie, it is not enough for a real recommendation service.
+
+## Tools and AI assistance
+
+I used R and Quarto for the calculations and report. I used GitHub Copilot in Visual Studio Code to check the code structure, comments, and file names. I checked the numbers by running the calculation separately. Copilot was not the source of the ratings or the final result.
+
+## Conclusion
+
+The Global Baseline Estimate used the overall average, Participant 6's rating pattern, and the movie's rating pattern. It estimated a rating of 4.60. The held-out rating was 5.
+
+## Sources
+
+- CUNY School of Professional Studies. *MovieRatings.xlsx*. DATA 607 course spreadsheet, 2026.
+- Week 2 movie ratings collected through my Google Form.
+- GitHub. *GitHub Copilot documentation*. <https://docs.github.com/en/copilot>
+- R documentation. *mean*. <https://stat.ethz.ch/R-manual/R-devel/library/base/html/mean.html>
+- dplyr documentation. *summarise*. <https://dplyr.tidyverse.org/reference/summarise.html>
