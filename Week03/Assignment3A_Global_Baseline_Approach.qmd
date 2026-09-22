@@ -1,0 +1,21 @@
+---
+title: "Baseline Estimate Approach"
+author: "Andre Thomson"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## Approach
+
+I will use the movie ratings I collected for the Week 2 assignment. The file contains 36 ratings from six participants for six movies.
+
+I will follow the Global Baseline Estimate steps shown in the course spreadsheet. First, I will calculate the overall average rating. I will then calculate the participant bias and movie bias by comparing their averages with the overall average. I will add these values to estimate a movie rating.
+
+My survey data does not contain a missing rating, so I will temporarily remove one known rating before doing the calculations. I will use the remaining 35 ratings to make the estimate and then compare it with the original rating. I will keep the original CSV unchanged.
+
+## Sources
+
+- CUNY School of Professional Studies. *MovieRatings.xlsx*. DATA 607 course spreadsheet, 2026.
+- Movie ratings collected through my Week 2 Google Form.

@@ -1,0 +1,25 @@
+---
+title: "Assignment 3B: Window Functions Approach"
+author: "Andre Thomson"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## Approach
+
+For this assignment, I will use a small generated dataset with daily values for two items. The dates will run from the end of 2025 into the beginning of 2026.
+
+I will load the data into R and place it in a SQLite table. I will use SQL window functions to calculate the year-to-date average and the six-day moving average for each item. I will keep the items separate in the calculations so their values are not mixed together.
+
+I will check the results around January 1 to confirm that the year-to-date average begins again for the new year. I will also check that each six-day average uses the current date and the previous five dates. I will show the results in a table and chart.
+
+## Data source
+
+The assignment allows a generated dataset. The values in my file are examples and do not represent actual stock prices, sales, or workplace information.
+
+## References
+
+- CUNY School of Professional Studies. *DATA 607 Assignment 3B: Window Functions Requirements*. Brightspace course material, 2026.
+- SQLite. *Window Functions*. <https://sqlite.org/windowfunctions.html>
