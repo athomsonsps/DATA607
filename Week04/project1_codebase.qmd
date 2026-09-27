@@ -1,0 +1,371 @@
+---
+title: "DATA 607 Project 1: Code Base"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+editor: visual
+execute:
+  warning: false
+  message: false
+---
+
+## Approach
+
+For this project, I will use the chess tournament text file from the course. It is not arranged like a normal CSV because each player uses two lines. The first line has the player's number, name, points, and round results. The second line has the state and pre-rating.
+
+I will read the file into R and find the lines that start with a player number. I will split those lines at the vertical bars and collect the name, points, and opponent numbers. I will use the next line for the state and pre-rating.
+
+Next, I will match each opponent number with that player's pre-rating and calculate the average. I will leave out byes and unplayed rounds because they do not have an opponent.
+
+The final dataframe will contain the player's name, state, total points, pre-rating, and average opponent pre-rating. I will check that there are 64 players, look for missing or duplicate values, compare Gary Hua's result with the example, and export the table to CSV.
+
+The code is folded in the HTML viewer. Click **Show code** when you want to see it.
+
+## Setup
+
+```{r}
+# tidyverse: data wrangling, parsing, and charts
+library(tidyverse)
+# stringr: text matching and cleanup
+library(stringr)
+# knitr: clean HTML table output
+library(knitr)
+```
+
+## Load the Tournament File
+
+```{r}
+# Look for the tournament file in common project locations first.
+# This avoids using a path that only works on one computer.
+local_files <- c(
+  "tournamentinfo.txt",
+  file.path("data", "tournamentinfo.txt"),
+  file.path("Project 1", "tournamentinfo.txt")
+)
+
+input_file <- local_files[file.exists(local_files)][1]
+
+# Online fallback: public copy of the same DATA 607 tournament dataset.
+data_url <- paste0(
+  "https://raw.githubusercontent.com/longflin/DATA-607/",
+  "refs/heads/main/Project%201/tournamentinfo.txt"
+)
+
+if (!is.na(input_file)) {
+  raw_lines <- readLines(input_file, warn = FALSE)
+  data_source <- input_file
+} else {
+  raw_lines <- tryCatch(
+    readLines(data_url, warn = FALSE),
+    error = function(e) {
+      stop(
+        "Tournament data could not be loaded. ",
+        "Put tournamentinfo.txt in the same folder as this QMD ",
+        "or in a data/ folder, then render again. ",
+        "The online fallback also could not be reached."
+      )
+    }
+  )
+  data_source <- data_url
+}
+
+cat("Data source:", data_source)
+```
+
+The code checks for a local copy first. If the file is not there, it tries an online copy of the same tournament dataset. This fixes the original working-directory problem while still allowing the course file to be used when it is available.
+
+## Find the Player Records
+
+```{r}
+# Find lines that begin with a player number followed by a vertical bar
+player_line_index <- which(
+  str_detect(raw_lines, "^\\s*\\d+\\s*\\|")
+)
+
+length(player_line_index)
+```
+
+The first line for each player starts with a player number. I use that pattern to find the player records instead of depending on fixed row numbers.
+
+## Parse the Player Information
+
+```{r}
+# Remove extra spaces around parsed text fields
+clean_field <- function(x) {
+  str_squish(x)
+}
+
+# Pull a 3- or 4-digit chess rating from the rating field
+parse_rating <- function(x) {
+  rating_match <- str_match(x, "(\\d{3,4})")[, 2]
+  as.numeric(rating_match)
+}
+
+# Parse every player record and combine the results into one dataframe
+players <- map_dfr(player_line_index, function(i) {
+
+  line1 <- str_split(raw_lines[i], "\\|", simplify = TRUE)
+  line2 <- str_split(raw_lines[i + 1], "\\|", simplify = TRUE)
+
+  player_no <- as.integer(clean_field(line1[1]))
+  player_name <- clean_field(line1[2])
+  total_points <- parse_number(clean_field(line1[3]))
+
+  state <- clean_field(line2[1])
+  pre_rating <- parse_rating(clean_field(line2[2]))
+
+  round_fields <- if (ncol(line1) >= 4) line1[1, 4:ncol(line1)] else character(0)
+
+  opponent_numbers <- str_match(round_fields, "(\\d+)")[, 2] |>
+    as.integer()
+
+  tibble(
+    player_no = player_no,
+    name = player_name,
+    state = state,
+    total_points = total_points,
+    pre_rating = pre_rating,
+    opponent_numbers = list(opponent_numbers)
+  )
+})
+```
+
+This separates the fields from the two-line record and stores each player's opponent numbers for the next step.
+
+## Check the Parsed Data
+
+```{r}
+dim(players)
+head(players)
+sum(is.na(players$name))
+sum(is.na(players$pre_rating))
+sum(duplicated(players$player_no))
+```
+
+The project description I am using expects 64 players. I also check for missing names, missing ratings, and duplicate player numbers before calculating opponent averages.
+
+```{r}
+stopifnot(nrow(players) == 64)
+stopifnot(!anyDuplicated(players$player_no))
+```
+
+If one of these checks fails, the code stops instead of silently producing a bad result.
+
+## Calculate Average Opponent Pre-Rating
+
+```{r}
+# Create a lookup table: player number -> pre-rating
+rating_lookup <- players |>
+  select(player_no, opponent_pre_rating = pre_rating)
+
+# Expand opponent numbers, join opponent ratings, then average by player
+final_data <- players |>
+  select(
+    player_no,
+    name,
+    state,
+    total_points,
+    pre_rating,
+    opponent_numbers
+  ) |>
+  unnest_longer(
+    opponent_numbers,
+    values_to = "opponent_no",
+    keep_empty = TRUE
+  ) |>
+  filter(!is.na(opponent_no)) |>
+  left_join(
+    rating_lookup,
+    by = c("opponent_no" = "player_no")
+  ) |>
+  group_by(
+    player_no,
+    name,
+    state,
+    total_points,
+    pre_rating
+  ) |>
+  summarise(
+    average_opponent_pre_rating =
+      round(mean(opponent_pre_rating, na.rm = TRUE)),
+    .groups = "drop"
+  ) |>
+  arrange(player_no)
+```
+
+Byes and unplayed rounds do not produce an opponent number, so they are left out of the average.
+
+## Final Table
+
+```{r}
+# Keep and rename only the five fields used in the final result
+project1_table <- final_data |>
+  transmute(
+    Name = name,
+    State = state,
+    `Total Number of Points` = total_points,
+    `Pre-Rating` = pre_rating,
+    `Average Pre Tournament Chess Rating of Opponents` =
+      average_opponent_pre_rating
+  )
+
+kable(
+  project1_table,
+  caption = "Project 1 Chess Tournament Results"
+)
+```
+
+This is the table I will export for the project.
+
+## Quality Checks
+
+```{r}
+nrow(project1_table)
+colSums(is.na(project1_table))
+sum(duplicated(project1_table$Name))
+summary(project1_table)
+```
+
+I use these checks to make sure the final table has the expected number of rows and to catch missing or duplicate values.
+
+### Gary Hua Check
+
+```{r}
+gary_hua_check <- project1_table |>
+  filter(str_to_lower(Name) == "gary hua")
+
+gary_hua_check
+```
+
+I included this check because the approach says I will compare Gary Hua's result with the course example. I will make that comparison from the rendered output rather than typing a result into the document before the code runs.
+
+## Exploratory Charts
+
+These charts are secondary to the required table. I kept them simple so they help me inspect the cleaned data without taking over the project.
+
+### Pre-Rating Distribution
+
+```{r}
+ggplot(project1_table, aes(x = `Pre-Rating`)) +
+  geom_histogram(
+    bins = 12,
+    fill = "steelblue",
+    color = "white"
+  ) +
+  labs(
+    title = "Distribution of Player Pre-Ratings",
+    x = "Pre-Rating",
+    y = "Number of Players"
+  ) +
+  theme_minimal()
+```
+
+The histogram gives a quick view of how the player ratings are distributed.
+
+### Points by Player
+
+```{r}
+#| fig-height: 16
+#| fig-width: 10
+
+# Order players by points and use pre-rating to break ties.
+# The taller figure gives all player names enough room to be readable.
+points_plot <- project1_table |>
+  arrange(`Total Number of Points`, `Pre-Rating`) |>
+  mutate(Name = factor(Name, levels = Name))
+
+ggplot(
+  points_plot,
+  aes(x = `Total Number of Points`, y = Name)
+) +
+  geom_segment(
+    aes(
+      x = 0,
+      xend = `Total Number of Points`,
+      y = Name,
+      yend = Name
+    ),
+    color = "grey75",
+    linewidth = 0.6
+  ) +
+  geom_point(
+    size = 3,
+    color = "steelblue"
+  ) +
+  labs(
+    title = "Tournament Points by Player",
+    subtitle = "Players are ordered by total tournament points",
+    x = "Total Points",
+    y = NULL
+  ) +
+  scale_x_continuous(
+    breaks = seq(
+      0,
+      max(points_plot$`Total Number of Points`, na.rm = TRUE),
+      by = 1
+    )
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    axis.text.y = element_text(size = 8),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold")
+  )
+```
+
+The taller lollipop chart makes the player names readable. Players are ordered by total points, with pre-rating used to break ties. This chart is supporting analysis; the final project table remains the main output. \### Player Rating and Opponent Rating
+
+```{r}
+ggplot(
+  project1_table,
+  aes(
+    x = `Pre-Rating`,
+    y = `Average Pre Tournament Chess Rating of Opponents`
+  )
+) +
+  geom_point(
+    alpha = 0.75,
+    color = "steelblue"
+  ) +
+  labs(
+    title = "Player Rating vs. Average Opponent Rating",
+    x = "Player Pre-Rating",
+    y = "Average Opponent Pre-Rating"
+  ) +
+  theme_minimal()
+```
+
+This scatterplot compares two numeric variables from the final dataset.
+
+## Export the CSV
+
+```{r}
+# Save the final table as a CSV file
+write_csv(
+  project1_table,
+  "project1_chess_results.csv"
+)
+```
+
+The exported CSV contains only the five requested result columns.
+
+## AI Use
+
+I used GitHub Copilot in Visual Studio Code to help review parts of the R code, troubleshoot errors, and improve code comments. I reviewed the suggestions, kept the code I understood, and checked the results when running the project. The analysis and final results come from the R code and tournament data used in this project.
+
+## References
+
+DATA 607 chess tournament dataset (public copy used only as a fallback):\
+https://raw.githubusercontent.com/longflin/DATA-607/refs/heads/main/Project%201/tournamentinfo.txt
+
+Wickham, H., Cetinkaya-Rundel, M., & Grolemund, G. *R for Data Science (2e).*
+
+R Graph Gallery. Lollipop plot examples.
+
+R Graph Gallery. Histogram examples.
