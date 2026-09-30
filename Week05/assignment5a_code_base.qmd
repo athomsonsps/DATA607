@@ -1,0 +1,202 @@
+---
+title: "Assignment 5A: Airline Delays"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+---
+
+## Approach
+
+For this assignment, I recreated the airline delay table from the course PDF as a CSV file. I kept the file in a wide format first, including the blank airline cells on the delayed rows.
+
+I read the CSV into R, filled in the missing airline names, and changed the five city columns from wide to long format. After that, I compared Alaska and AM West using delay percentages overall and for each city.
+
+## Load packages and data
+
+```{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+library(scales)
+
+airline_wide <- read_csv(
+  "airline_delays_wide.csv",
+  na = "",
+  show_col_types = FALSE
+)
+
+airline_wide
+```
+
+The source table has four rows and seven columns. The airline name is blank on the delayed row for each airline because that is how the original table is shown.
+
+```{r check-source}
+stopifnot(nrow(airline_wide) == 4)
+stopifnot(ncol(airline_wide) == 7)
+stopifnot(sum(is.na(airline_wide$airline)) == 2)
+stopifnot(all(airline_wide$status %in% c("on time", "delayed")))
+```
+
+## Fill the missing airline names
+
+I used `fill()` to carry the airline name down to the delayed row.
+
+```{r fill-airline}
+airline_filled <- airline_wide %>%
+  fill(airline, .direction = "down")
+
+stopifnot(!anyNA(airline_filled$airline))
+
+airline_filled
+```
+
+## Change the data from wide to long
+
+The city names are spread across five columns. I used `pivot_longer()` so city becomes one variable called `destination` and the counts become one variable called `flights`.
+
+```{r wide-to-long}
+airline_long <- airline_filled %>%
+  pivot_longer(
+    cols = -c(airline, status),
+    names_to = "destination",
+    values_to = "flights"
+  ) %>%
+  mutate(status = str_replace_all(status, " ", "_"))
+
+stopifnot(nrow(airline_long) == 20)
+stopifnot(!anyNA(airline_long))
+stopifnot(all(airline_long$flights >= 0))
+
+kable(airline_long, caption = "Tidy airline delay data")
+```
+
+The tidy data has 20 rows: two airlines, two status values, and five destinations.
+
+## Count analysis
+
+I first checked the total flight counts. This is useful, but counts alone are not enough because the airlines have different numbers of flights.
+
+```{r count-analysis}
+count_summary <- airline_long %>%
+  group_by(airline, status) %>%
+  summarise(flights = sum(flights), .groups = "drop")
+
+kable(count_summary, caption = "Flight counts by airline and status")
+```
+
+## Overall delay comparison
+
+```{r overall-summary}
+overall_summary <- airline_long %>%
+  group_by(airline, status) %>%
+  summarise(flights = sum(flights), .groups = "drop") %>%
+  pivot_wider(names_from = status, values_from = flights) %>%
+  mutate(
+    total_flights = on_time + delayed,
+    delay_rate = delayed / total_flights,
+    on_time_rate = on_time / total_flights
+  )
+
+overall_display <- overall_summary %>%
+  mutate(
+    delay_rate = percent(delay_rate, accuracy = 0.01),
+    on_time_rate = percent(on_time_rate, accuracy = 0.01)
+  )
+
+kable(overall_display, caption = "Overall airline performance")
+```
+
+```{r overall-chart, fig.width=7, fig.height=4.5}
+ggplot(overall_summary, aes(x = airline, y = delay_rate, fill = airline)) +
+  geom_col(show.legend = FALSE, width = 0.65) +
+  geom_text(
+    aes(label = percent(delay_rate, accuracy = 0.01)),
+    vjust = -0.4,
+    size = 4
+  ) +
+  scale_y_continuous(
+    labels = percent,
+    expand = expansion(mult = c(0, 0.12))
+  ) +
+  labs(
+    title = "Overall Delay Percentage",
+    subtitle = "Alaska and AM West",
+    x = NULL,
+    y = "Delayed Flights"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+Overall, Alaska's delay rate is `r percent(overall_summary$delay_rate[overall_summary$airline == "ALASKA"], accuracy = 0.01)`, while AM West's delay rate is `r percent(overall_summary$delay_rate[overall_summary$airline == "AM WEST"], accuracy = 0.01)`. If I only looked at the overall numbers, AM West would appear to have the lower delay percentage.
+
+## Delay comparison by city
+
+```{r city-summary}
+city_summary <- airline_long %>%
+  group_by(airline, destination, status) %>%
+  summarise(flights = sum(flights), .groups = "drop") %>%
+  pivot_wider(names_from = status, values_from = flights) %>%
+  mutate(
+    total_flights = on_time + delayed,
+    delay_rate = delayed / total_flights,
+    on_time_rate = on_time / total_flights
+  )
+
+city_display <- city_summary %>%
+  select(airline, destination, on_time, delayed, delay_rate) %>%
+  mutate(delay_rate = percent(delay_rate, accuracy = 0.01))
+
+kable(city_display, caption = "Delay percentage by airline and destination")
+```
+
+```{r city-chart, fig.width=9, fig.height=5.5}
+ggplot(
+  city_summary,
+  aes(x = destination, y = delay_rate, fill = airline)
+) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  scale_y_continuous(
+    labels = percent,
+    expand = expansion(mult = c(0, 0.08))
+  ) +
+  labs(
+    title = "Delay Percentage by Destination",
+    subtitle = "Comparing Alaska and AM West within each city",
+    x = NULL,
+    y = "Delayed Flights",
+    fill = "Airline"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+```
+
+When I compare the airlines city by city, Alaska has the lower delay percentage in all five destinations. This is the opposite of what the overall percentages suggest.
+
+## Why the comparison changes
+
+The airlines do not have the same mix of flights across the five cities. AM West has a large number of flights in Phoenix, where the delay percentage is relatively low. Alaska has a large number of flights in Seattle, where its delay percentage is higher than its own Phoenix percentage.
+
+Because the number of flights is different across cities, combining everything into one overall percentage changes the result. This is an example of Simpson's paradox. The overall numbers make AM West look better, while the city-by-city comparison shows Alaska has the lower delay percentage in every city.
+
+## Export the tidy data and summaries
+
+```{r export-results}
+write_csv(airline_long, "airline_delays_tidy.csv")
+write_csv(overall_summary, "airline_delays_overall_summary.csv")
+write_csv(city_summary, "airline_delays_city_summary.csv")
+```
+
+## AI Use
+
+I used GitHub Copilot in Visual Studio Code to help review the R code, troubleshoot code, and improve comments. I reviewed the suggestions and kept the code I understood. The calculations and conclusions in this report come from the R code and the airline data from the assignment.
+
+## References
+
+- Fung, K. *Numbersense: How to Use Big Data to Your Advantage*. McGraw Hill, 2013. Source table provided in the DATA 607 assignment.
+- Wickham, H. "Tidy Data." *Journal of Statistical Software*, 59(10), 2014.
+- Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. *R for Data Science (2e)*. https://r4ds.hadley.nz/
+- R Graph Gallery. Examples used as a reference for keeping the charts simple and readable. https://r-graph-gallery.com/

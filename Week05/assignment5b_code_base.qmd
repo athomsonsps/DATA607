@@ -1,0 +1,290 @@
+---
+title: "Assignment 5B: ELO Calculations"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+---
+
+## Approach
+
+For this assignment, I used the chess tournament data from Project 1. I calculated an expected score for every matchup using the two players' pre-tournament ratings. I then added each player's expected scores and compared the result with the player's actual tournament points.
+
+The difference is:
+
+**Actual points - Expected points**
+
+A positive number means the player performed above the Elo expectation. A negative number means the player performed below it.
+
+## Load packages and data
+
+```{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+
+data_url <- paste0(
+  "https://raw.githubusercontent.com/longflin/DATA-607/",
+  "refs/heads/main/Assignment%205B/tournamentinfo.txt"
+)
+
+raw_lines <- readLines(data_url, warn = FALSE)
+```
+
+I used the same tournament source structure as Project 1. Each player has one line with the name, points, and round results, followed by a second line with the state and pre-rating.
+
+## Parse the player records
+
+```{r parse-players}
+clean_lines <- raw_lines[
+  !grepl("^-+$", raw_lines) &
+  nzchar(trimws(raw_lines))
+]
+
+# Remove the two header rows after the separator rows are removed.
+data_lines <- clean_lines[3:length(clean_lines)]
+
+name_rows <- data_lines[seq(1, length(data_lines), by = 2)]
+info_rows <- data_lines[seq(2, length(data_lines), by = 2)]
+
+names_df <- tibble(
+  pair_num = as.numeric(str_sub(name_rows, 1, 5)),
+  player_name = str_squish(str_sub(name_rows, 9, 40)),
+  total_pts = as.numeric(str_sub(name_rows, 42, 44))
+)
+
+info_df <- tibble(
+  state = str_squish(str_sub(info_rows, 1, 5)),
+  pre_rating = as.numeric(
+    str_extract(info_rows, "(?<=R:)\\s*\\d+")
+  )
+)
+
+tournament_df <- bind_cols(names_df, info_df)
+
+stopifnot(nrow(tournament_df) == 64)
+stopifnot(!anyDuplicated(tournament_df$pair_num))
+stopifnot(!anyNA(tournament_df$pre_rating))
+
+head(tournament_df)
+```
+
+These checks make sure I parsed 64 players, did not duplicate a player number, and did not lose a pre-rating.
+
+## Extract each player's opponents
+
+```{r opponents}
+round_text <- str_sub(name_rows, 46)
+
+opponents_list <- str_extract_all(
+  round_text,
+  "(?<=W\\s|L\\s|D\\s)\\s*\\d+"
+)
+
+opponents_list <- map(
+  opponents_list,
+  ~ as.numeric(str_trim(.x))
+)
+
+opponents_df <- tibble(
+  pair_num = rep(tournament_df$pair_num, lengths(opponents_list)),
+  opponent_id = as.numeric(unlist(opponents_list))
+) |>
+  left_join(
+    tournament_df |>
+      select(opponent_id = pair_num,
+             opponent_pre_rating = pre_rating),
+    by = "opponent_id"
+  ) |>
+  left_join(
+    tournament_df |>
+      select(pair_num, player_name, pre_rating),
+    by = "pair_num"
+  )
+
+stopifnot(!anyNA(opponents_df$opponent_pre_rating))
+
+head(opponents_df)
+```
+
+The round results contain W, L, or D followed by the opponent's player number. I extracted those player numbers and matched them back to the opponent's pre-rating.
+
+## Calculate the expected score
+
+The course reference video uses the logistic Elo expectation:
+
+\[
+E = \\frac{1}{1 + 10^{(R_B-R_A)/400}}
+\]
+
+where \(R_A\) is the player's rating and \(R_B\) is the opponent's rating.
+
+```{r expected-score}
+matches_df <- opponents_df |>
+  mutate(
+    expected_score =
+      1 / (1 + 10^((opponent_pre_rating - pre_rating) / 400))
+  )
+
+summary(matches_df$expected_score)
+```
+
+Every expected score should be between 0 and 1.
+
+```{r expected-score-check}
+stopifnot(all(matches_df$expected_score > 0))
+stopifnot(all(matches_df$expected_score < 1))
+```
+
+## Expected tournament score
+
+```{r expected-points}
+expected_points_df <- matches_df |>
+  group_by(pair_num) |>
+  summarise(
+    expected_points = sum(expected_score),
+    .groups = "drop"
+  )
+
+results <- tournament_df |>
+  left_join(expected_points_df, by = "pair_num") |>
+  mutate(
+    difference = total_pts - expected_points
+  )
+
+head(results)
+```
+
+The expected tournament score is the sum of the expected scores from all of a player's games.
+
+## Five players who overperformed the most
+
+```{r overperformers}
+top5_over <- results |>
+  arrange(desc(difference)) |>
+  slice_head(n = 5) |>
+  select(
+    player_name,
+    total_pts,
+    pre_rating,
+    expected_points,
+    difference
+  )
+
+kable(
+  top5_over,
+  digits = 2,
+  caption = "Five Players Who Most Overperformed"
+)
+```
+
+## Five players who underperformed the most
+
+```{r underperformers}
+top5_under <- results |>
+  arrange(difference) |>
+  slice_head(n = 5) |>
+  select(
+    player_name,
+    total_pts,
+    pre_rating,
+    expected_points,
+    difference
+  )
+
+kable(
+  top5_under,
+  digits = 2,
+  caption = "Five Players Who Most Underperformed"
+)
+```
+
+## Performance chart
+
+```{r performance-chart, fig.width=9, fig.height=6}
+plot_data <- results |>
+  mutate(
+    performance_group = case_when(
+      player_name %in% top5_over$player_name ~ "Top 5 Over",
+      player_name %in% top5_under$player_name ~ "Top 5 Under",
+      TRUE ~ "Other Players"
+    )
+  )
+
+ggplot(
+  plot_data,
+  aes(
+    x = expected_points,
+    y = total_pts,
+    color = performance_group
+  )
+) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    linetype = "dashed",
+    color = "grey50"
+  ) +
+  geom_point(size = 2.5, alpha = 0.8) +
+  labs(
+    title = "Actual Points Compared with Expected Points",
+    subtitle = "Points above the dashed line are above the Elo expectation",
+    x = "Expected Points",
+    y = "Actual Tournament Points",
+    color = NULL
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+I kept the chart simple. The dashed line represents equal actual and expected points. Players above the line scored more than expected, while players below it scored less than expected.
+
+## Gary Hua check
+
+```{r gary-check}
+gary_games <- matches_df |>
+  filter(player_name == "GARY HUA")
+
+gary_expected <- sum(gary_games$expected_score)
+
+gary_check <- results |>
+  filter(player_name == "GARY HUA") |>
+  select(
+    player_name,
+    total_pts,
+    pre_rating,
+    expected_points,
+    difference
+  )
+
+gary_expected
+kable(gary_check, digits = 3)
+```
+
+This gives me a separate check of Gary Hua's expected score. I can compare the sum from the individual games with the value stored in the final results table.
+
+## Export results
+
+```{r export}
+write_csv(results, "assignment5b_elo_results.csv")
+write_csv(top5_over, "assignment5b_top5_overperformers.csv")
+write_csv(top5_under, "assignment5b_top5_underperformers.csv")
+```
+
+## Conclusion
+
+This assignment extends the Project 1 chess data by using the players' ratings to estimate how many points they were expected to score. Comparing actual points with expected points makes it possible to identify players who performed above or below the Elo expectation.
+
+The result should not be treated as a complete measure of player ability. It is a comparison based on the pre-tournament ratings and the opponents in this tournament.
+
+## AI Use
+
+I used GitHub Copilot in Visual Studio Code to help review the R code, troubleshoot errors, and improve comments. I reviewed the suggestions and kept the code I understood. The calculations and final tables come from the R code and tournament data.
+
+## References
+
+- singingbanana. (2019, February 15). *The Elo Rating System for Chess and Beyond* [Video]. YouTube. https://www.youtube.com/watch?v=AsYfbmp0To0
+- Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. *R for Data Science (2e).* https://r4ds.hadley.nz/
+- R Graph Gallery. https://r-graph-gallery.com/
