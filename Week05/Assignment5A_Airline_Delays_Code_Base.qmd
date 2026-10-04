@@ -1,0 +1,227 @@
+---
+title: "AD Code Base"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+editor: visual
+execute:
+  warning: false
+  message: false
+---
+
+## Approach
+
+For this assignment, I used the airline delay table provided in Week 5. The data compares Alaska Airlines and AM West across five destinations. My goal is to recreate the wide table, clean it, change it to long format, and compare delay percentages overall and by destination.
+
+## Load Packages
+
+```{r setup, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+## Load the Data
+
+```{r load-data}
+airline_wide <- read_csv(
+  "airline_delays_wide.csv",
+  show_col_types = FALSE,
+  na = c("", "NA")
+)
+
+airline_wide
+```
+
+The source table leaves the airline name blank on the delayed row. I kept those blank cells in the CSV so I could practice filling the missing values in R.
+
+## Fill the Missing Airline Names
+
+```{r fill-missing}
+# Fill the blank airline names from the row above
+airline_clean <- airline_wide %>%
+  fill(airline)
+
+airline_clean
+```
+
+I used `fill()` so each delayed row has the correct airline name.
+
+## Change the Data from Wide to Long
+
+```{r wide-to-long}
+# Change the destination columns into rows
+airline_long <- airline_clean %>%
+  pivot_longer(
+    cols = -c(airline, status),
+    names_to = "destination",
+    values_to = "flights"
+  )
+
+airline_long
+```
+
+The long version has one row for each airline, flight status, and destination combination.
+
+## Check the Data
+
+```{r checks}
+# Check the tidy data before starting the analysis
+stopifnot(nrow(airline_long) == 20)
+stopifnot(sum(airline_long$flights) == 11000)
+stopifnot(!any(is.na(airline_long$airline)))
+stopifnot(!any(is.na(airline_long$flights)))
+
+airline_long %>%
+  count(airline, destination)
+```
+
+These checks confirm that the long data has 20 rows, 11,000 total flights, and no missing airline names or flight counts.
+
+## Overall Delay Percentage
+
+```{r overall-delay}
+# Calculate the overall delay percentage for each airline
+overall_delay <- airline_long %>%
+  group_by(airline) %>%
+  summarise(
+    total_flights = sum(flights),
+    delayed_flights = sum(flights[status == "delayed"]),
+    delay_percent = 100 * delayed_flights / total_flights,
+    .groups = "drop"
+  )
+
+overall_table <- overall_delay %>%
+  mutate(
+    delay_percent = paste0(round(delay_percent, 2), "%")
+  ) %>%
+  rename(
+    Airline = airline,
+    `Total Flights` = total_flights,
+    `Delayed Flights` = delayed_flights,
+    `Delay Percentage` = delay_percent
+  )
+
+kable(
+  overall_table,
+  align = c("l", "r", "r", "r"),
+  caption = "Overall Delay Percentage by Airline"
+)
+```
+
+Overall, AM West has the lower delay percentage. AM West is about 10.89% delayed compared with about 13.27% for Alaska.
+
+```{r overall-chart}
+ggplot(overall_delay, aes(x = airline, y = delay_percent, fill = airline)) +
+  geom_col(width = 0.65, show.legend = FALSE) +
+  geom_text(
+    aes(label = paste0(round(delay_percent, 1), "%")),
+    vjust = -0.5,
+    size = 4
+  ) +
+  labs(
+    title = "Overall Delay Percentage",
+    subtitle = "AM West has the lower overall delay percentage",
+    x = NULL,
+    y = "Delayed Flights (%)"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 16),
+    breaks = seq(0, 16, 4),
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(size = 10)
+  )
+```
+
+## Delay Percentage by Destination
+
+```{r city-delay}
+# Calculate the delay percentage for each destination
+city_delay <- airline_long %>%
+  group_by(airline, destination) %>%
+  summarise(
+    total_flights = sum(flights),
+    delayed_flights = sum(flights[status == "delayed"]),
+    delay_percent = 100 * delayed_flights / total_flights,
+    .groups = "drop"
+  )
+
+city_table <- city_delay %>%
+  arrange(destination, airline) %>%
+  mutate(
+    delay_percent = paste0(round(delay_percent, 2), "%")
+  ) %>%
+  rename(
+    Airline = airline,
+    Destination = destination,
+    `Total Flights` = total_flights,
+    `Delayed Flights` = delayed_flights,
+    `Delay Percentage` = delay_percent
+  )
+
+kable(
+  city_table,
+  align = c("l", "l", "r", "r", "r"),
+  caption = "Delay Percentage by Destination"
+)
+```
+
+When I compare the airlines by destination, Alaska has the lower delay percentage in all five cities.
+
+```{r city-chart}
+ggplot(
+  city_delay,
+  aes(x = destination, y = delay_percent, fill = airline)
+) +
+  geom_col(
+    position = position_dodge(width = 0.8),
+    width = 0.7
+  ) +
+  geom_text(
+    aes(label = paste0(round(delay_percent, 1), "%")),
+    position = position_dodge(width = 0.8),
+    vjust = -0.4,
+    size = 3.2
+  ) +
+  labs(
+    title = "Delay Percentage by Destination",
+    subtitle = "Alaska has the lower delay percentage in every destination",
+    x = NULL,
+    y = "Delayed Flights (%)",
+    fill = "Airline"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 32),
+    breaks = seq(0, 32, 8),
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(size = 9),
+    legend.position = "top",
+    axis.text.x = element_text(angle = 20, hjust = 1)
+  )
+```
+
+## Why the Results Look Different
+
+The overall comparison gives AM West the better delay percentage, but the city-by-city comparison gives Alaska the better percentage in every city. This happens because the airlines do not have the same number of flights at each destination. AM West has a very large number of flights in Phoenix, where its delay percentage is relatively low. That large group has a strong effect on its overall percentage.
+
+This is why looking only at the overall percentage can give a different picture from looking at each destination separately.
+
+## Conclusion
+
+I recreated the airline data in a wide CSV file, filled the missing airline names, and changed the data to long format. AM West has the lower overall delay percentage, but Alaska has the lower delay percentage at every individual destination. The difference comes from how the flights are distributed across the five destinations.
+
+## AI Use
+
+AI tools were used for general assistance and review.
