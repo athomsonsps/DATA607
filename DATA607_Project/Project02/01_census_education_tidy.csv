@@ -1,0 +1,51 @@
+education,measure,value
+Total:,estimate,230807303
+Total:,margin_of_error,9706
+No schooling completed,estimate,4534710
+No schooling completed,margin_of_error,27246
+Nursery school,estimate,65861
+Nursery school,margin_of_error,2200
+Kindergarten,estimate,64338
+Kindergarten,margin_of_error,2332
+1st grade,estimate,106237
+1st grade,margin_of_error,3702
+2nd grade,estimate,220340
+2nd grade,margin_of_error,5639
+3rd grade,estimate,448049
+3rd grade,margin_of_error,9117
+4th grade,estimate,329550
+4th grade,margin_of_error,6801
+5th grade,estimate,525420
+5th grade,margin_of_error,10290
+6th grade,estimate,1927693
+6th grade,margin_of_error,30004
+7th grade,estimate,635880
+7th grade,margin_of_error,10412
+8th grade,estimate,1945115
+8th grade,margin_of_error,25327
+9th grade,estimate,2527126
+9th grade,margin_of_error,33478
+10th grade,estimate,2847741
+10th grade,margin_of_error,32601
+11th grade,estimate,3319849
+11th grade,margin_of_error,37567
+"12th grade, no diploma",estimate,4494501
+"12th grade, no diploma",margin_of_error,22922
+Regular high school diploma,estimate,51011337
+Regular high school diploma,margin_of_error,261199
+GED or alternative credential,estimate,9083379
+GED or alternative credential,margin_of_error,26146
+"Some college, less than 1 year",estimate,14727607
+"Some college, less than 1 year",margin_of_error,86097
+"Some college, 1 or more years, no degree",estimate,29306441
+"Some college, 1 or more years, no degree",margin_of_error,105823
+Associate's degree,estimate,20322913
+Associate's degree,margin_of_error,45811
+Bachelor's degree,estimate,49868171
+Bachelor's degree,margin_of_error,191354
+Master's degree,estimate,23264421
+Master's degree,margin_of_error,150981
+Professional school degree,estimate,5354651
+Professional school degree,margin_of_error,37709
+Doctorate degree,estimate,3875973
+Doctorate degree,margin_of_error,35310

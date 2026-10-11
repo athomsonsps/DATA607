@@ -1,0 +1,1351 @@
+id,make,model,driving_cycle,mpg
+46450,Chevrolet,Trax,City,28
+46450,Chevrolet,Trax,Highway,32
+46450,Chevrolet,Trax,Combined,30
+46454,Kia,Seltos FWD,City,28
+46454,Kia,Seltos FWD,Highway,34
+46454,Kia,Seltos FWD,Combined,31
+46455,Kia,Seltos AWD,City,25
+46455,Kia,Seltos AWD,Highway,27
+46455,Kia,Seltos AWD,Combined,26
+46456,Kia,Seltos AWD,City,27
+46456,Kia,Seltos AWD,Highway,31
+46456,Kia,Seltos AWD,Combined,29
+46503,Kia,Carnival,City,19
+46503,Kia,Carnival,Highway,26
+46503,Kia,Carnival,Combined,22
+46528,Subaru,Legacy AWD,City,27
+46528,Subaru,Legacy AWD,Highway,35
+46528,Subaru,Legacy AWD,Combined,30
+46529,Subaru,Legacy AWD,City,23
+46529,Subaru,Legacy AWD,Highway,31
+46529,Subaru,Legacy AWD,Combined,26
+46530,Subaru,Impreza,City,27
+46530,Subaru,Impreza,Highway,34
+46530,Subaru,Impreza,Combined,30
+46531,Subaru,Impreza,City,26
+46531,Subaru,Impreza,Highway,33
+46531,Subaru,Impreza,Combined,29
+46532,Buick,Encore GX FWD,City,29
+46532,Buick,Encore GX FWD,Highway,31
+46532,Buick,Encore GX FWD,Combined,30
+46533,Lexus,NX 250,City,26
+46533,Lexus,NX 250,Highway,33
+46533,Lexus,NX 250,Combined,28
+46534,Buick,Encore GX AWD,City,26
+46534,Buick,Encore GX AWD,Highway,28
+46534,Buick,Encore GX AWD,Combined,27
+46536,Lexus,NX 250 AWD,City,25
+46536,Lexus,NX 250 AWD,Highway,32
+46536,Lexus,NX 250 AWD,Combined,28
+46540,Subaru,Crosstrek AWD,City,27
+46540,Subaru,Crosstrek AWD,Highway,34
+46540,Subaru,Crosstrek AWD,Combined,29
+46541,Subaru,Outback AWD,City,26
+46541,Subaru,Outback AWD,Highway,32
+46541,Subaru,Outback AWD,Combined,28
+46542,Subaru,Outback AWD,City,22
+46542,Subaru,Outback AWD,Highway,29
+46542,Subaru,Outback AWD,Combined,25
+46543,Subaru,Outback Wilderness AWD,City,21
+46543,Subaru,Outback Wilderness AWD,Highway,26
+46543,Subaru,Outback Wilderness AWD,Combined,23
+46568,Lexus,UX 250h,City,43
+46568,Lexus,UX 250h,Highway,41
+46568,Lexus,UX 250h,Combined,42
+46569,Lexus,UX 250h AWD,City,41
+46569,Lexus,UX 250h AWD,Highway,38
+46569,Lexus,UX 250h AWD,Combined,39
+46578,Kia,K5,City,27
+46578,Kia,K5,Highway,37
+46578,Kia,K5,Combined,31
+46579,Kia,K5 AWD,City,25
+46579,Kia,K5 AWD,Highway,33
+46579,Kia,K5 AWD,Combined,28
+46580,Kia,K5,City,24
+46580,Kia,K5,Highway,32
+46580,Kia,K5,Combined,27
+46581,Buick,Encore GX FWD,City,30
+46581,Buick,Encore GX FWD,Highway,31
+46581,Buick,Encore GX FWD,Combined,30
+46587,Honda,HR-V AWD,City,25
+46587,Honda,HR-V AWD,Highway,30
+46587,Honda,HR-V AWD,Combined,27
+46588,Honda,HR-V FWD,City,26
+46588,Honda,HR-V FWD,Highway,32
+46588,Honda,HR-V FWD,Combined,28
+46591,Chevrolet,Equinox FWD,City,26
+46591,Chevrolet,Equinox FWD,Highway,31
+46591,Chevrolet,Equinox FWD,Combined,28
+46592,GMC,Terrain FWD,City,24
+46592,GMC,Terrain FWD,Highway,29
+46592,GMC,Terrain FWD,Combined,26
+46593,Volkswagen,Atlas,City,20
+46593,Volkswagen,Atlas,Highway,27
+46593,Volkswagen,Atlas,Combined,23
+46594,Volkswagen,Atlas Cross Sport,City,20
+46594,Volkswagen,Atlas Cross Sport,Highway,27
+46594,Volkswagen,Atlas Cross Sport,Combined,23
+46597,Chevrolet,Equinox AWD,City,24
+46597,Chevrolet,Equinox AWD,Highway,30
+46597,Chevrolet,Equinox AWD,Combined,26
+46598,GMC,Terrain AWD,City,23
+46598,GMC,Terrain AWD,Highway,28
+46598,GMC,Terrain AWD,Combined,25
+46601,Volkswagen,Atlas 4motion Peak Edition,City,18
+46601,Volkswagen,Atlas 4motion Peak Edition,Highway,24
+46601,Volkswagen,Atlas 4motion Peak Edition,Combined,20
+46602,Volkswagen,Atlas SE 4motion,City,19
+46602,Volkswagen,Atlas SE 4motion,Highway,26
+46602,Volkswagen,Atlas SE 4motion,Combined,22
+46603,Volkswagen,Atlas Cross Sport 4motion,City,19
+46603,Volkswagen,Atlas Cross Sport 4motion,Highway,26
+46603,Volkswagen,Atlas Cross Sport 4motion,Combined,22
+46604,Volkswagen,Atlas SEL 4motion,City,19
+46604,Volkswagen,Atlas SEL 4motion,Highway,25
+46604,Volkswagen,Atlas SEL 4motion,Combined,21
+46607,Mazda,CX-90 4WD,City,24
+46607,Mazda,CX-90 4WD,Highway,28
+46607,Mazda,CX-90 4WD,Combined,25
+46645,Ford,Mustang Performance Package,City,21
+46645,Ford,Mustang Performance Package,Highway,29
+46645,Ford,Mustang Performance Package,Combined,24
+46646,Ford,Mustang,City,22
+46646,Ford,Mustang,Highway,33
+46646,Ford,Mustang,Combined,26
+46647,Ford,Mustang,City,14
+46647,Ford,Mustang,Highway,23
+46647,Ford,Mustang,Combined,17
+46648,Ford,Mustang,City,15
+46648,Ford,Mustang,Highway,24
+46648,Ford,Mustang,Combined,18
+46649,Ford,Mustang Dark Horse,City,14
+46649,Ford,Mustang Dark Horse,Highway,22
+46649,Ford,Mustang Dark Horse,Combined,17
+46679,Buick,Envista,City,28
+46679,Buick,Envista,Highway,32
+46679,Buick,Envista,Combined,30
+46690,Cadillac,XT5 FWD,City,19
+46690,Cadillac,XT5 FWD,Highway,26
+46690,Cadillac,XT5 FWD,Combined,21
+46691,Cadillac,XT6 FWD,City,19
+46691,Cadillac,XT6 FWD,Highway,26
+46691,Cadillac,XT6 FWD,Combined,21
+46692,Chevrolet,Trailblazer FWD,City,29
+46692,Chevrolet,Trailblazer FWD,Highway,33
+46692,Chevrolet,Trailblazer FWD,Combined,31
+46693,Honda,CR-V FWD,City,28
+46693,Honda,CR-V FWD,Highway,34
+46693,Honda,CR-V FWD,Combined,30
+46694,Honda,CR-V FWD,City,43
+46694,Honda,CR-V FWD,Highway,36
+46694,Honda,CR-V FWD,Combined,40
+46695,Hyundai,Palisade FWD,City,19
+46695,Hyundai,Palisade FWD,Highway,26
+46695,Hyundai,Palisade FWD,Combined,22
+46696,Hyundai,Kona FWD,City,26
+46696,Hyundai,Kona FWD,Highway,32
+46696,Hyundai,Kona FWD,Combined,28
+46697,Hyundai,Santa Cruz FWD,City,22
+46697,Hyundai,Santa Cruz FWD,Highway,26
+46697,Hyundai,Santa Cruz FWD,Combined,23
+46698,Hyundai,Tucson FWD,City,25
+46698,Hyundai,Tucson FWD,Highway,32
+46698,Hyundai,Tucson FWD,Combined,28
+46699,Kia,Telluride FWD,City,20
+46699,Kia,Telluride FWD,Highway,26
+46699,Kia,Telluride FWD,Combined,22
+46700,Mitsubishi,Eclipse Cross 2WD,City,25
+46700,Mitsubishi,Eclipse Cross 2WD,Highway,28
+46700,Mitsubishi,Eclipse Cross 2WD,Combined,26
+46708,Cadillac,XT5 AWD,City,18
+46708,Cadillac,XT5 AWD,Highway,26
+46708,Cadillac,XT5 AWD,Combined,21
+46709,Cadillac,XT6 AWD,City,18
+46709,Cadillac,XT6 AWD,Highway,25
+46709,Cadillac,XT6 AWD,Combined,21
+46710,Chevrolet,Trailblazer AWD,City,26
+46710,Chevrolet,Trailblazer AWD,Highway,29
+46710,Chevrolet,Trailblazer AWD,Combined,27
+46711,Dodge,Hornet AWD,City,21
+46711,Dodge,Hornet AWD,Highway,29
+46711,Dodge,Hornet AWD,Combined,24
+46715,Honda,CR-V AWD,City,27
+46715,Honda,CR-V AWD,Highway,32
+46715,Honda,CR-V AWD,Combined,29
+46716,Honda,CR-V AWD,City,40
+46716,Honda,CR-V AWD,Highway,34
+46716,Honda,CR-V AWD,Combined,37
+46717,Hyundai,Palisade AWD,City,19
+46717,Hyundai,Palisade AWD,Highway,24
+46717,Hyundai,Palisade AWD,Combined,21
+46718,Hyundai,Kona AWD,City,24
+46718,Hyundai,Kona AWD,Highway,29
+46718,Hyundai,Kona AWD,Combined,26
+46719,Hyundai,Santa Cruz AWD,City,21
+46719,Hyundai,Santa Cruz AWD,Highway,25
+46719,Hyundai,Santa Cruz AWD,Combined,23
+46720,Hyundai,Santa Cruz AWD,City,19
+46720,Hyundai,Santa Cruz AWD,Highway,27
+46720,Hyundai,Santa Cruz AWD,Combined,22
+46721,Hyundai,Tucson Hybrid,City,37
+46721,Hyundai,Tucson Hybrid,Highway,36
+46721,Hyundai,Tucson Hybrid,Combined,37
+46722,Hyundai,Tucson Hybrid Blue,City,38
+46722,Hyundai,Tucson Hybrid Blue,Highway,38
+46722,Hyundai,Tucson Hybrid Blue,Combined,38
+46723,Hyundai,Tucson AWD,City,23
+46723,Hyundai,Tucson AWD,Highway,29
+46723,Hyundai,Tucson AWD,Combined,25
+46726,Jeep,Wrangler 4dr 4WD,City,20
+46726,Jeep,Wrangler 4dr 4WD,Highway,22
+46726,Jeep,Wrangler 4dr 4WD,Combined,21
+46728,Jeep,Wrangler 2dr 4WD,City,20
+46728,Jeep,Wrangler 2dr 4WD,Highway,23
+46728,Jeep,Wrangler 2dr 4WD,Combined,21
+46729,Kia,Telluride AWD,City,18
+46729,Kia,Telluride AWD,Highway,24
+46729,Kia,Telluride AWD,Combined,20
+46735,Mitsubishi,Eclipse Cross 4WD,City,25
+46735,Mitsubishi,Eclipse Cross 4WD,Highway,26
+46735,Mitsubishi,Eclipse Cross 4WD,Combined,25
+46736,Mitsubishi,Eclipse Cross ES 4WD,City,25
+46736,Mitsubishi,Eclipse Cross ES 4WD,Highway,28
+46736,Mitsubishi,Eclipse Cross ES 4WD,Combined,26
+46737,Subaru,Crosstrek AWD,City,26
+46737,Subaru,Crosstrek AWD,Highway,33
+46737,Subaru,Crosstrek AWD,Combined,29
+46740,Buick,Enclave FWD,City,18
+46740,Buick,Enclave FWD,Highway,26
+46740,Buick,Enclave FWD,Combined,21
+46741,Toyota,Grand Highlander Hybrid,City,37
+46741,Toyota,Grand Highlander Hybrid,Highway,34
+46741,Toyota,Grand Highlander Hybrid,Combined,36
+46742,Toyota,Grand Highlander Hybrid Limited,City,36
+46742,Toyota,Grand Highlander Hybrid Limited,Highway,32
+46742,Toyota,Grand Highlander Hybrid Limited,Combined,34
+46743,Toyota,Grand Highlander LE/XLE,City,21
+46743,Toyota,Grand Highlander LE/XLE,Highway,28
+46743,Toyota,Grand Highlander LE/XLE,Combined,24
+46744,Toyota,Grand Highlander Limited,City,21
+46744,Toyota,Grand Highlander Limited,Highway,28
+46744,Toyota,Grand Highlander Limited,Combined,24
+46745,Buick,Enclave AWD,City,17
+46745,Buick,Enclave AWD,Highway,25
+46745,Buick,Enclave AWD,Combined,20
+46753,Toyota,Grand Highlander Hybrid AWD,City,36
+46753,Toyota,Grand Highlander Hybrid AWD,Highway,32
+46753,Toyota,Grand Highlander Hybrid AWD,Combined,34
+46754,Toyota,Grand Highlander Hybrid AWD,City,26
+46754,Toyota,Grand Highlander Hybrid AWD,Highway,27
+46754,Toyota,Grand Highlander Hybrid AWD,Combined,27
+46755,Toyota,Grand Highlander AWD LE/XLE,City,21
+46755,Toyota,Grand Highlander AWD LE/XLE,Highway,27
+46755,Toyota,Grand Highlander AWD LE/XLE,Combined,23
+46756,Toyota,Grand Highlander AWD Limited/Platinum,City,20
+46756,Toyota,Grand Highlander AWD Limited/Platinum,Highway,26
+46756,Toyota,Grand Highlander AWD Limited/Platinum,Combined,22
+46767,Ford,Mustang Dark Horse,City,14
+46767,Ford,Mustang Dark Horse,Highway,22
+46767,Ford,Mustang Dark Horse,Combined,17
+46778,Mitsubishi,Mirage,City,36
+46778,Mitsubishi,Mirage,Highway,43
+46778,Mitsubishi,Mirage,Combined,39
+46779,Mitsubishi,Mirage G4,City,35
+46779,Mitsubishi,Mirage G4,Highway,41
+46779,Mitsubishi,Mirage G4,Combined,37
+46780,Volkswagen,GTI,City,24
+46780,Volkswagen,GTI,Highway,33
+46780,Volkswagen,GTI,Combined,27
+46781,Volkswagen,GTI,City,23
+46781,Volkswagen,GTI,Highway,34
+46781,Volkswagen,GTI,Combined,27
+46782,Volkswagen,Jetta,City,29
+46782,Volkswagen,Jetta,Highway,42
+46782,Volkswagen,Jetta,Combined,34
+46792,Lexus,ES 350,City,22
+46792,Lexus,ES 350,Highway,32
+46792,Lexus,ES 350,Combined,26
+46793,Lexus,ES 350 F Sport,City,22
+46793,Lexus,ES 350 F Sport,Highway,31
+46793,Lexus,ES 350 F Sport,Combined,25
+46794,Lexus,ES 250 AWD,City,25
+46794,Lexus,ES 250 AWD,Highway,34
+46794,Lexus,ES 250 AWD,Combined,28
+46795,Lexus,ES 300h,City,43
+46795,Lexus,ES 300h,Highway,44
+46795,Lexus,ES 300h,Combined,44
+46796,Mazda,3 5-Door 2WD,City,26
+46796,Mazda,3 5-Door 2WD,Highway,36
+46796,Mazda,3 5-Door 2WD,Combined,30
+46797,Mazda,3 5-Door 2WD,City,27
+46797,Mazda,3 5-Door 2WD,Highway,35
+46797,Mazda,3 5-Door 2WD,Combined,30
+46798,Mazda,3 5-Door 4WD,City,26
+46798,Mazda,3 5-Door 4WD,Highway,33
+46798,Mazda,3 5-Door 4WD,Combined,29
+46799,Mazda,3 5-Door 4WD,City,23
+46799,Mazda,3 5-Door 4WD,Highway,31
+46799,Mazda,3 5-Door 4WD,Combined,26
+46807,Kia,Soul,City,27
+46807,Kia,Soul,Highway,33
+46807,Kia,Soul,Combined,30
+46808,Kia,Soul Eco dynamics,City,29
+46808,Kia,Soul Eco dynamics,Highway,35
+46808,Kia,Soul Eco dynamics,Combined,31
+46811,Chevrolet,Silverado 2WD,City,16
+46811,Chevrolet,Silverado 2WD,Highway,20
+46811,Chevrolet,Silverado 2WD,Combined,18
+46812,Chevrolet,Silverado 2WD,City,15
+46812,Chevrolet,Silverado 2WD,Highway,19
+46812,Chevrolet,Silverado 2WD,Combined,16
+46813,Chevrolet,Silverado 2WD,City,16
+46813,Chevrolet,Silverado 2WD,Highway,21
+46813,Chevrolet,Silverado 2WD,Combined,18
+46814,Chevrolet,Silverado 2WD,City,16
+46814,Chevrolet,Silverado 2WD,Highway,22
+46814,Chevrolet,Silverado 2WD,Combined,18
+46816,GMC,Sierra 2WD,City,16
+46816,GMC,Sierra 2WD,Highway,20
+46816,GMC,Sierra 2WD,Combined,18
+46817,GMC,Sierra 2WD,City,15
+46817,GMC,Sierra 2WD,Highway,19
+46817,GMC,Sierra 2WD,Combined,16
+46818,GMC,Sierra 2WD,City,16
+46818,GMC,Sierra 2WD,Highway,20
+46818,GMC,Sierra 2WD,Combined,18
+46819,GMC,Sierra 2WD,City,16
+46819,GMC,Sierra 2WD,Highway,21
+46819,GMC,Sierra 2WD,Combined,18
+46821,Ram,1500 2WD,City,20
+46821,Ram,1500 2WD,Highway,25
+46821,Ram,1500 2WD,Combined,22
+46823,Chevrolet,Silverado 4WD,City,15
+46823,Chevrolet,Silverado 4WD,Highway,19
+46823,Chevrolet,Silverado 4WD,Combined,17
+46824,Chevrolet,Silverado Mud Terrain Tires 4WD,City,15
+46824,Chevrolet,Silverado Mud Terrain Tires 4WD,Highway,19
+46824,Chevrolet,Silverado Mud Terrain Tires 4WD,Combined,17
+46828,Chevrolet,Silverado 4WD,City,15
+46828,Chevrolet,Silverado 4WD,Highway,19
+46828,Chevrolet,Silverado 4WD,Combined,16
+46829,Chevrolet,Silverado Mud Terrain Tires 4WD,City,15
+46829,Chevrolet,Silverado Mud Terrain Tires 4WD,Highway,19
+46829,Chevrolet,Silverado Mud Terrain Tires 4WD,Combined,16
+46830,Chevrolet,Silverado 4WD,City,15
+46830,Chevrolet,Silverado 4WD,Highway,19
+46830,Chevrolet,Silverado 4WD,Combined,17
+46831,Chevrolet,Silverado Mud Terrain Tires 4WD,City,15
+46831,Chevrolet,Silverado Mud Terrain Tires 4WD,Highway,18
+46831,Chevrolet,Silverado Mud Terrain Tires 4WD,Combined,16
+46832,Chevrolet,Silverado 4WD,City,15
+46832,Chevrolet,Silverado 4WD,Highway,20
+46832,Chevrolet,Silverado 4WD,Combined,17
+46833,Chevrolet,Silverado Mud Terrain Tires 4WD,City,15
+46833,Chevrolet,Silverado Mud Terrain Tires 4WD,Highway,18
+46833,Chevrolet,Silverado Mud Terrain Tires 4WD,Combined,16
+46839,GMC,Sierra 4WD,City,15
+46839,GMC,Sierra 4WD,Highway,19
+46839,GMC,Sierra 4WD,Combined,17
+46840,GMC,Sierra Mud Terrain Tires 4WD,City,15
+46840,GMC,Sierra Mud Terrain Tires 4WD,Highway,19
+46840,GMC,Sierra Mud Terrain Tires 4WD,Combined,17
+46844,GMC,Sierra 4WD,City,15
+46844,GMC,Sierra 4WD,Highway,19
+46844,GMC,Sierra 4WD,Combined,16
+46845,GMC,Sierra Mud Terrain Tires 4WD,City,15
+46845,GMC,Sierra Mud Terrain Tires 4WD,Highway,19
+46845,GMC,Sierra Mud Terrain Tires 4WD,Combined,16
+46846,GMC,Sierra 4WD,City,15
+46846,GMC,Sierra 4WD,Highway,19
+46846,GMC,Sierra 4WD,Combined,17
+46847,GMC,Sierra Mud Terrain Tires 4WD,City,15
+46847,GMC,Sierra Mud Terrain Tires 4WD,Highway,18
+46847,GMC,Sierra Mud Terrain Tires 4WD,Combined,16
+46848,GMC,Sierra 4WD,City,15
+46848,GMC,Sierra 4WD,Highway,20
+46848,GMC,Sierra 4WD,Combined,17
+46849,GMC,Sierra Mud Terrain Tires 4WD,City,15
+46849,GMC,Sierra Mud Terrain Tires 4WD,Highway,18
+46849,GMC,Sierra Mud Terrain Tires 4WD,Combined,16
+46853,Ram,1500 4WD,City,19
+46853,Ram,1500 4WD,Highway,24
+46853,Ram,1500 4WD,Combined,21
+46856,Chevrolet,Silverado Cab Chassis 2WD,City,15
+46856,Chevrolet,Silverado Cab Chassis 2WD,Highway,18
+46856,Chevrolet,Silverado Cab Chassis 2WD,Combined,16
+46857,Chevrolet,Silverado Cab Chassis 4WD,City,14
+46857,Chevrolet,Silverado Cab Chassis 4WD,Highway,17
+46857,Chevrolet,Silverado Cab Chassis 4WD,Combined,15
+46858,GMC,Sierra Cab Chassis 2WD,City,14
+46858,GMC,Sierra Cab Chassis 2WD,Highway,17
+46858,GMC,Sierra Cab Chassis 2WD,Combined,15
+46859,GMC,Sierra Cab Chassis 4WD,City,14
+46859,GMC,Sierra Cab Chassis 4WD,Highway,17
+46859,GMC,Sierra Cab Chassis 4WD,Combined,15
+46860,Honda,Odyssey,City,19
+46860,Honda,Odyssey,Highway,28
+46860,Honda,Odyssey,Combined,22
+46861,Chevrolet,Blazer FWD,City,22
+46861,Chevrolet,Blazer FWD,Highway,29
+46861,Chevrolet,Blazer FWD,Combined,25
+46862,Chevrolet,Blazer FWD,City,19
+46862,Chevrolet,Blazer FWD,Highway,26
+46862,Chevrolet,Blazer FWD,Combined,22
+46863,Hyundai,Kona FWD,City,28
+46863,Hyundai,Kona FWD,Highway,35
+46863,Hyundai,Kona FWD,Combined,31
+46864,Hyundai,Venue,City,29
+46864,Hyundai,Venue,Highway,33
+46864,Hyundai,Venue,Combined,31
+46865,Hyundai,Kona FWD,City,29
+46865,Hyundai,Kona FWD,Highway,34
+46865,Hyundai,Kona FWD,Combined,31
+46866,Kia,Sportage FWD,City,25
+46866,Kia,Sportage FWD,Highway,33
+46866,Kia,Sportage FWD,Combined,28
+46867,Kia,Niro,City,53
+46867,Kia,Niro,Highway,45
+46867,Kia,Niro,Combined,49
+46868,Kia,Niro FE,City,53
+46868,Kia,Niro FE,Highway,54
+46868,Kia,Niro FE,Combined,53
+46869,Mitsubishi,Outlander 2WD,City,24
+46869,Mitsubishi,Outlander 2WD,Highway,31
+46869,Mitsubishi,Outlander 2WD,Combined,27
+46878,Chevrolet,Blazer AWD,City,22
+46878,Chevrolet,Blazer AWD,Highway,27
+46878,Chevrolet,Blazer AWD,Combined,24
+46879,Chevrolet,Blazer AWD,City,18
+46879,Chevrolet,Blazer AWD,Highway,26
+46879,Chevrolet,Blazer AWD,Combined,21
+46880,Ford,Edge AWD,City,19
+46880,Ford,Edge AWD,Highway,25
+46880,Ford,Edge AWD,Combined,21
+46881,Ford,Edge AWD,City,21
+46881,Ford,Edge AWD,Highway,28
+46881,Ford,Edge AWD,Combined,23
+46882,Ford,Edge AWD,City,21
+46882,Ford,Edge AWD,Highway,28
+46882,Ford,Edge AWD,Combined,23
+46883,Hyundai,Kona AWD,City,26
+46883,Hyundai,Kona AWD,Highway,29
+46883,Hyundai,Kona AWD,Combined,27
+46884,Hyundai,Kona AWD,City,27
+46884,Hyundai,Kona AWD,Highway,29
+46884,Hyundai,Kona AWD,Combined,28
+46885,Jeep,Wrangler 4dr 4WD,City,16
+46885,Jeep,Wrangler 4dr 4WD,Highway,22
+46885,Jeep,Wrangler 4dr 4WD,Combined,19
+46886,Jeep,Wrangler 2dr 4WD,City,17
+46886,Jeep,Wrangler 2dr 4WD,Highway,23
+46886,Jeep,Wrangler 2dr 4WD,Combined,19
+46887,Jeep,Wrangler Rubicon 4dr 4WD,City,16
+46887,Jeep,Wrangler Rubicon 4dr 4WD,Highway,19
+46887,Jeep,Wrangler Rubicon 4dr 4WD,Combined,17
+46888,Jeep,Wrangler Rubicon 2dr 4WD,City,16
+46888,Jeep,Wrangler Rubicon 2dr 4WD,Highway,20
+46888,Jeep,Wrangler Rubicon 2dr 4WD,Combined,18
+46889,Kia,Sportage AWD,City,23
+46889,Kia,Sportage AWD,Highway,26
+46889,Kia,Sportage AWD,Combined,25
+46890,Kia,Sportage X-pro,City,23
+46890,Kia,Sportage X-pro,Highway,30
+46890,Kia,Sportage X-pro,Combined,26
+46892,Mazda,CX-50 4WD,City,24
+46892,Mazda,CX-50 4WD,Highway,30
+46892,Mazda,CX-50 4WD,Combined,27
+46893,Mazda,CX-50 4WD,City,23
+46893,Mazda,CX-50 4WD,Highway,29
+46893,Mazda,CX-50 4WD,Combined,25
+46894,Mitsubishi,Outlander 4WD,City,24
+46894,Mitsubishi,Outlander 4WD,Highway,30
+46894,Mitsubishi,Outlander 4WD,Combined,26
+47038,Audi,A3,City,29
+47038,Audi,A3,Highway,37
+47038,Audi,A3,Combined,32
+47039,Audi,A3 quattro,City,27
+47039,Audi,A3 quattro,Highway,34
+47039,Audi,A3 quattro,Combined,30
+47042,Chevrolet,Camaro,City,16
+47042,Chevrolet,Camaro,Highway,26
+47042,Chevrolet,Camaro,Combined,20
+47047,Chevrolet,Camaro,City,18
+47047,Chevrolet,Camaro,Highway,29
+47047,Chevrolet,Camaro,Combined,22
+47055,Volkswagen,Jetta,City,30
+47055,Volkswagen,Jetta,Highway,41
+47055,Volkswagen,Jetta,Combined,34
+47056,Volkswagen,Jetta Sport/SE/SEL,City,29
+47056,Volkswagen,Jetta Sport/SE/SEL,Highway,40
+47056,Volkswagen,Jetta Sport/SE/SEL,Combined,33
+47057,Volkswagen,GLI,City,24
+47057,Volkswagen,GLI,Highway,35
+47057,Volkswagen,GLI,Combined,28
+47068,Honda,Civic 4Dr,City,33
+47068,Honda,Civic 4Dr,Highway,42
+47068,Honda,Civic 4Dr,Combined,36
+47069,Honda,Civic 4Dr,City,31
+47069,Honda,Civic 4Dr,Highway,38
+47069,Honda,Civic 4Dr,Combined,34
+47071,Honda,Civic 4Dr,City,31
+47071,Honda,Civic 4Dr,Highway,40
+47071,Honda,Civic 4Dr,Combined,35
+47072,Honda,Civic 4Dr,City,30
+47072,Honda,Civic 4Dr,Highway,37
+47072,Honda,Civic 4Dr,Combined,33
+47073,Honda,Accord Hybrid Sport/Touring,City,46
+47073,Honda,Accord Hybrid Sport/Touring,Highway,41
+47073,Honda,Accord Hybrid Sport/Touring,Combined,44
+47074,Hyundai,Elantra,City,31
+47074,Hyundai,Elantra,Highway,40
+47074,Hyundai,Elantra,Combined,34
+47075,Hyundai,Elantra,City,32
+47075,Hyundai,Elantra,Highway,41
+47075,Hyundai,Elantra,Combined,36
+47077,Kia,Forte,City,22
+47077,Kia,Forte,Highway,31
+47077,Kia,Forte,Combined,26
+47078,Kia,Forte,City,27
+47078,Kia,Forte,Highway,35
+47078,Kia,Forte,Combined,30
+47079,Kia,Forte FE,City,30
+47079,Kia,Forte FE,Highway,41
+47079,Kia,Forte FE,Combined,34
+47080,Kia,Forte,City,28
+47080,Kia,Forte,Highway,39
+47080,Kia,Forte,Combined,32
+47081,Nissan,Altima,City,27
+47081,Nissan,Altima,Highway,38
+47081,Nissan,Altima,Combined,31
+47082,Nissan,Altima AWD,City,26
+47082,Nissan,Altima AWD,Highway,34
+47082,Nissan,Altima AWD,Combined,29
+47083,Nissan,Altima SL/SR,City,27
+47083,Nissan,Altima SL/SR,Highway,36
+47083,Nissan,Altima SL/SR,Combined,30
+47084,Nissan,Altima SR,City,25
+47084,Nissan,Altima SR,Highway,34
+47084,Nissan,Altima SR,Combined,29
+47085,Toyota,Camry,City,22
+47085,Toyota,Camry,Highway,33
+47085,Toyota,Camry,Combined,26
+47086,Toyota,Camry TRD,City,22
+47086,Toyota,Camry TRD,Highway,31
+47086,Toyota,Camry TRD,Combined,25
+47087,Toyota,Camry XSE,City,22
+47087,Toyota,Camry XSE,Highway,32
+47087,Toyota,Camry XSE,Combined,26
+47088,Toyota,Camry AWD LE/SE,City,25
+47088,Toyota,Camry AWD LE/SE,Highway,34
+47088,Toyota,Camry AWD LE/SE,Combined,29
+47089,Toyota,Camry AWD XLE/XSE,City,25
+47089,Toyota,Camry AWD XLE/XSE,Highway,34
+47089,Toyota,Camry AWD XLE/XSE,Combined,28
+47090,Toyota,Camry LE/SE,City,28
+47090,Toyota,Camry LE/SE,Highway,39
+47090,Toyota,Camry LE/SE,Combined,32
+47091,Toyota,Camry XLE/XSE,City,27
+47091,Toyota,Camry XLE/XSE,Highway,38
+47091,Toyota,Camry XLE/XSE,Combined,31
+47092,Toyota,Camry Hybrid LE,City,51
+47092,Toyota,Camry Hybrid LE,Highway,53
+47092,Toyota,Camry Hybrid LE,Combined,52
+47093,Toyota,Camry Hybrid SE/XLE/XSE,City,44
+47093,Toyota,Camry Hybrid SE/XLE/XSE,Highway,47
+47093,Toyota,Camry Hybrid SE/XLE/XSE,Combined,46
+47097,Honda,Civic 5Dr,City,31
+47097,Honda,Civic 5Dr,Highway,39
+47097,Honda,Civic 5Dr,Combined,35
+47098,Honda,Civic 5Dr,City,30
+47098,Honda,Civic 5Dr,Highway,37
+47098,Honda,Civic 5Dr,Combined,33
+47099,Honda,Civic 5Dr,City,28
+47099,Honda,Civic 5Dr,Highway,37
+47099,Honda,Civic 5Dr,Combined,31
+47100,Honda,Civic 5Dr,City,30
+47100,Honda,Civic 5Dr,Highway,38
+47100,Honda,Civic 5Dr,Combined,33
+47101,Honda,Civic 5Dr,City,29
+47101,Honda,Civic 5Dr,Highway,37
+47101,Honda,Civic 5Dr,Combined,32
+47102,Honda,Civic 5Dr,City,26
+47102,Honda,Civic 5Dr,Highway,36
+47102,Honda,Civic 5Dr,Combined,29
+47103,Honda,Accord,City,29
+47103,Honda,Accord,Highway,37
+47103,Honda,Accord,Combined,32
+47104,Honda,Accord Hybrid,City,51
+47104,Honda,Accord Hybrid,Highway,44
+47104,Honda,Accord Hybrid,Combined,48
+47108,Nissan,Murano FWD,City,20
+47108,Nissan,Murano FWD,Highway,28
+47108,Nissan,Murano FWD,Combined,23
+47109,Nissan,Murano AWD,City,19
+47109,Nissan,Murano AWD,Highway,27
+47109,Nissan,Murano AWD,Combined,22
+47111,GMC,Canyon 4WD,City,18
+47111,GMC,Canyon 4WD,Highway,22
+47111,GMC,Canyon 4WD,Combined,19
+47112,Chevrolet,Silverado 2WD,City,18
+47112,Chevrolet,Silverado 2WD,Highway,22
+47112,Chevrolet,Silverado 2WD,Combined,20
+47113,Chevrolet,Silverado 2WD,City,17
+47113,Chevrolet,Silverado 2WD,Highway,21
+47113,Chevrolet,Silverado 2WD,Combined,19
+47114,GMC,Sierra 2WD,City,18
+47114,GMC,Sierra 2WD,Highway,22
+47114,GMC,Sierra 2WD,Combined,20
+47115,GMC,Sierra 2WD,City,17
+47115,GMC,Sierra 2WD,Highway,21
+47115,GMC,Sierra 2WD,Combined,19
+47117,Toyota,Tundra 2WD,City,18
+47117,Toyota,Tundra 2WD,Highway,23
+47117,Toyota,Tundra 2WD,Combined,20
+47118,Toyota,Tundra 2WD,City,18
+47118,Toyota,Tundra 2WD,Highway,23
+47118,Toyota,Tundra 2WD,Combined,20
+47119,Toyota,Tundra 2WD,City,20
+47119,Toyota,Tundra 2WD,Highway,24
+47119,Toyota,Tundra 2WD,Combined,22
+47120,Chevrolet,Silverado Mud Terrain Tires 4WD,City,16
+47120,Chevrolet,Silverado Mud Terrain Tires 4WD,Highway,17
+47120,Chevrolet,Silverado Mud Terrain Tires 4WD,Combined,17
+47121,Chevrolet,Silverado 4WD,City,17
+47121,Chevrolet,Silverado 4WD,Highway,19
+47121,Chevrolet,Silverado 4WD,Combined,18
+47122,Chevrolet,Silverado 4WD,City,18
+47122,Chevrolet,Silverado 4WD,Highway,21
+47122,Chevrolet,Silverado 4WD,Combined,19
+47123,Chevrolet,Silverado Mud Terrain Tires 4WD,City,16
+47123,Chevrolet,Silverado Mud Terrain Tires 4WD,Highway,17
+47123,Chevrolet,Silverado Mud Terrain Tires 4WD,Combined,16
+47124,GMC,Sierra 4WD,City,17
+47124,GMC,Sierra 4WD,Highway,18
+47124,GMC,Sierra 4WD,Combined,17
+47125,GMC,Sierra 4WD,City,17
+47125,GMC,Sierra 4WD,Highway,20
+47125,GMC,Sierra 4WD,Combined,18
+47126,GMC,Sierra Mud Terrain Tires 4WD,City,16
+47126,GMC,Sierra Mud Terrain Tires 4WD,Highway,17
+47126,GMC,Sierra Mud Terrain Tires 4WD,Combined,16
+47129,Toyota,Tundra 4WD,City,17
+47129,Toyota,Tundra 4WD,Highway,23
+47129,Toyota,Tundra 4WD,Combined,19
+47130,Toyota,Tundra 4WD,City,17
+47130,Toyota,Tundra 4WD,Highway,22
+47130,Toyota,Tundra 4WD,Combined,19
+47131,Toyota,Tundra 4WD,City,19
+47131,Toyota,Tundra 4WD,Highway,22
+47131,Toyota,Tundra 4WD,Combined,20
+47132,Toyota,Tundra 4WD PRO,City,18
+47132,Toyota,Tundra 4WD PRO,Highway,20
+47132,Toyota,Tundra 4WD PRO,Combined,19
+47133,Chrysler,Pacifica,City,19
+47133,Chrysler,Pacifica,Highway,28
+47133,Chrysler,Pacifica,Combined,22
+47134,Chrysler,Voyager,City,19
+47134,Chrysler,Voyager,Highway,28
+47134,Chrysler,Voyager,Combined,22
+47135,Honda,Pilot FWD,City,19
+47135,Honda,Pilot FWD,Highway,27
+47135,Honda,Pilot FWD,Combined,22
+47136,Kia,Sorento Hybrid FWD,City,39
+47136,Kia,Sorento Hybrid FWD,Highway,35
+47136,Kia,Sorento Hybrid FWD,Combined,37
+47138,Mitsubishi,Outlander Sport 2WD,City,24
+47138,Mitsubishi,Outlander Sport 2WD,Highway,30
+47138,Mitsubishi,Outlander Sport 2WD,Combined,27
+47139,Nissan,Pathfinder 2WD,City,20
+47139,Nissan,Pathfinder 2WD,Highway,27
+47139,Nissan,Pathfinder 2WD,Combined,23
+47140,Volkswagen,Tiguan S,City,24
+47140,Volkswagen,Tiguan S,Highway,31
+47140,Volkswagen,Tiguan S,Combined,27
+47141,Volkswagen,Tiguan,City,23
+47141,Volkswagen,Tiguan,Highway,30
+47141,Volkswagen,Tiguan,Combined,26
+47142,Volkswagen,Taos,City,28
+47142,Volkswagen,Taos,Highway,36
+47142,Volkswagen,Taos,Combined,31
+47143,Audi,Q3 S line quattro,City,20
+47143,Audi,Q3 S line quattro,Highway,28
+47143,Audi,Q3 S line quattro,Combined,23
+47146,Audi,Q3 quattro,City,22
+47146,Audi,Q3 quattro,Highway,29
+47146,Audi,Q3 quattro,Combined,25
+47147,Jeep,Compass 4WD,City,24
+47147,Jeep,Compass 4WD,Highway,32
+47147,Jeep,Compass 4WD,Combined,27
+47148,Kia,Sorento Hybrid AWD,City,36
+47148,Kia,Sorento Hybrid AWD,Highway,33
+47148,Kia,Sorento Hybrid AWD,Combined,34
+47152,Mazda,CX-5 4WD,City,26
+47152,Mazda,CX-5 4WD,Highway,31
+47152,Mazda,CX-5 4WD,Combined,28
+47153,Mazda,CX-5 4WD,City,22
+47153,Mazda,CX-5 4WD,Highway,27
+47153,Mazda,CX-5 4WD,Combined,24
+47154,Mitsubishi,Outlander Sport 4WD,City,23
+47154,Mitsubishi,Outlander Sport 4WD,Highway,29
+47154,Mitsubishi,Outlander Sport 4WD,Combined,26
+47155,Mitsubishi,Outlander Sport 4WD,City,23
+47155,Mitsubishi,Outlander Sport 4WD,Highway,28
+47155,Mitsubishi,Outlander Sport 4WD,Combined,25
+47156,Nissan,Pathfinder 4WD,City,21
+47156,Nissan,Pathfinder 4WD,Highway,27
+47156,Nissan,Pathfinder 4WD,Combined,23
+47161,Subaru,Forester AWD,City,26
+47161,Subaru,Forester AWD,Highway,33
+47161,Subaru,Forester AWD,Combined,29
+47162,Subaru,Crosstrek Wilderness AWD,City,25
+47162,Subaru,Crosstrek Wilderness AWD,Highway,29
+47162,Subaru,Crosstrek Wilderness AWD,Combined,27
+47163,Subaru,Forester Wilderness AWD,City,25
+47163,Subaru,Forester Wilderness AWD,Highway,28
+47163,Subaru,Forester Wilderness AWD,Combined,26
+47164,Volkswagen,Tiguan 4motion,City,22
+47164,Volkswagen,Tiguan 4motion,Highway,29
+47164,Volkswagen,Tiguan 4motion,Combined,25
+47165,Volkswagen,Tiguan R-Line 4motion,City,22
+47165,Volkswagen,Tiguan R-Line 4motion,Highway,29
+47165,Volkswagen,Tiguan R-Line 4motion,Combined,24
+47166,Volkswagen,Taos 4motion,City,24
+47166,Volkswagen,Taos 4motion,Highway,32
+47166,Volkswagen,Taos 4motion,Combined,27
+47167,Ford,Expedition 2WD,City,17
+47167,Ford,Expedition 2WD,Highway,23
+47167,Ford,Expedition 2WD,Combined,19
+47169,Jeep,Wagoneer L 2WD,City,17
+47169,Jeep,Wagoneer L 2WD,Highway,24
+47169,Jeep,Wagoneer L 2WD,Combined,20
+47170,Jeep,Wagoneer 2WD,City,17
+47170,Jeep,Wagoneer 2WD,Highway,24
+47170,Jeep,Wagoneer 2WD,Combined,20
+47171,Jeep,Grand Cherokee 2WD,City,19
+47171,Jeep,Grand Cherokee 2WD,Highway,26
+47171,Jeep,Grand Cherokee 2WD,Combined,22
+47172,Jeep,Grand Cherokee L 2WD,City,19
+47172,Jeep,Grand Cherokee L 2WD,Highway,26
+47172,Jeep,Grand Cherokee L 2WD,Combined,21
+47173,Toyota,Sequoia 2WD,City,21
+47173,Toyota,Sequoia 2WD,Highway,24
+47173,Toyota,Sequoia 2WD,Combined,22
+47180,Ford,Expedition 4WD,City,16
+47180,Ford,Expedition 4WD,Highway,22
+47180,Ford,Expedition 4WD,Combined,18
+47181,Ford,Expedition Timberline AWD,City,16
+47181,Ford,Expedition Timberline AWD,Highway,19
+47181,Ford,Expedition Timberline AWD,Combined,17
+47182,Honda,Pilot AWD,City,19
+47182,Honda,Pilot AWD,Highway,25
+47182,Honda,Pilot AWD,Combined,21
+47183,Honda,Pilot AWD Touring/Elite/Black,City,19
+47183,Honda,Pilot AWD Touring/Elite/Black,Highway,25
+47183,Honda,Pilot AWD Touring/Elite/Black,Combined,21
+47184,Honda,Pilot AWD TrailSport,City,18
+47184,Honda,Pilot AWD TrailSport,Highway,23
+47184,Honda,Pilot AWD TrailSport,Combined,20
+47186,Jeep,Wagoneer 4WD,City,16
+47186,Jeep,Wagoneer 4WD,Highway,23
+47186,Jeep,Wagoneer 4WD,Combined,19
+47187,Jeep,Wagoneer L 4WD,City,16
+47187,Jeep,Wagoneer L 4WD,Highway,23
+47187,Jeep,Wagoneer L 4WD,Combined,19
+47190,Jeep,Grand Cherokee L 4WD,City,18
+47190,Jeep,Grand Cherokee L 4WD,Highway,25
+47190,Jeep,Grand Cherokee L 4WD,Combined,21
+47191,Jeep,Grand Cherokee 4WD,City,19
+47191,Jeep,Grand Cherokee 4WD,Highway,26
+47191,Jeep,Grand Cherokee 4WD,Combined,22
+47207,Lincoln,Navigator 4WD,City,16
+47207,Lincoln,Navigator 4WD,Highway,22
+47207,Lincoln,Navigator 4WD,Combined,18
+47209,Nissan,Pathfinder 4WD Platinum,City,20
+47209,Nissan,Pathfinder 4WD Platinum,Highway,25
+47209,Nissan,Pathfinder 4WD Platinum,Combined,22
+47210,Subaru,Ascent,City,20
+47210,Subaru,Ascent,Highway,26
+47210,Subaru,Ascent,Combined,22
+47211,Subaru,Ascent Limited/Touring/Onyx AWD,City,19
+47211,Subaru,Ascent Limited/Touring/Onyx AWD,Highway,25
+47211,Subaru,Ascent Limited/Touring/Onyx AWD,Combined,21
+47212,Toyota,Sequoia 4WD,City,19
+47212,Toyota,Sequoia 4WD,Highway,22
+47212,Toyota,Sequoia 4WD,Combined,20
+47236,Nissan,Versa,City,32
+47236,Nissan,Versa,Highway,40
+47236,Nissan,Versa,Combined,35
+47237,Nissan,Versa,City,27
+47237,Nissan,Versa,Highway,35
+47237,Nissan,Versa,Combined,30
+47240,Nissan,Kicks,City,31
+47240,Nissan,Kicks,Highway,36
+47240,Nissan,Kicks,Combined,33
+47241,Nissan,Sentra,City,30
+47241,Nissan,Sentra,Highway,40
+47241,Nissan,Sentra,Combined,34
+47242,Nissan,Sentra SR,City,30
+47242,Nissan,Sentra SR,Highway,38
+47242,Nissan,Sentra SR,Combined,33
+47243,Toyota,Prius,City,57
+47243,Toyota,Prius,Highway,56
+47243,Toyota,Prius,Combined,57
+47244,Toyota,Prius AWD,City,53
+47244,Toyota,Prius AWD,Highway,54
+47244,Toyota,Prius AWD,Combined,54
+47245,Toyota,Prius AWD XLE/LTD,City,49
+47245,Toyota,Prius AWD XLE/LTD,Highway,50
+47245,Toyota,Prius AWD XLE/LTD,Combined,49
+47246,Toyota,Prius XLE/LTD,City,52
+47246,Toyota,Prius XLE/LTD,Highway,52
+47246,Toyota,Prius XLE/LTD,Combined,52
+47249,Nissan,Frontier 2WD,City,18
+47249,Nissan,Frontier 2WD,Highway,24
+47249,Nissan,Frontier 2WD,Combined,21
+47250,Nissan,Frontier 4WD,City,18
+47250,Nissan,Frontier 4WD,Highway,22
+47250,Nissan,Frontier 4WD,Combined,20
+47251,Nissan,Frontier 4WD PRO4X,City,18
+47251,Nissan,Frontier 4WD PRO4X,Highway,21
+47251,Nissan,Frontier 4WD PRO4X,Combined,19
+47252,Toyota,Sienna 2WD,City,36
+47252,Toyota,Sienna 2WD,Highway,36
+47252,Toyota,Sienna 2WD,Combined,36
+47253,Chrysler,Pacifica AWD,City,17
+47253,Chrysler,Pacifica AWD,Highway,25
+47253,Chrysler,Pacifica AWD,Combined,20
+47254,Toyota,Sienna AWD,City,35
+47254,Toyota,Sienna AWD,Highway,36
+47254,Toyota,Sienna AWD,Combined,35
+47274,Alfa Romeo,Tonale eAWD,City,29
+47274,Alfa Romeo,Tonale eAWD,Highway,29
+47274,Alfa Romeo,Tonale eAWD,Combined,29
+47275,Dodge,Hornet PHEV AWD,City,29
+47275,Dodge,Hornet PHEV AWD,Highway,29
+47275,Dodge,Hornet PHEV AWD,Combined,29
+47276,Chrysler,Pacifica Hybrid,City,29
+47276,Chrysler,Pacifica Hybrid,Highway,30
+47276,Chrysler,Pacifica Hybrid,Combined,30
+47277,Jeep,Grand Cherokee 4xe,City,23
+47277,Jeep,Grand Cherokee 4xe,Highway,24
+47277,Jeep,Grand Cherokee 4xe,Combined,23
+47278,Jeep,Wrangler 4dr 4xe,City,20
+47278,Jeep,Wrangler 4dr 4xe,Highway,20
+47278,Jeep,Wrangler 4dr 4xe,Combined,20
+47330,Mazda,3 4-Door 2WD,City,27
+47330,Mazda,3 4-Door 2WD,Highway,37
+47330,Mazda,3 4-Door 2WD,Combined,31
+47331,Mazda,3 4-Door 4WD,City,26
+47331,Mazda,3 4-Door 4WD,Highway,35
+47331,Mazda,3 4-Door 4WD,Combined,30
+47332,Mazda,3 4-Door 4WD,City,23
+47332,Mazda,3 4-Door 4WD,Highway,32
+47332,Mazda,3 4-Door 4WD,Combined,27
+47339,Toyota,Corolla Hybrid (Normal/Eco Modes),City,53
+47339,Toyota,Corolla Hybrid (Normal/Eco Modes),Highway,46
+47339,Toyota,Corolla Hybrid (Normal/Eco Modes),Combined,50
+47340,Toyota,Corolla Hybrid (Sport/Normal/Eco Modes),City,50
+47340,Toyota,Corolla Hybrid (Sport/Normal/Eco Modes),Highway,43
+47340,Toyota,Corolla Hybrid (Sport/Normal/Eco Modes),Combined,47
+47341,Toyota,Corolla Hybrid AWD (Normal/Eco Modes),City,51
+47341,Toyota,Corolla Hybrid AWD (Normal/Eco Modes),Highway,44
+47341,Toyota,Corolla Hybrid AWD (Normal/Eco Modes),Combined,48
+47342,Toyota,Corolla Hybrid AWD (Sport/Normal/Eco Modes),City,47
+47342,Toyota,Corolla Hybrid AWD (Sport/Normal/Eco Modes),Highway,41
+47342,Toyota,Corolla Hybrid AWD (Sport/Normal/Eco Modes),Combined,44
+47343,Toyota,Corolla,City,32
+47343,Toyota,Corolla,Highway,41
+47343,Toyota,Corolla,Combined,35
+47344,Toyota,Corolla,City,31
+47344,Toyota,Corolla,Highway,40
+47344,Toyota,Corolla,Combined,34
+47345,Toyota,Corolla Hatchback,City,32
+47345,Toyota,Corolla Hatchback,Highway,41
+47345,Toyota,Corolla Hatchback,Combined,35
+47346,Toyota,Corolla Hatchback XSE,City,30
+47346,Toyota,Corolla Hatchback XSE,Highway,38
+47346,Toyota,Corolla Hatchback XSE,Combined,33
+47349,Hyundai,Elantra Hybrid,City,49
+47349,Hyundai,Elantra Hybrid,Highway,52
+47349,Hyundai,Elantra Hybrid,Combined,50
+47350,Hyundai,Elantra Hybrid Blue,City,51
+47350,Hyundai,Elantra Hybrid Blue,Highway,58
+47350,Hyundai,Elantra Hybrid Blue,Combined,54
+47354,Toyota,Crown AWD,City,42
+47354,Toyota,Crown AWD,Highway,41
+47354,Toyota,Crown AWD,Combined,41
+47355,Toyota,Crown AWD,City,29
+47355,Toyota,Crown AWD,Highway,32
+47355,Toyota,Crown AWD,Combined,30
+47356,Hyundai,Sonata AWD,City,25
+47356,Hyundai,Sonata AWD,Highway,34
+47356,Hyundai,Sonata AWD,Combined,28
+47357,Hyundai,Sonata FWD,City,25
+47357,Hyundai,Sonata FWD,Highway,36
+47357,Hyundai,Sonata FWD,Combined,29
+47358,Hyundai,Sonata FWD,City,23
+47358,Hyundai,Sonata FWD,Highway,32
+47358,Hyundai,Sonata FWD,Combined,27
+47363,Ford,Maverick FWD,City,23
+47363,Ford,Maverick FWD,Highway,30
+47363,Ford,Maverick FWD,Combined,26
+47364,Ford,Maverick HEV FWD,City,42
+47364,Ford,Maverick HEV FWD,Highway,33
+47364,Ford,Maverick HEV FWD,Combined,37
+47365,GMC,Canyon 2WD,City,19
+47365,GMC,Canyon 2WD,Highway,23
+47365,GMC,Canyon 2WD,Combined,20
+47366,Ford,Maverick AWD,City,22
+47366,Ford,Maverick AWD,Highway,29
+47366,Ford,Maverick AWD,Combined,25
+47367,Ford,Maverick Tremor AWD,City,20
+47367,Ford,Maverick Tremor AWD,Highway,24
+47367,Ford,Maverick Tremor AWD,Combined,21
+47368,Ford,Ranger 2WD,City,21
+47368,Ford,Ranger 2WD,Highway,25
+47368,Ford,Ranger 2WD,Combined,22
+47369,Ram,1500 HFE 2WD,City,20
+47369,Ram,1500 HFE 2WD,Highway,26
+47369,Ram,1500 HFE 2WD,Combined,23
+47370,Ford,Ranger 4WD,City,20
+47370,Ford,Ranger 4WD,Highway,24
+47370,Ford,Ranger 4WD,Combined,22
+47371,Ford,Ranger RAPTOR 4WD,City,16
+47371,Ford,Ranger RAPTOR 4WD,Highway,18
+47371,Ford,Ranger RAPTOR 4WD,Combined,17
+47374,Toyota,RAV4,City,27
+47374,Toyota,RAV4,Highway,35
+47374,Toyota,RAV4,Combined,30
+47375,Ford,Bronco Sport 4WD,City,25
+47375,Ford,Bronco Sport 4WD,Highway,29
+47375,Ford,Bronco Sport 4WD,Combined,26
+47376,Ford,Bronco Sport 4WD,City,21
+47376,Ford,Bronco Sport 4WD,Highway,26
+47376,Ford,Bronco Sport 4WD,Combined,23
+47377,Honda,Passport AWD,City,19
+47377,Honda,Passport AWD,Highway,24
+47377,Honda,Passport AWD,Combined,21
+47378,Jeep,Wrangler 4dr 4WD,City,18
+47378,Jeep,Wrangler 4dr 4WD,Highway,23
+47378,Jeep,Wrangler 4dr 4WD,Combined,20
+47379,Jeep,Wrangler 2dr 4WD,City,18
+47379,Jeep,Wrangler 2dr 4WD,Highway,24
+47379,Jeep,Wrangler 2dr 4WD,Combined,20
+47380,Kia,Sportage Hybrid AWD,City,38
+47380,Kia,Sportage Hybrid AWD,Highway,38
+47380,Kia,Sportage Hybrid AWD,Combined,38
+47381,Kia,Sportage Hybrid FWD,City,42
+47381,Kia,Sportage Hybrid FWD,Highway,44
+47381,Kia,Sportage Hybrid FWD,Combined,43
+47382,Mazda,CX-5 4WD,City,23
+47382,Mazda,CX-5 4WD,Highway,29
+47382,Mazda,CX-5 4WD,Combined,25
+47383,Mazda,CX-30 4WD,City,26
+47383,Mazda,CX-30 4WD,Highway,33
+47383,Mazda,CX-30 4WD,Combined,29
+47384,Mazda,CX-30 4WD,City,22
+47384,Mazda,CX-30 4WD,Highway,30
+47384,Mazda,CX-30 4WD,Combined,25
+47387,Toyota,RAV4 AWD,City,27
+47387,Toyota,RAV4 AWD,Highway,33
+47387,Toyota,RAV4 AWD,Combined,29
+47388,Toyota,RAV4 AWD,City,25
+47388,Toyota,RAV4 AWD,Highway,33
+47388,Toyota,RAV4 AWD,Combined,28
+47389,Toyota,RAV4 AWD TRD OFFROAD,City,25
+47389,Toyota,RAV4 AWD TRD OFFROAD,Highway,32
+47389,Toyota,RAV4 AWD TRD OFFROAD,Combined,28
+47390,Toyota,RAV4 AWD LE,City,27
+47390,Toyota,RAV4 AWD LE,Highway,34
+47390,Toyota,RAV4 AWD LE,Combined,30
+47391,Toyota,RAV4 Hybrid AWD Woodland Edition,City,38
+47391,Toyota,RAV4 Hybrid AWD Woodland Edition,Highway,35
+47391,Toyota,RAV4 Hybrid AWD Woodland Edition,Combined,37
+47392,Toyota,RAV4 Hybrid AWD,City,41
+47392,Toyota,RAV4 Hybrid AWD,Highway,38
+47392,Toyota,RAV4 Hybrid AWD,Combined,39
+47393,Toyota,Venza AWD,City,40
+47393,Toyota,Venza AWD,Highway,37
+47393,Toyota,Venza AWD,Combined,39
+47396,Chevrolet,Tahoe 2WD,City,15
+47396,Chevrolet,Tahoe 2WD,Highway,20
+47396,Chevrolet,Tahoe 2WD,Combined,17
+47397,Chevrolet,Suburban 2WD,City,15
+47397,Chevrolet,Suburban 2WD,Highway,20
+47397,Chevrolet,Suburban 2WD,Combined,17
+47402,Dodge,Durango RWD,City,19
+47402,Dodge,Durango RWD,Highway,26
+47402,Dodge,Durango RWD,Combined,21
+47404,GMC,Yukon 2WD,City,15
+47404,GMC,Yukon 2WD,Highway,20
+47404,GMC,Yukon 2WD,Combined,17
+47405,GMC,Yukon XL 2WD,City,15
+47405,GMC,Yukon XL 2WD,Highway,20
+47405,GMC,Yukon XL 2WD,Combined,17
+47411,Toyota,4Runner 2WD,City,16
+47411,Toyota,4Runner 2WD,Highway,19
+47411,Toyota,4Runner 2WD,Combined,17
+47417,Chevrolet,Tahoe 4WD,City,15
+47417,Chevrolet,Tahoe 4WD,Highway,20
+47417,Chevrolet,Tahoe 4WD,Combined,17
+47418,Chevrolet,Suburban 4WD,City,15
+47418,Chevrolet,Suburban 4WD,Highway,18
+47418,Chevrolet,Suburban 4WD,Combined,16
+47419,Chevrolet,Tahoe 4WD,City,14
+47419,Chevrolet,Tahoe 4WD,Highway,18
+47419,Chevrolet,Tahoe 4WD,Combined,16
+47424,Dodge,Durango AWD,City,18
+47424,Dodge,Durango AWD,Highway,25
+47424,Dodge,Durango AWD,Combined,21
+47428,GMC,Yukon 4WD,City,15
+47428,GMC,Yukon 4WD,Highway,20
+47428,GMC,Yukon 4WD,Combined,17
+47429,GMC,Yukon XL 4WD,City,15
+47429,GMC,Yukon XL 4WD,Highway,18
+47429,GMC,Yukon XL 4WD,Combined,16
+47438,Toyota,4Runner 4WD,City,16
+47438,Toyota,4Runner 4WD,Highway,19
+47438,Toyota,4Runner 4WD,Combined,17
+47439,Toyota,4Runner 4WD,City,16
+47439,Toyota,4Runner 4WD,Highway,19
+47439,Toyota,4Runner 4WD,Combined,17
+47495,Hyundai,Tucson Plug-in Hybrid,City,35
+47495,Hyundai,Tucson Plug-in Hybrid,Highway,35
+47495,Hyundai,Tucson Plug-in Hybrid,Combined,35
+47496,Kia,Sorento Plug-in Hybrid,City,35
+47496,Kia,Sorento Plug-in Hybrid,Highway,33
+47496,Kia,Sorento Plug-in Hybrid,Combined,34
+47497,Kia,Sportage Plug-in Hybrid,City,36
+47497,Kia,Sportage Plug-in Hybrid,Highway,35
+47497,Kia,Sportage Plug-in Hybrid,Combined,35
+47499,Mitsubishi,Outlander PHEV,City,25
+47499,Mitsubishi,Outlander PHEV,Highway,27
+47499,Mitsubishi,Outlander PHEV,Combined,26
+47500,Toyota,Prius Prime,City,50
+47500,Toyota,Prius Prime,Highway,47
+47500,Toyota,Prius Prime,Combined,48
+47501,Toyota,Prius Prime SE,City,53
+47501,Toyota,Prius Prime SE,Highway,51
+47501,Toyota,Prius Prime SE,Combined,52
+47502,Toyota,RAV4 Prime 4WD,City,40
+47502,Toyota,RAV4 Prime 4WD,Highway,36
+47502,Toyota,RAV4 Prime 4WD,Combined,38
+47550,Lotus,Emira,City,16
+47550,Lotus,Emira,Highway,24
+47550,Lotus,Emira,Combined,19
+47558,Ford,Mustang,City,15
+47558,Ford,Mustang,Highway,23
+47558,Ford,Mustang,Combined,18
+47559,Ford,Mustang,City,16
+47559,Ford,Mustang,Highway,24
+47559,Ford,Mustang,Combined,19
+47570,Hyundai,Elantra,City,28
+47570,Hyundai,Elantra,Highway,35
+47570,Hyundai,Elantra,Combined,31
+47583,Hyundai,Sonata Hybrid,City,44
+47583,Hyundai,Sonata Hybrid,Highway,51
+47583,Hyundai,Sonata Hybrid,Combined,47
+47587,Chevrolet,Colorado 2WD,City,20
+47587,Chevrolet,Colorado 2WD,Highway,24
+47587,Chevrolet,Colorado 2WD,Combined,22
+47588,Toyota,Tacoma SR5/Sport/PreRunner 2WD,City,20
+47588,Toyota,Tacoma SR5/Sport/PreRunner 2WD,Highway,24
+47588,Toyota,Tacoma SR5/Sport/PreRunner 2WD,Combined,22
+47589,Toyota,Tacoma SR5/Sport/PreRunner 2WD,City,21
+47589,Toyota,Tacoma SR5/Sport/PreRunner 2WD,Highway,26
+47589,Toyota,Tacoma SR5/Sport/PreRunner 2WD,Combined,23
+47590,Toyota,Tacoma 2WD,City,20
+47590,Toyota,Tacoma 2WD,Highway,26
+47590,Toyota,Tacoma 2WD,Combined,23
+47591,Chevrolet,Colorado ZR2 Bison 4WD,City,16
+47591,Chevrolet,Colorado ZR2 Bison 4WD,Highway,16
+47591,Chevrolet,Colorado ZR2 Bison 4WD,Combined,16
+47592,Chevrolet,Colorado Mud Terrain Tires 4WD,City,17
+47592,Chevrolet,Colorado Mud Terrain Tires 4WD,Highway,20
+47592,Chevrolet,Colorado Mud Terrain Tires 4WD,Combined,18
+47593,Chevrolet,Colorado ZR2 4WD,City,17
+47593,Chevrolet,Colorado ZR2 4WD,Highway,17
+47593,Chevrolet,Colorado ZR2 4WD,Combined,17
+47594,Chevrolet,Colorado 4WD,City,18
+47594,Chevrolet,Colorado 4WD,Highway,22
+47594,Chevrolet,Colorado 4WD,Combined,20
+47595,GMC,Canyon AT4X AEV 4WD,City,16
+47595,GMC,Canyon AT4X AEV 4WD,Highway,16
+47595,GMC,Canyon AT4X AEV 4WD,Combined,16
+47596,GMC,Canyon Mud Terrain Tires 4WD,City,17
+47596,GMC,Canyon Mud Terrain Tires 4WD,Highway,20
+47596,GMC,Canyon Mud Terrain Tires 4WD,Combined,18
+47597,GMC,Canyon AT4X 4WD,City,17
+47597,GMC,Canyon AT4X 4WD,Highway,17
+47597,GMC,Canyon AT4X 4WD,Combined,17
+47598,Toyota,Tacoma 4WD MT,City,18
+47598,Toyota,Tacoma 4WD MT,Highway,23
+47598,Toyota,Tacoma 4WD MT,Combined,20
+47599,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,City,19
+47599,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,Highway,23
+47599,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,Combined,21
+47600,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,City,20
+47600,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,Highway,23
+47600,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,Combined,21
+47601,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,City,19
+47601,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,Highway,24
+47601,Toyota,Tacoma SR5/Sport/Off-Road/Limited 4WD,Combined,21
+47602,Toyota,Tacoma 4WD,City,19
+47602,Toyota,Tacoma 4WD,Highway,24
+47602,Toyota,Tacoma 4WD,Combined,21
+47603,Ford,F150 Pickup 2WD,City,16
+47603,Ford,F150 Pickup 2WD,Highway,24
+47603,Ford,F150 Pickup 2WD,Combined,19
+47604,Ford,F150 Pickup 2WD,City,17
+47604,Ford,F150 Pickup 2WD,Highway,25
+47604,Ford,F150 Pickup 2WD,Combined,20
+47605,Ford,F150 Pickup 2WD,City,19
+47605,Ford,F150 Pickup 2WD,Highway,25
+47605,Ford,F150 Pickup 2WD,Combined,21
+47606,Ram,1500 Classic 2WD,City,17
+47606,Ram,1500 Classic 2WD,Highway,25
+47606,Ram,1500 Classic 2WD,Combined,20
+47611,Ford,F150 Pickup 4WD,City,18
+47611,Ford,F150 Pickup 4WD,Highway,23
+47611,Ford,F150 Pickup 4WD,Combined,20
+47612,Ford,F150 Pickup 4WD HEV,City,22
+47612,Ford,F150 Pickup 4WD HEV,Highway,24
+47612,Ford,F150 Pickup 4WD HEV,Combined,23
+47613,Ford,Ranger 4WD,City,19
+47613,Ford,Ranger 4WD,Highway,23
+47613,Ford,Ranger 4WD,Combined,20
+47614,Ford,F150 Pickup 4WD,City,16
+47614,Ford,F150 Pickup 4WD,Highway,24
+47614,Ford,F150 Pickup 4WD,Combined,19
+47615,Ford,F150 RAPTOR 4WD,City,14
+47615,Ford,F150 RAPTOR 4WD,Highway,18
+47615,Ford,F150 RAPTOR 4WD,Combined,16
+47616,Ford,F150 Pickup 4WD,City,16
+47616,Ford,F150 Pickup 4WD,Highway,24
+47616,Ford,F150 Pickup 4WD,Combined,19
+47617,Ford,F150 RAPTOR R 4WD,City,10
+47617,Ford,F150 RAPTOR R 4WD,Highway,15
+47617,Ford,F150 RAPTOR R 4WD,Combined,12
+47618,Honda,Ridgeline AWD,City,18
+47618,Honda,Ridgeline AWD,Highway,24
+47618,Honda,Ridgeline AWD,Combined,21
+47619,Honda,Ridgeline AWD TrailSport,City,18
+47619,Honda,Ridgeline AWD TrailSport,Highway,23
+47619,Honda,Ridgeline AWD TrailSport,Combined,20
+47620,Jeep,Gladiator 4WD,City,17
+47620,Jeep,Gladiator 4WD,Highway,22
+47620,Jeep,Gladiator 4WD,Combined,19
+47621,Jeep,Gladiator 4WD,City,16
+47621,Jeep,Gladiator 4WD,Highway,21
+47621,Jeep,Gladiator 4WD,Combined,18
+47622,Ram,1500 Classic 4WD,City,16
+47622,Ram,1500 Classic 4WD,Highway,23
+47622,Ram,1500 Classic 4WD,Combined,19
+47627,Ford,Escape FWD,City,27
+47627,Ford,Escape FWD,Highway,34
+47627,Ford,Escape FWD,Combined,30
+47628,Ford,Escape FWD HEV,City,42
+47628,Ford,Escape FWD HEV,Highway,36
+47628,Ford,Escape FWD HEV,Combined,39
+47629,Hyundai,Santa Fe FWD,City,20
+47629,Hyundai,Santa Fe FWD,Highway,29
+47629,Hyundai,Santa Fe FWD,Combined,24
+47630,Kia,Sorento FWD,City,23
+47630,Kia,Sorento FWD,Highway,31
+47630,Kia,Sorento FWD,Combined,26
+47631,Kia,Sorento FWD,City,20
+47631,Kia,Sorento FWD,Highway,29
+47631,Kia,Sorento FWD,Combined,23
+47632,Lincoln,Corsair FWD,City,22
+47632,Lincoln,Corsair FWD,Highway,30
+47632,Lincoln,Corsair FWD,Combined,25
+47633,Nissan,Rogue FWD,City,30
+47633,Nissan,Rogue FWD,Highway,37
+47633,Nissan,Rogue FWD,Combined,33
+47634,Nissan,Rogue FWD SL/Platinum,City,29
+47634,Nissan,Rogue FWD SL/Platinum,Highway,36
+47634,Nissan,Rogue FWD SL/Platinum,Combined,32
+47635,Toyota,Corolla Cross,City,31
+47635,Toyota,Corolla Cross,Highway,33
+47635,Toyota,Corolla Cross,Combined,32
+47636,Toyota,Highlander Hybrid,City,36
+47636,Toyota,Highlander Hybrid,Highway,35
+47636,Toyota,Highlander Hybrid,Combined,36
+47637,Toyota,Highlander,City,22
+47637,Toyota,Highlander,Highway,29
+47637,Toyota,Highlander,Combined,25
+47638,Toyota,Highlander,City,21
+47638,Toyota,Highlander,Highway,28
+47638,Toyota,Highlander,Combined,24
+47642,Ford,Escape AWD,City,26
+47642,Ford,Escape AWD,Highway,32
+47642,Ford,Escape AWD,Combined,28
+47643,Ford,Escape AWD HEV,City,42
+47643,Ford,Escape AWD HEV,Highway,36
+47643,Ford,Escape AWD HEV,Combined,39
+47644,Ford,Bronco 4WD,City,20
+47644,Ford,Bronco 4WD,Highway,21
+47644,Ford,Bronco 4WD,Combined,20
+47645,Ford,Bronco 4WD,City,20
+47645,Ford,Bronco 4WD,Highway,21
+47645,Ford,Bronco 4WD,Combined,20
+47646,Ford,Bronco Badlands 4WD,City,16
+47646,Ford,Bronco Badlands 4WD,Highway,18
+47646,Ford,Bronco Badlands 4WD,Combined,17
+47647,Ford,Bronco Black Diamond 4WD,City,16
+47647,Ford,Bronco Black Diamond 4WD,Highway,18
+47647,Ford,Bronco Black Diamond 4WD,Combined,17
+47648,Ford,Bronco Black Diamond 4WD,City,18
+47648,Ford,Bronco Black Diamond 4WD,Highway,18
+47648,Ford,Bronco Black Diamond 4WD,Combined,18
+47649,Ford,Bronco Sasquatch 4WD,City,16
+47649,Ford,Bronco Sasquatch 4WD,Highway,18
+47649,Ford,Bronco Sasquatch 4WD,Combined,17
+47650,Ford,Bronco Sasquatch 4WD,City,18
+47650,Ford,Bronco Sasquatch 4WD,Highway,17
+47650,Ford,Bronco Sasquatch 4WD,Combined,18
+47651,Ford,Bronco 4WD,City,19
+47651,Ford,Bronco 4WD,Highway,21
+47651,Ford,Bronco 4WD,Combined,20
+47652,Ford,Bronco Badlands 4WD,City,17
+47652,Ford,Bronco Badlands 4WD,Highway,17
+47652,Ford,Bronco Badlands 4WD,Combined,17
+47653,Ford,Bronco Black Diamond 4WD,City,18
+47653,Ford,Bronco Black Diamond 4WD,Highway,18
+47653,Ford,Bronco Black Diamond 4WD,Combined,18
+47654,Ford,Bronco Sasquatch 4WD,City,17
+47654,Ford,Bronco Sasquatch 4WD,Highway,17
+47654,Ford,Bronco Sasquatch 4WD,Combined,17
+47655,Ford,Escape AWD,City,23
+47655,Ford,Escape AWD,Highway,31
+47655,Ford,Escape AWD,Combined,26
+47656,Hyundai,Santa Fe AWD XRT,City,19
+47656,Hyundai,Santa Fe AWD XRT,Highway,26
+47656,Hyundai,Santa Fe AWD XRT,Combined,22
+47657,Hyundai,Santa Fe AWD,City,20
+47657,Hyundai,Santa Fe AWD,Highway,28
+47657,Hyundai,Santa Fe AWD,Combined,23
+47658,Kia,Sorento AWD,City,23
+47658,Kia,Sorento AWD,Highway,28
+47658,Kia,Sorento AWD,Combined,25
+47659,Kia,Sorento AWD,City,20
+47659,Kia,Sorento AWD,Highway,27
+47659,Kia,Sorento AWD,Combined,23
+47660,Lincoln,Corsair AWD,City,21
+47660,Lincoln,Corsair AWD,Highway,28
+47660,Lincoln,Corsair AWD,Combined,24
+47661,Lincoln,Nautilus AWD,City,21
+47661,Lincoln,Nautilus AWD,Highway,29
+47661,Lincoln,Nautilus AWD,Combined,24
+47662,Lincoln,Nautilus HEV AWD,City,30
+47662,Lincoln,Nautilus HEV AWD,Highway,31
+47662,Lincoln,Nautilus HEV AWD,Combined,30
+47665,Nissan,Rogue AWD,City,28
+47665,Nissan,Rogue AWD,Highway,35
+47665,Nissan,Rogue AWD,Combined,31
+47666,Nissan,Rogue AWD SL/Platinum,City,28
+47666,Nissan,Rogue AWD SL/Platinum,Highway,34
+47666,Nissan,Rogue AWD SL/Platinum,Combined,31
+47667,Toyota,Corolla Cross AWD,City,29
+47667,Toyota,Corolla Cross AWD,Highway,31
+47667,Toyota,Corolla Cross AWD,Combined,30
+47668,Toyota,Corolla Cross Hybrid AWD,City,45
+47668,Toyota,Corolla Cross Hybrid AWD,Highway,38
+47668,Toyota,Corolla Cross Hybrid AWD,Combined,42
+47669,Toyota,Highlander AWD,City,21
+47669,Toyota,Highlander AWD,Highway,28
+47669,Toyota,Highlander AWD,Combined,24
+47670,Chevrolet,Traverse Limited FWD,City,18
+47670,Chevrolet,Traverse Limited FWD,Highway,26
+47670,Chevrolet,Traverse Limited FWD,Combined,21
+47671,Ford,Explorer RWD,City,21
+47671,Ford,Explorer RWD,Highway,28
+47671,Ford,Explorer RWD,Combined,24
+47672,Ford,Explorer RWD,City,18
+47672,Ford,Explorer RWD,Highway,26
+47672,Ford,Explorer RWD,Combined,21
+47673,Ford,Explorer RWD,City,18
+47673,Ford,Explorer RWD,Highway,25
+47673,Ford,Explorer RWD,Combined,20
+47674,Lincoln,Aviator RWD,City,18
+47674,Lincoln,Aviator RWD,Highway,26
+47674,Lincoln,Aviator RWD,Combined,21
+47677,Chevrolet,Traverse Limited AWD,City,17
+47677,Chevrolet,Traverse Limited AWD,Highway,25
+47677,Chevrolet,Traverse Limited AWD,Combined,20
+47678,Ford,Explorer AWD,City,20
+47678,Ford,Explorer AWD,Highway,27
+47678,Ford,Explorer AWD,Combined,23
+47679,Ford,Explorer AWD,City,18
+47679,Ford,Explorer AWD,Highway,24
+47679,Ford,Explorer AWD,Combined,20
+47680,Ford,Explorer AWD,City,18
+47680,Ford,Explorer AWD,Highway,24
+47680,Ford,Explorer AWD,Combined,20
+47681,Ford,Explorer Timberline AWD,City,19
+47681,Ford,Explorer Timberline AWD,Highway,22
+47681,Ford,Explorer Timberline AWD,Combined,21
+47682,Ford,Bronco Raptor 4WD,City,15
+47682,Ford,Bronco Raptor 4WD,Highway,16
+47682,Ford,Bronco Raptor 4WD,Combined,15
+47683,Ford,Explorer FFV AWD,City,17
+47683,Ford,Explorer FFV AWD,Highway,24
+47683,Ford,Explorer FFV AWD,Combined,20
+47687,Lincoln,Aviator AWD,City,17
+47687,Lincoln,Aviator AWD,Highway,24
+47687,Lincoln,Aviator AWD,Combined,20
+47690,Toyota,Highlander Hybrid AWD LTD/PLAT,City,35
+47690,Toyota,Highlander Hybrid AWD LTD/PLAT,Highway,34
+47690,Toyota,Highlander Hybrid AWD LTD/PLAT,Combined,35
+47691,Toyota,Highlander Hybrid AWD,City,35
+47691,Toyota,Highlander Hybrid AWD,Highway,35
+47691,Toyota,Highlander Hybrid AWD,Combined,35
+48453,Lotus,Emira,City,18
+48453,Lotus,Emira,Highway,26
+48453,Lotus,Emira,Combined,21
+48455,Volkswagen,GLI,City,26
+48455,Volkswagen,GLI,Highway,36
+48455,Volkswagen,GLI,Combined,30
+48456,Chevrolet,Malibu,City,28
+48456,Chevrolet,Malibu,Highway,36
+48456,Chevrolet,Malibu,Combined,31
+48458,Ford,F150 Pickup Tremor 4WD,City,16
+48458,Ford,F150 Pickup Tremor 4WD,Highway,21
+48458,Ford,F150 Pickup Tremor 4WD,Combined,18
+48459,Ford,F150 Pickup Tremor 4WD,City,15
+48459,Ford,F150 Pickup Tremor 4WD,Highway,20
+48459,Ford,F150 Pickup Tremor 4WD,Combined,17
+48460,Toyota,Tacoma Hybrid 4WD,City,23
+48460,Toyota,Tacoma Hybrid 4WD,Highway,24
+48460,Toyota,Tacoma Hybrid 4WD,Combined,24
+48461,Toyota,Tacoma Hybrid 4WD,City,22
+48461,Toyota,Tacoma Hybrid 4WD,Highway,24
+48461,Toyota,Tacoma Hybrid 4WD,Combined,23
+48462,Hyundai,Santa Fe Hybrid FWD,City,36
+48462,Hyundai,Santa Fe Hybrid FWD,Highway,35
+48462,Hyundai,Santa Fe Hybrid FWD,Combined,36
+48463,Buick,Envision AWD,City,22
+48463,Buick,Envision AWD,Highway,28
+48463,Buick,Envision AWD,Combined,24
+48464,Hyundai,Santa Fe Hybrid AWD,City,35
+48464,Hyundai,Santa Fe Hybrid AWD,Highway,34
+48464,Hyundai,Santa Fe Hybrid AWD,Combined,34
+48465,Chevrolet,Traverse FWD,City,20
+48465,Chevrolet,Traverse FWD,Highway,27
+48465,Chevrolet,Traverse FWD,Combined,23
+48466,GMC,Acadia FWD,City,20
+48466,GMC,Acadia FWD,Highway,27
+48466,GMC,Acadia FWD,Combined,23
+48467,Chevrolet,Traverse AWD,City,19
+48467,Chevrolet,Traverse AWD,Highway,24
+48467,Chevrolet,Traverse AWD,Combined,21
+48468,GMC,Acadia AWD,City,19
+48468,GMC,Acadia AWD,Highway,24
+48468,GMC,Acadia AWD,Combined,21
+48576,Chevrolet,Colorado 2WD,City,19
+48576,Chevrolet,Colorado 2WD,Highway,24
+48576,Chevrolet,Colorado 2WD,Combined,21
+48577,Chevrolet,Colorado 4WD,City,18
+48577,Chevrolet,Colorado 4WD,Highway,23
+48577,Chevrolet,Colorado 4WD,Combined,20

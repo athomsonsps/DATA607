@@ -1,0 +1,134 @@
+---
+title: "Project 2 USGS Earthquake Depth Measurements"
+author: "Andre Thomson"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Show R code"
+    theme: flatly
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Approach
+
+I downloaded the USGS earthquake records for January 2025, keeping earthquakes with a magnitude of at least 4.5. I used the depth and depth-error columns for this part. I changed those two columns into long format and checked how many values were missing. They both use kilometers, but depth and depth error mean different things.
+
+## Load packages and create output folders
+
+```{r setup}
+library(tidyverse)
+library(knitr)
+
+# Each report must run from a fresh R session.
+dir.create("data/tidy", recursive = TRUE, showWarnings = FALSE)
+```
+
+## Source and data before tidying
+
+Official CSV query: [USGS January 2025 magnitude 4.5+ earthquakes](https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2025-01-01&endtime=2025-02-01&minmagnitude=4.5&orderby=time). The original download is saved without changes in `data/raw/`.
+
+```{r usgs-import}
+# Read the untouched USGS query output from the project data folder.
+raw <- read_csv("data/raw/02_usgs_2025_january_earthquakes.csv", show_col_types = FALSE)
+# Check that the variables needed for this analysis are present.
+required <- c("id", "time", "mag", "place", "depth", "depthError")
+stopifnot(all(required %in% names(raw)), nrow(raw) > 0, !anyDuplicated(raw$id))
+raw_n <- nrow(raw)
+cat("Original rows:", raw_n, " Columns:", ncol(raw), "\n")
+kable(head(raw %>% select(all_of(required)), 6), digits = 2)
+```
+
+## Transform wide columns into tidy measurements
+
+I renamed the depth columns, then used `pivot_longer()` to put the measurements under one value column. I left missing depth-error values as `NA` if any occurred, rather than replacing them with zero. In this downloaded file, the missing-value check found none for depth error. Depth and its uncertainty remain separate measurement types.
+
+```{r usgs-tidy}
+# Keep event identifiers and context before reshaping the two depth-related columns.
+tidy <- raw %>%
+  select(id, time, mag, place, depth, depthError) %>%
+  # Rename source fields so the kilometer units are clear.
+  rename(depth_km = depth, depth_uncertainty_km = depthError) %>%
+  # Keep measurement type as a variable; depth and its uncertainty are not equivalent.
+  pivot_longer(
+    cols = c(depth_km, depth_uncertainty_km),
+    names_to = "measurement", values_to = "kilometers"
+  ) %>%
+  mutate(measurement = recode(measurement,
+    depth_km = "Estimated depth",
+    depth_uncertainty_km = "Depth uncertainty"))
+# Each event should contribute two tidy rows, even when depth error is missing.
+stopifnot(nrow(tidy) == 2 * raw_n, n_distinct(tidy$id) == raw_n)
+dir.create("data/tidy", recursive = TRUE, showWarnings = FALSE)
+# Keep missing uncertainty values as NA; do not make up zeros.
+# Export the tidy result after the output folder is created in setup.
+write_csv(tidy, "data/tidy/02_usgs_depth_tidy.csv")
+kable(tidy %>%
+  group_by(measurement) %>%
+  summarise(records = n(), missing_values = sum(is.na(kilometers)),
+            median_km = median(kilometers, na.rm = TRUE), .groups = "drop"),
+  digits = 2, caption = "Measurement counts and missing values")
+```
+
+## Analysis of the tidy data
+
+I used two panels in the chart so I could look at the depths and the depth errors separately. They measure different things, so I did not put them on one shared scale.
+
+```{r usgs-analysis}
+# Exclude missing and negative values from the histogram only, not from saved tidy data.
+plot_data <- tidy %>% filter(!is.na(kilometers), kilometers >= 0)
+# Adapt the R Graph Gallery histogram/faceting examples: each continuous measure gets
+# a colored histogram and its own horizontal scale, with 25 bins in each panel.
+ggplot(plot_data, aes(x = kilometers, fill = measurement)) +
+  geom_histogram(bins = 25, color = "white", linewidth = 0.2, alpha = 0.9) +
+  facet_wrap(~measurement, scales = "free_x", ncol = 2) +
+  scale_fill_manual(values = c("Estimated depth" = "#2671AF",
+                               "Depth uncertainty" = "#E29B32")) +
+  guides(fill = "none") +
+  labs(title = "Earthquake depth and uncertainty, January 2025",
+       subtitle = "Global USGS catalog, magnitude 4.5 or greater",
+       x = "Kilometers", y = "Number of observations",
+       caption = "Source: U.S. Geological Survey Earthquake Catalog") +
+  theme_minimal()
+```
+
+## Conclusion
+
+```{r usgs-conclusion, results='asis'}
+# Get the medians and missing counts from tidy records for the written conclusion.
+summary_usgs <- tidy %>% group_by(measurement) %>%
+  summarise(median_km = median(kilometers, na.rm = TRUE),
+            missing = sum(is.na(kilometers)), .groups = "drop")
+cat(sprintf("I found **%s earthquakes** in this USGS file. The median depth is **%.2f km**, and the median reported depth error is **%.2f km**. There are **%s** missing depth-error values. These numbers apply to the January 2025 events I selected, not every earthquake.\n",
+            format(raw_n, big.mark=","),
+            summary_usgs$median_km[summary_usgs$measurement == "Estimated depth"],
+            summary_usgs$median_km[summary_usgs$measurement == "Depth uncertainty"],
+            summary_usgs$missing[summary_usgs$measurement == "Depth uncertainty"]))
+```
+
+## Data checks and limits
+
+The original file contains **655 events**. In this file, **no depth-error values are missing**. I still check for missing entries in the code because another USGS download might be different. The histogram only plots nonmissing, nonnegative measurements, while the exported tidy CSV keeps the original values. The two plots have different horizontal scales, so bar positions and widths should not be compared directly between panels.
+
+## Visualization reference
+
+I used the R Graph Gallery's histogram and faceting examples to guide the two-panel layout and binning. The Data Digest tutorial explains continuous distributions and shows `facet_wrap()`. Depth and uncertainty have their own panels and scales, so the plot does not treat them as the same measurement.
+
+## Reference
+
+U.S. Geological Survey. (n.d.). *Earthquake Catalog: FDSN event web service*. https://earthquake.usgs.gov/fdsnws/event/1/
+
+The R Graph Gallery. (n.d.). *Histogram*. https://r-graph-gallery.com/histogram
+
+The R Graph Gallery. (n.d.). *Faceting with ggplot2*. https://r-graph-gallery.com/223-faceting-with-ggplot2
+
+The Data Digest. (2021, May 14). *Histograms in R with ggplot and geom_histogram() [R-Graph Gallery tutorial]* [Video]. YouTube. https://www.youtube.com/watch?v=onEumD5xUOE
+
+## AI assistance
+
+I used ChatGPT to help organize and review the R code and presentation notes. The earthquake observations were downloaded from USGS, not generated.

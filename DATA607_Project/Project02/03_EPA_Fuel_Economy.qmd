@@ -1,0 +1,134 @@
+---
+title: "Project 2 EPA 2024 Vehicle Fuel Economy"
+author: "Andre Thomson"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Show R code"
+    theme: flatly
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Approach
+
+I used the EPA vehicle file and kept the original CSV as downloaded. I narrowed the analysis to 2024 vehicles that use regular gasoline. Then I used `pivot_longer()` to put city, highway, and combined MPG into one column so I could compare them.
+
+## Load packages and create output folders
+
+```{r setup}
+library(tidyverse)
+library(knitr)
+
+# Each report must run from a fresh R session.
+dir.create("data/tidy", recursive = TRUE, showWarnings = FALSE)
+```
+
+## Source and data before tidying
+
+Official source: [EPA FuelEconomy.gov vehicle CSV](https://www.fueleconomy.gov/feg/epadata/vehicles.csv). The raw CSV is preserved in `data/raw/`.
+
+```{r epa-import}
+# Load the full EPA CSV without changing the original data file.
+raw <- read_csv("data/raw/03_epa_vehicles_original.csv", show_col_types = FALSE)
+# Fail early if the EPA file does not have the fields used below.
+required <- c("id", "year", "make", "model", "fuelType1", "city08", "highway08", "comb08")
+stopifnot(all(required %in% names(raw)), nrow(raw) > 0)
+cat("Original rows:", nrow(raw), " Columns:", ncol(raw), "\n")
+kable(head(raw %>% select(all_of(required)), 6))
+```
+
+## Filter and transform the wide columns
+
+I kept records with positive city, highway, and combined MPG values and checked for repeated vehicle IDs. I did not fill in any missing MPG ratings. The three columns describe different EPA tests, so I kept the test type as a label.
+
+```{r epa-tidy}
+# Keep comparable 2024 regular-gasoline configurations with usable MPG ratings.
+selected <- raw %>%
+  # Missing or zero MPG is excluded rather than treated as an actual rating.
+  filter(year == 2024, fuelType1 == "Regular Gasoline",
+         !is.na(city08), !is.na(highway08), !is.na(comb08),
+         city08 > 0, highway08 > 0, comb08 > 0) %>%
+  select(id, make, model, city08, highway08, comb08)
+# An EPA ID identifies a configuration, so check it is not duplicated.
+stopifnot(nrow(selected) > 0, n_distinct(selected$id) == nrow(selected))
+selected_n <- nrow(selected)
+# Move city, highway, and combined MPG columns into one measured value column.
+tidy <- selected %>%
+  # Keep the driving-cycle label so the three kinds of MPG remain distinguishable.
+  pivot_longer(
+    cols = c(city08, highway08, comb08),
+    names_to = "driving_cycle", values_to = "mpg"
+  ) %>%
+  mutate(driving_cycle = recode(driving_cycle,
+    city08 = "City", highway08 = "Highway", comb08 = "Combined"))
+# Every selected configuration should produce exactly three tidy observations.
+stopifnot(nrow(tidy) == 3 * selected_n, !anyNA(tidy$mpg), all(tidy$mpg > 0))
+dir.create("data/tidy", recursive = TRUE, showWarnings = FALSE)
+# Export the transformed data; setup creates data/tidy automatically.
+write_csv(tidy, "data/tidy/03_epa_fuel_economy_tidy.csv")
+# Calculate means and medians by driving cycle from the tidy rows only.
+summary_table <- tidy %>% group_by(driving_cycle) %>%
+  summarise(configurations = n(), average_mpg = mean(mpg),
+            median_mpg = median(mpg), .groups = "drop")
+kable(summary_table, digits = 2,
+      col.names = c("Driving cycle", "Configurations", "Average MPG", "Median MPG"))
+```
+
+## Analysis of the tidy data
+
+The averages come from EPA ratings for listed vehicle configurations. They do not tell us how many cars were sold or what drivers actually get on the road.
+
+```{r epa-analysis}
+# Adapt R Graph Gallery ggplot2 fill-color examples to distinguish the three
+# driving-cycle means; label the actual calculated MPG above each bar.
+ggplot(summary_table, aes(driving_cycle, average_mpg, fill = driving_cycle)) +
+  geom_col(width = .65, color = "white", linewidth = 0.4) +
+  geom_text(aes(label = sprintf("%.1f MPG", average_mpg)),
+            vjust = -0.5, size = 3.7, show.legend = FALSE) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.13))) +
+  scale_fill_manual(values = c("City" = "#2671AF", "Highway" = "#137E8A", "Combined" = "#E29B32")) +
+  guides(fill = "none") +
+  labs(title = "EPA fuel economy by driving cycle",
+       subtitle = "2024 regular-gasoline vehicle configurations",
+       x = NULL, y = "Mean EPA rating (miles per gallon)",
+       caption = "Source: EPA FuelEconomy.gov vehicle data") +
+  theme_minimal()
+```
+
+## Conclusion
+
+```{r epa-conclusion, results='asis'}
+# Pull the calculated values into the conclusion instead of typing results by hand.
+find_mean <- function(cycle) summary_table$average_mpg[match(cycle, summary_table$driving_cycle)]
+cat(sprintf("The EPA file has **%s rows**. After filtering, **%s vehicle configurations** matched my criteria. The average ratings are **%.2f city MPG**, **%.2f highway MPG**, and **%.2f combined MPG**. These are test ratings across the listed configurations, not real-world MPG or sales averages.\n",
+            format(nrow(raw), big.mark=","), format(selected_n, big.mark=","),
+            find_mean("City"), find_mean("Highway"), find_mean("Combined")))
+```
+
+## Data checks and limits
+
+The original CSV has **50,407 vehicle records** and the filter keeps **450 configurations**. The averages are calculated across vehicle configurations, with one city, highway, and combined MPG value per selected configuration. They are not weighted by how many vehicles were sold, so the result describes this subset of EPA ratings rather than average fuel economy on U.S. roads.
+
+## Visualization reference
+
+I used the R Graph Gallery's ggplot2 color examples to set separate fills for city, highway, and combined MPG. The DataDaft tutorial covers grouped and stacked bar charts as a learning reference. My plot is not grouped or stacked because each driving cycle has one average MPG; three side-by-side category bars are clearer.
+
+## Reference
+
+U.S. Environmental Protection Agency. (n.d.). *Fuel economy data: Downloadable vehicle data*. https://www.fueleconomy.gov/feg/epadata/vehicles.csv
+
+The R Graph Gallery. (n.d.). *Dealing with color in ggplot2*. https://r-graph-gallery.com/ggplot2-color.html
+
+The R Graph Gallery. (n.d.). *Grouped, stacked and percent stacked barplot in ggplot2*. https://r-graph-gallery.com/48-grouped-barplot-with-ggplot2
+
+DataDaft. (2019, October 15). *Stacked and grouped bar plots in R* [Video]. YouTube. https://www.youtube.com/watch?v=9JAHYVd3S3k
+
+## AI assistance
+
+I used ChatGPT to help organize and review the R code and presentation notes. The original ratings come from EPA and were not generated.

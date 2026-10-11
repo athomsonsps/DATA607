@@ -1,0 +1,1311 @@
+id,time,mag,place,measurement,kilometers
+us7000pc44,2025-01-31T23:57:39Z,4.5,"74 km WNW of Lata, Solomon Islands",Estimated depth,49.061
+us7000pc44,2025-01-31T23:57:39Z,4.5,"74 km WNW of Lata, Solomon Islands",Depth uncertainty,9.471
+us7000pai0,2025-01-31T23:19:31Z,4.9,"30 km NNE of Attu Station, Alaska",Estimated depth,10
+us7000pai0,2025-01-31T23:19:31Z,4.9,"30 km NNE of Attu Station, Alaska",Depth uncertainty,1.868
+us7000pahy,2025-01-31T23:02:28Z,5.5,"32 km W of Archidona, Ecuador",Estimated depth,8
+us7000pahy,2025-01-31T23:02:28Z,5.5,"32 km W of Archidona, Ecuador",Depth uncertainty,1.863
+us7000pagf,2025-01-31T19:50:08Z,4.7,"135 km ENE of Hihifo, Tonga",Estimated depth,10
+us7000pagf,2025-01-31T19:50:08Z,4.7,"135 km ENE of Hihifo, Tonga",Depth uncertainty,1.827
+us7000pafc,2025-01-31T18:11:11Z,4.5,Banda Sea,Estimated depth,164.158
+us7000pafc,2025-01-31T18:11:11Z,4.5,Banda Sea,Depth uncertainty,7.368
+us7000pc41,2025-01-31T17:08:00Z,4.5,"138 km ESE of Kirakira, Solomon Islands",Estimated depth,10
+us7000pc41,2025-01-31T17:08:00Z,4.5,"138 km ESE of Kirakira, Solomon Islands",Depth uncertainty,1.882
+us7000pabn,2025-01-31T15:58:07Z,5,"Kermadec Islands, New Zealand",Estimated depth,10
+us7000pabn,2025-01-31T15:58:07Z,5,"Kermadec Islands, New Zealand",Depth uncertainty,1.757
+us7000pacz,2025-01-31T14:04:02Z,4.7,South Sandwich Islands region,Estimated depth,10
+us7000pacz,2025-01-31T14:04:02Z,4.7,South Sandwich Islands region,Depth uncertainty,1.679
+us7000paai,2025-01-31T12:04:10Z,5.4,"145 km E of Kirakira, Solomon Islands",Estimated depth,10
+us7000paai,2025-01-31T12:04:10Z,5.4,"145 km E of Kirakira, Solomon Islands",Depth uncertainty,1.858
+us7000pa9d,2025-01-31T11:03:41Z,5.7,"58 km SSE of Blangpidie, Indonesia",Estimated depth,53
+us7000pa9d,2025-01-31T11:03:41Z,5.7,"58 km SSE of Blangpidie, Indonesia",Depth uncertainty,1.934
+us7000pc3p,2025-01-31T09:23:00Z,4.5,"32 km NNW of Āwash, Ethiopia",Estimated depth,10
+us7000pc3p,2025-01-31T09:23:00Z,4.5,"32 km NNW of Āwash, Ethiopia",Depth uncertainty,1.703
+us7000pc45,2025-01-31T09:22:18Z,4.5,"24 km N of Āwash, Ethiopia",Estimated depth,10
+us7000pc45,2025-01-31T09:22:18Z,4.5,"24 km N of Āwash, Ethiopia",Depth uncertainty,2.006
+us7000pa8q,2025-01-31T09:10:20Z,4.6,"90 km NNW of Hirara, Japan",Estimated depth,120.722
+us7000pa8q,2025-01-31T09:10:20Z,4.6,"90 km NNW of Hirara, Japan",Depth uncertainty,5.843
+us7000pa8p,2025-01-31T09:04:50Z,5.7,central Mid-Atlantic Ridge,Estimated depth,10
+us7000pa8p,2025-01-31T09:04:50Z,5.7,central Mid-Atlantic Ridge,Depth uncertainty,1.768
+us7000pc3l,2025-01-31T07:58:51Z,4.5,Kermadec Islands region,Estimated depth,10
+us7000pc3l,2025-01-31T07:58:51Z,4.5,Kermadec Islands region,Depth uncertainty,1.94
+us7000pa85,2025-01-31T07:07:57Z,4.5,"116 km SSW of Pagar Alam, Indonesia",Estimated depth,50.249
+us7000pa85,2025-01-31T07:07:57Z,4.5,"116 km SSW of Pagar Alam, Indonesia",Depth uncertainty,8.699
+us7000pc3f,2025-01-31T00:19:28Z,4.5,"Bonin Islands, Japan region",Estimated depth,10
+us7000pc3f,2025-01-31T00:19:28Z,4.5,"Bonin Islands, Japan region",Depth uncertainty,1.913
+us7000pa6w,2025-01-31T00:08:04Z,4.5,Mauritius - Reunion region,Estimated depth,10
+us7000pa6w,2025-01-31T00:08:04Z,4.5,Mauritius - Reunion region,Depth uncertainty,1.904
+us7000pa8c,2025-01-30T23:24:40Z,4.6,northern East Pacific Rise,Estimated depth,10
+us7000pa8c,2025-01-30T23:24:40Z,4.6,northern East Pacific Rise,Depth uncertainty,1.969
+us7000pa6e,2025-01-30T22:17:13Z,4.5,"15 km WNW of Mazo Cruz, Peru",Estimated depth,168.741
+us7000pa6e,2025-01-30T22:17:13Z,4.5,"15 km WNW of Mazo Cruz, Peru",Depth uncertainty,6.336
+us7000pa5e,2025-01-30T19:48:44Z,4.5,"4 km ENE of Manikling, Philippines",Estimated depth,76.662
+us7000pa5e,2025-01-30T19:48:44Z,4.5,"4 km ENE of Manikling, Philippines",Depth uncertainty,6.72
+us7000pa15,2025-01-30T12:51:07Z,4.6,"73 km NW of Mohr, Iran",Estimated depth,10
+us7000pa15,2025-01-30T12:51:07Z,4.6,"73 km NW of Mohr, Iran",Depth uncertainty,1.875
+us7000pa0q,2025-01-30T10:23:23Z,4.5,"35 km S of Monkey Bay, Malawi",Estimated depth,10
+us7000pa0q,2025-01-30T10:23:23Z,4.5,"35 km S of Monkey Bay, Malawi",Depth uncertainty,1.874
+us7000pa1j,2025-01-30T10:10:05Z,4.5,"81 km SSW of Fīrūzābād, Iran",Estimated depth,10
+us7000pa1j,2025-01-30T10:10:05Z,4.5,"81 km SSW of Fīrūzābād, Iran",Depth uncertainty,1.888
+us7000pa0b,2025-01-30T08:37:42Z,4.5,"13 km WNW of Rāmshīr, Iran",Estimated depth,10
+us7000pa0b,2025-01-30T08:37:42Z,4.5,"13 km WNW of Rāmshīr, Iran",Depth uncertainty,1.878
+us7000p9zz,2025-01-30T07:16:17Z,5,"12 km ENE of Yujing, Taiwan",Estimated depth,10
+us7000p9zz,2025-01-30T07:16:17Z,5,"12 km ENE of Yujing, Taiwan",Depth uncertainty,1.845
+us7000p9zc,2025-01-30T05:03:43Z,4.6,"3 km S of Jordán, Colombia",Estimated depth,160.532
+us7000p9zc,2025-01-30T05:03:43Z,4.6,"3 km S of Jordán, Colombia",Depth uncertainty,5.049
+ak0251doqqfp,2025-01-30T04:40:08Z,5.2,"13 km WSW of Takotna, Alaska",Estimated depth,10.4
+ak0251doqqfp,2025-01-30T04:40:08Z,5.2,"13 km WSW of Takotna, Alaska",Depth uncertainty,0.2
+us7000p9z1,2025-01-30T04:27:58Z,4.6,Xizang-Qinghai border region,Estimated depth,10
+us7000p9z1,2025-01-30T04:27:58Z,4.6,Xizang-Qinghai border region,Depth uncertainty,1.908
+tx2025cbgl,2025-01-30T03:26:36Z,4.6,"18 km ENE of Falls City, Texas",Estimated depth,6.8365
+tx2025cbgl,2025-01-30T03:26:36Z,4.6,"18 km ENE of Falls City, Texas",Depth uncertainty,0.7409669559
+us7000p9yk,2025-01-30T02:18:23Z,5.1,"128 km SE of Sanana, Indonesia",Estimated depth,10
+us7000p9yk,2025-01-30T02:18:23Z,5.1,"128 km SE of Sanana, Indonesia",Depth uncertainty,1.887
+us7000p9yj,2025-01-30T02:11:53Z,5.1,"12 km ENE of Yujing, Taiwan",Estimated depth,10
+us7000p9yj,2025-01-30T02:11:53Z,5.1,"12 km ENE of Yujing, Taiwan",Depth uncertainty,1.808
+us7000p9wr,2025-01-29T20:03:54Z,4.9,"186 km SE of Kokopo, Papua New Guinea",Estimated depth,35
+us7000p9wr,2025-01-29T20:03:54Z,4.9,"186 km SE of Kokopo, Papua New Guinea",Depth uncertainty,1.921
+us7000pbum,2025-01-29T16:03:16Z,4.5,western Indian-Antarctic Ridge,Estimated depth,10
+us7000pbum,2025-01-29T16:03:16Z,4.5,western Indian-Antarctic Ridge,Depth uncertainty,1.94
+us7000pbun,2025-01-29T16:02:19Z,4.5,western Indian-Antarctic Ridge,Estimated depth,10
+us7000pbun,2025-01-29T16:02:19Z,4.5,western Indian-Antarctic Ridge,Depth uncertainty,1.968
+us7000p9up,2025-01-29T15:20:28Z,4.6,south of the Kermadec Islands,Estimated depth,10
+us7000p9up,2025-01-29T15:20:28Z,4.6,south of the Kermadec Islands,Depth uncertainty,1.947
+us7000p9u5,2025-01-29T12:29:38Z,4.5,"143 km SSE of Tuapejat, Indonesia",Estimated depth,11.081
+us7000p9u5,2025-01-29T12:29:38Z,4.5,"143 km SSE of Tuapejat, Indonesia",Depth uncertainty,5.229
+us7000pbud,2025-01-29T04:37:29Z,4.6,"11 km S of San Pablo, Philippines",Estimated depth,10
+us7000pbud,2025-01-29T04:37:29Z,4.6,"11 km S of San Pablo, Philippines",Depth uncertainty,1.914
+us7000p9rj,2025-01-29T04:11:21Z,4.8,"11 km NW of Mariposa, Peru",Estimated depth,92.443
+us7000p9rj,2025-01-29T04:11:21Z,4.8,"11 km NW of Mariposa, Peru",Depth uncertainty,6.683
+us7000p9rh,2025-01-29T03:51:41Z,4.7,"84 km W of Kendari, Indonesia",Estimated depth,6.49
+us7000p9rh,2025-01-29T03:51:41Z,4.7,"84 km W of Kendari, Indonesia",Depth uncertainty,4.629
+us7000p9r3,2025-01-29T01:56:42Z,4.5,"12 km NNW of San Isidro, Philippines",Estimated depth,10
+us7000p9r3,2025-01-29T01:56:42Z,4.5,"12 km NNW of San Isidro, Philippines",Depth uncertainty,1.888
+us7000p9qx,2025-01-29T01:32:59Z,5.2,South Atlantic Ocean,Estimated depth,10
+us7000p9qx,2025-01-29T01:32:59Z,5.2,South Atlantic Ocean,Depth uncertainty,1.85
+us7000p9qm,2025-01-29T00:50:41Z,5,"71 km W of Kendari, Indonesia",Estimated depth,10.08
+us7000p9qm,2025-01-29T00:50:41Z,5,"71 km W of Kendari, Indonesia",Depth uncertainty,3.682
+us7000pblz,2025-01-28T21:38:35Z,4.8,Southwest Indian Ridge,Estimated depth,10
+us7000pblz,2025-01-28T21:38:35Z,4.8,Southwest Indian Ridge,Depth uncertainty,1.917
+us7000p9p7,2025-01-28T21:06:28Z,5,"13 km N of Neiafu, Tonga",Estimated depth,38.759
+us7000p9p7,2025-01-28T21:06:28Z,5,"13 km N of Neiafu, Tonga",Depth uncertainty,7.852
+us7000p9p0,2025-01-28T20:22:52Z,4.5,"22 km N of Āwash, Ethiopia",Estimated depth,10
+us7000p9p0,2025-01-28T20:22:52Z,4.5,"22 km N of Āwash, Ethiopia",Depth uncertainty,1.882
+us7000pbm4,2025-01-28T19:39:55Z,4.5,southeast of Easter Island,Estimated depth,10
+us7000pbm4,2025-01-28T19:39:55Z,4.5,southeast of Easter Island,Depth uncertainty,1.882
+us7000p9nd,2025-01-28T18:03:49Z,4.5,Mariana Islands region,Estimated depth,302.385
+us7000p9nd,2025-01-28T18:03:49Z,4.5,Mariana Islands region,Depth uncertainty,6.107
+us7000p9n3,2025-01-28T17:00:09Z,4.8,"81 km W of Kendari, Indonesia",Estimated depth,10.94
+us7000p9n3,2025-01-28T17:00:09Z,4.8,"81 km W of Kendari, Indonesia",Depth uncertainty,4.626
+us7000p9n5,2025-01-28T16:51:17Z,4.8,"33 km WSW of Villa Basilio Nievas, Argentina",Estimated depth,110.024
+us7000p9n5,2025-01-28T16:51:17Z,4.8,"33 km WSW of Villa Basilio Nievas, Argentina",Depth uncertainty,2.989
+us7000pblu,2025-01-28T15:56:42Z,4.6,"81 km E of Hihifo, Tonga",Estimated depth,10
+us7000pblu,2025-01-28T15:56:42Z,4.6,"81 km E of Hihifo, Tonga",Depth uncertainty,1.874
+us6000pmsr,2025-01-28T14:53:34Z,5.4,"208 km W of Gorontalo, Indonesia",Estimated depth,99.753
+us6000pmsr,2025-01-28T14:53:34Z,5.4,"208 km W of Gorontalo, Indonesia",Depth uncertainty,3.536
+us6000pmsg,2025-01-28T13:37:03Z,4.9,"42 km WSW of Mountain, Colombia",Estimated depth,10
+us6000pmsg,2025-01-28T13:37:03Z,4.9,"42 km WSW of Mountain, Colombia",Depth uncertainty,1.82
+us6000pmru,2025-01-28T10:26:32Z,5.2,"22 km NE of Kopuaranga, New Zealand",Estimated depth,46.425
+us6000pmru,2025-01-28T10:26:32Z,5.2,"22 km NE of Kopuaranga, New Zealand",Depth uncertainty,3.764
+us6000pmrw,2025-01-28T10:23:33Z,5.2,"Kermadec Islands, New Zealand",Estimated depth,62.824
+us6000pmrw,2025-01-28T10:23:33Z,5.2,"Kermadec Islands, New Zealand",Depth uncertainty,6.632
+us6000pmrp,2025-01-28T09:53:59Z,4.9,northwest of New Zealand,Estimated depth,10
+us6000pmrp,2025-01-28T09:53:59Z,4.9,northwest of New Zealand,Depth uncertainty,1.913
+us6000pmri,2025-01-28T09:09:07Z,4.6,"204 km ESE of Tobi Village, Palau",Estimated depth,10
+us6000pmri,2025-01-28T09:09:07Z,4.6,"204 km ESE of Tobi Village, Palau",Depth uncertainty,1.879
+us6000pmr8,2025-01-28T07:57:41Z,4.6,"8 km NNW of El Palmarcito, Mexico",Estimated depth,94.772
+us6000pmr8,2025-01-28T07:57:41Z,4.6,"8 km NNW of El Palmarcito, Mexico",Depth uncertainty,7.271
+us6000pmqw,2025-01-28T06:52:38Z,5.8,Kermadec Islands region,Estimated depth,13
+us6000pmqw,2025-01-28T06:52:38Z,5.8,Kermadec Islands region,Depth uncertainty,1.796
+us6000pmqy,2025-01-28T06:49:17Z,4.7,West Chile Rise,Estimated depth,10
+us6000pmqy,2025-01-28T06:49:17Z,4.7,West Chile Rise,Depth uncertainty,1.955
+us6000pmqt,2025-01-28T06:20:26Z,4.7,"186 km E of Korsakov, Russia",Estimated depth,10
+us6000pmqt,2025-01-28T06:20:26Z,4.7,"186 km E of Korsakov, Russia",Depth uncertainty,1.859
+us6000pmqh,2025-01-28T05:09:28Z,5,"58 km S of Paracas, Peru",Estimated depth,12.355
+us6000pmqh,2025-01-28T05:09:28Z,5,"58 km S of Paracas, Peru",Depth uncertainty,3.782
+us6000pmqc,2025-01-28T04:19:38Z,4.7,Southwest Indian Ridge,Estimated depth,10
+us6000pmqc,2025-01-28T04:19:38Z,4.7,Southwest Indian Ridge,Depth uncertainty,1.873
+us7000pbld,2025-01-28T03:02:39Z,4.6,"151 km N of Fais, Micronesia",Estimated depth,10
+us7000pbld,2025-01-28T03:02:39Z,4.6,"151 km N of Fais, Micronesia",Depth uncertainty,1.845
+us6000pmpq,2025-01-28T00:59:48Z,5.6,southeast of Easter Island,Estimated depth,10
+us6000pmpq,2025-01-28T00:59:48Z,5.6,southeast of Easter Island,Depth uncertainty,1.728
+us6000pmpi,2025-01-28T00:29:10Z,5.1,southeast of Easter Island,Estimated depth,10
+us6000pmpi,2025-01-28T00:29:10Z,5.1,southeast of Easter Island,Depth uncertainty,1.808
+us6000pmnt,2025-01-27T22:41:47Z,4.6,"163 km WNW of Gorontalo, Indonesia",Estimated depth,35
+us6000pmnt,2025-01-27T22:41:47Z,4.6,"163 km WNW of Gorontalo, Indonesia",Depth uncertainty,1.934
+us7000pbi6,2025-01-27T19:48:37Z,4.7,South Sandwich Islands region,Estimated depth,10
+us7000pbi6,2025-01-27T19:48:37Z,4.7,South Sandwich Islands region,Depth uncertainty,1.905
+us6000pmmd,2025-01-27T19:26:05Z,4.6,"283 km ESE of Levuka, Fiji",Estimated depth,524.55
+us6000pmmd,2025-01-27T19:26:05Z,4.6,"283 km ESE of Levuka, Fiji",Depth uncertainty,7.247
+us6000pmm9,2025-01-27T19:01:00Z,4.8,Kermadec Islands region,Estimated depth,35
+us6000pmm9,2025-01-27T19:01:00Z,4.8,Kermadec Islands region,Depth uncertainty,1.97
+us6000pmm1,2025-01-27T18:08:55Z,4.5,"176 km SSE of Kokopo, Papua New Guinea",Estimated depth,10
+us6000pmm1,2025-01-27T18:08:55Z,4.5,"176 km SSE of Kokopo, Papua New Guinea",Depth uncertainty,1.92
+us6000pmlw,2025-01-27T17:37:40Z,4.5,"99 km E of Masamba, Indonesia",Estimated depth,9.712
+us6000pmlw,2025-01-27T17:37:40Z,4.5,"99 km E of Masamba, Indonesia",Depth uncertainty,4.498
+us6000pmjt,2025-01-27T14:51:23Z,5.3,"Pagan region, Northern Mariana Islands",Estimated depth,143.939
+us6000pmjt,2025-01-27T14:51:23Z,5.3,"Pagan region, Northern Mariana Islands",Depth uncertainty,4.305
+us7000pbhr,2025-01-27T13:17:55Z,4.5,"33 km WNW of Vanimo, Papua New Guinea",Estimated depth,24.124
+us7000pbhr,2025-01-27T13:17:55Z,4.5,"33 km WNW of Vanimo, Papua New Guinea",Depth uncertainty,5.788
+us6000pmje,2025-01-27T10:50:12Z,4.9,"270 km ENE of Lospalos, Timor Leste",Estimated depth,125.047
+us6000pmje,2025-01-27T10:50:12Z,4.9,"270 km ENE of Lospalos, Timor Leste",Depth uncertainty,4.727
+us6000pmj5,2025-01-27T09:33:37Z,4.8,"97 km NE of Lobuche, Nepal",Estimated depth,10
+us6000pmj5,2025-01-27T09:33:37Z,4.8,"97 km NE of Lobuche, Nepal",Depth uncertainty,1.869
+us7000pbhh,2025-01-27T08:46:15Z,4.7,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pbhh,2025-01-27T08:46:15Z,4.7,southern Mid-Atlantic Ridge,Depth uncertainty,1.928
+us6000pmiy,2025-01-27T07:38:27Z,4.7,"36 km NNE of Āwash, Ethiopia",Estimated depth,10
+us6000pmiy,2025-01-27T07:38:27Z,4.7,"36 km NNE of Āwash, Ethiopia",Depth uncertainty,1.896
+us6000pmix,2025-01-27T06:55:03Z,5.1,"24 km W of Port-Vila, Vanuatu",Estimated depth,35
+us6000pmix,2025-01-27T06:55:03Z,5.1,"24 km W of Port-Vila, Vanuatu",Depth uncertainty,1.845
+us6000pmiv,2025-01-27T06:40:43Z,4.5,"9 km NW of Alamada, Philippines",Estimated depth,399.952
+us6000pmiv,2025-01-27T06:40:43Z,4.5,"9 km NW of Alamada, Philippines",Depth uncertainty,3.417
+us7000pbhn,2025-01-27T05:25:04Z,4.6,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pbhn,2025-01-27T05:25:04Z,4.6,southern Mid-Atlantic Ridge,Depth uncertainty,1.912
+us7000pbha,2025-01-27T05:09:21Z,4.5,"41 km W of Agat Village, Guam",Estimated depth,158.434
+us7000pbha,2025-01-27T05:09:21Z,4.5,"41 km W of Agat Village, Guam",Depth uncertainty,5.849
+us6000pmii,2025-01-27T05:06:46Z,4.5,"32 km ESE of Miyazaki, Japan",Estimated depth,52.085
+us6000pmii,2025-01-27T05:06:46Z,4.5,"32 km ESE of Miyazaki, Japan",Depth uncertainty,7.383
+us7000pbh7,2025-01-27T04:30:38Z,4.6,western Indian-Antarctic Ridge,Estimated depth,10
+us7000pbh7,2025-01-27T04:30:38Z,4.6,western Indian-Antarctic Ridge,Depth uncertainty,1.732
+us6000pmi4,2025-01-27T03:06:18Z,4.9,western Indian-Antarctic Ridge,Estimated depth,10
+us6000pmi4,2025-01-27T03:06:18Z,4.9,western Indian-Antarctic Ridge,Depth uncertainty,1.9
+us6000pmhw,2025-01-27T01:56:30Z,4.5,"6 km E of Tulagi, Solomon Islands",Estimated depth,86.926
+us6000pmhw,2025-01-27T01:56:30Z,4.5,"6 km E of Tulagi, Solomon Islands",Depth uncertainty,5.494
+us6000pmht,2025-01-27T01:48:51Z,4.8,"51 km SW of Hengchun, Taiwan",Estimated depth,10.452
+us6000pmht,2025-01-27T01:48:51Z,4.8,"51 km SW of Hengchun, Taiwan",Depth uncertainty,4.959
+us6000pmhp,2025-01-27T01:02:30Z,4.8,"31 km W of Sarpol-e Z̄ahāb, Iran",Estimated depth,10
+us6000pmhp,2025-01-27T01:02:30Z,4.8,"31 km W of Sarpol-e Z̄ahāb, Iran",Depth uncertainty,1.845
+us6000pmhn,2025-01-27T00:53:05Z,4.8,southeast of the Loyalty Islands,Estimated depth,35
+us6000pmhn,2025-01-27T00:53:05Z,4.8,southeast of the Loyalty Islands,Depth uncertainty,1.848
+us6000pmhl,2025-01-27T00:29:44Z,4.5,"62 km SW of Banjar, Indonesia",Estimated depth,49.37
+us6000pmhl,2025-01-27T00:29:44Z,4.5,"62 km SW of Banjar, Indonesia",Depth uncertainty,7.1
+us6000pmhf,2025-01-27T00:18:49Z,5,"71 km ENE of Donggang, Taiwan",Estimated depth,10
+us6000pmhf,2025-01-27T00:18:49Z,5,"71 km ENE of Donggang, Taiwan",Depth uncertainty,1.664
+us6000pmgt,2025-01-26T22:39:13Z,5.6,"86 km SSW of Unalaska, Alaska",Estimated depth,59
+us6000pmgt,2025-01-26T22:39:13Z,5.6,"86 km SSW of Unalaska, Alaska",Depth uncertainty,1.672
+us7000pb9v,2025-01-26T22:20:11Z,4.5,"23 km WNW of Hihifo, Tonga",Estimated depth,99.65
+us7000pb9v,2025-01-26T22:20:11Z,4.5,"23 km WNW of Hihifo, Tonga",Depth uncertainty,10.744
+us7000pb9s,2025-01-26T21:32:51Z,4.8,western Indian-Antarctic Ridge,Estimated depth,10
+us7000pb9s,2025-01-26T21:32:51Z,4.8,western Indian-Antarctic Ridge,Depth uncertainty,1.942
+us6000pmgl,2025-01-26T21:22:39Z,5,"122 km NW of Gizo, Solomon Islands",Estimated depth,35
+us6000pmgl,2025-01-26T21:22:39Z,5,"122 km NW of Gizo, Solomon Islands",Depth uncertainty,1.813
+us6000pmgh,2025-01-26T19:22:27Z,4.7,"17 km N of Vanimo, Papua New Guinea",Estimated depth,10
+us6000pmgh,2025-01-26T19:22:27Z,4.7,"17 km N of Vanimo, Papua New Guinea",Depth uncertainty,1.875
+us6000pmgd,2025-01-26T18:45:58Z,4.6,"114 km SE of Pondaguitan, Philippines",Estimated depth,134.526
+us6000pmgd,2025-01-26T18:45:58Z,4.6,"114 km SE of Pondaguitan, Philippines",Depth uncertainty,5.73
+us6000pmg4,2025-01-26T16:31:46Z,4.8,"38 km NNE of Hirara, Japan",Estimated depth,35
+us6000pmg4,2025-01-26T16:31:46Z,4.8,"38 km NNE of Hirara, Japan",Depth uncertainty,1.904
+us6000pmg0,2025-01-26T15:32:30Z,4.5,"5 km ENE of Villanueva, Colombia",Estimated depth,162.148
+us6000pmg0,2025-01-26T15:32:30Z,4.5,"5 km ENE of Villanueva, Colombia",Depth uncertainty,7.348
+us6000pmft,2025-01-26T14:47:58Z,4.7,"261 km NE of Saipan, Northern Mariana Islands",Estimated depth,35.795
+us6000pmft,2025-01-26T14:47:58Z,4.7,"261 km NE of Saipan, Northern Mariana Islands",Depth uncertainty,7.03
+us7000pb9h,2025-01-26T13:52:05Z,4.8,"30 km SSW of Mendi, Papua New Guinea",Estimated depth,10
+us7000pb9h,2025-01-26T13:52:05Z,4.8,"30 km SSW of Mendi, Papua New Guinea",Depth uncertainty,1.87
+us6000pmfn,2025-01-26T13:37:31Z,5.1,"96 km E of Petropavlovsk-Kamchatsky, Russia",Estimated depth,56.129
+us6000pmfn,2025-01-26T13:37:31Z,5.1,"96 km E of Petropavlovsk-Kamchatsky, Russia",Depth uncertainty,5.165
+us7000pb9r,2025-01-26T13:18:03Z,4.5,South Sandwich Islands region,Estimated depth,119.395
+us7000pb9r,2025-01-26T13:18:03Z,4.5,South Sandwich Islands region,Depth uncertainty,8.007
+us6000pmf5,2025-01-26T11:24:00Z,5.2,South Sandwich Islands region,Estimated depth,91.382
+us6000pmf5,2025-01-26T11:24:00Z,5.2,South Sandwich Islands region,Depth uncertainty,5.948
+us7000pb9b,2025-01-26T09:49:48Z,4.5,"96 km W of Port-Olry, Vanuatu",Estimated depth,10
+us7000pb9b,2025-01-26T09:49:48Z,4.5,"96 km W of Port-Olry, Vanuatu",Depth uncertainty,1.93
+us7000pb9l,2025-01-26T07:06:55Z,4.7,"191 km NE of Fais, Micronesia",Estimated depth,10
+us7000pb9l,2025-01-26T07:06:55Z,4.7,"191 km NE of Fais, Micronesia",Depth uncertainty,1.892
+us6000pme3,2025-01-26T06:13:38Z,5.3,"24 km W of Port-Vila, Vanuatu",Estimated depth,47.197
+us6000pme3,2025-01-26T06:13:38Z,5.3,"24 km W of Port-Vila, Vanuatu",Depth uncertainty,6.889
+us6000pme2,2025-01-26T05:57:24Z,4.5,"89 km WNW of Hihifo, Tonga",Estimated depth,170.546
+us6000pme2,2025-01-26T05:57:24Z,4.5,"89 km WNW of Hihifo, Tonga",Depth uncertainty,7.636
+us6000pmct,2025-01-25T23:38:52Z,5.2,"2 km SW of Yujing, Taiwan",Estimated depth,10
+us6000pmct,2025-01-25T23:38:52Z,5.2,"2 km SW of Yujing, Taiwan",Depth uncertainty,1.82
+us6000pmcm,2025-01-25T23:19:38Z,4.6,"51 km ESE of Vanimo, Papua New Guinea",Estimated depth,35
+us6000pmcm,2025-01-25T23:19:38Z,4.6,"51 km ESE of Vanimo, Papua New Guinea",Depth uncertainty,1.924
+us7000pb1z,2025-01-25T22:08:49Z,4.6,southeast of the Loyalty Islands,Estimated depth,52.982
+us7000pb1z,2025-01-25T22:08:49Z,4.6,southeast of the Loyalty Islands,Depth uncertainty,13.807
+us6000pmbc,2025-01-25T16:10:50Z,4.7,"31 km NE of Donggang, Taiwan",Estimated depth,19.747
+us6000pmbc,2025-01-25T16:10:50Z,4.7,"31 km NE of Donggang, Taiwan",Depth uncertainty,3.666
+us7000pb1t,2025-01-25T15:12:17Z,4.6,South Sandwich Islands region,Estimated depth,10
+us7000pb1t,2025-01-25T15:12:17Z,4.6,South Sandwich Islands region,Depth uncertainty,1.923
+us6000pmam,2025-01-25T13:00:31Z,4.5,"15 km N of Yujing, Taiwan",Estimated depth,10
+us6000pmam,2025-01-25T13:00:31Z,4.5,"15 km N of Yujing, Taiwan",Depth uncertainty,1.85
+us6000pmaf,2025-01-25T11:49:17Z,5.1,"14 km NNW of Yujing, Taiwan",Estimated depth,10
+us6000pmaf,2025-01-25T11:49:17Z,5.1,"14 km NNW of Yujing, Taiwan",Depth uncertainty,1.825
+us6000pmab,2025-01-25T10:46:14Z,4.5,"53 km NNE of Isangel, Vanuatu",Estimated depth,253.607
+us6000pmab,2025-01-25T10:46:14Z,4.5,"53 km NNE of Isangel, Vanuatu",Depth uncertainty,8.368
+us6000pma3,2025-01-25T10:06:57Z,4.5,"297 km ENE of Lospalos, Timor Leste",Estimated depth,164.481
+us6000pma3,2025-01-25T10:06:57Z,4.5,"297 km ENE of Lospalos, Timor Leste",Depth uncertainty,7.647
+us7000pb1p,2025-01-25T06:58:18Z,4.5,central East Pacific Rise,Estimated depth,10
+us7000pb1p,2025-01-25T06:58:18Z,4.5,central East Pacific Rise,Depth uncertainty,1.924
+us6000pm9b,2025-01-25T05:36:41Z,4.7,"194 km W of Bandon, Oregon",Estimated depth,10
+us6000pm9b,2025-01-25T05:36:41Z,4.7,"194 km W of Bandon, Oregon",Depth uncertainty,1.936
+us7000pb1r,2025-01-25T05:30:53Z,4.6,"63 km SSE of Kangding, China",Estimated depth,10
+us7000pb1r,2025-01-25T05:30:53Z,4.6,"63 km SSE of Kangding, China",Depth uncertainty,1.863
+us6000pm95,2025-01-25T04:57:56Z,4.8,"133 km WSW of Fakfak, Indonesia",Estimated depth,10
+us6000pm95,2025-01-25T04:57:56Z,4.8,"133 km WSW of Fakfak, Indonesia",Depth uncertainty,1.915
+us6000pm8t,2025-01-25T03:39:34Z,4.6,"183 km NW of Vallenar, Chile",Estimated depth,10
+us6000pm8t,2025-01-25T03:39:34Z,4.6,"183 km NW of Vallenar, Chile",Depth uncertainty,1.886
+us6000pm8m,2025-01-25T03:08:22Z,4.9,"Volcano Islands, Japan region",Estimated depth,44.08
+us6000pm8m,2025-01-25T03:08:22Z,4.9,"Volcano Islands, Japan region",Depth uncertainty,7.13
+us6000pm7g,2025-01-24T22:01:56Z,4.5,"8 km NW of Yujing, Taiwan",Estimated depth,10
+us6000pm7g,2025-01-24T22:01:56Z,4.5,"8 km NW of Yujing, Taiwan",Depth uncertainty,1.854
+us6000pm62,2025-01-24T18:55:15Z,4.5,north of Svalbard,Estimated depth,10
+us6000pm62,2025-01-24T18:55:15Z,4.5,north of Svalbard,Depth uncertainty,1.836
+us6000pm5y,2025-01-24T18:26:51Z,5.7,"150 km S of Kavieng, Papua New Guinea",Estimated depth,10
+us6000pm5y,2025-01-24T18:26:51Z,5.7,"150 km S of Kavieng, Papua New Guinea",Depth uncertainty,1.749
+us6000pm4b,2025-01-24T16:19:05Z,5.3,"75 km ESE of Palca, Peru",Estimated depth,122.665
+us6000pm4b,2025-01-24T16:19:05Z,5.3,"75 km ESE of Palca, Peru",Depth uncertainty,4.96
+us6000pm46,2025-01-24T16:05:17Z,4.7,"179 km SE of Kirakira, Solomon Islands",Estimated depth,12.784
+us6000pm46,2025-01-24T16:05:17Z,4.7,"179 km SE of Kirakira, Solomon Islands",Depth uncertainty,5.191
+us6000pm3b,2025-01-24T15:51:48Z,4.7,"73 km S of Fīrūzābād, Iran",Estimated depth,10
+us6000pm3b,2025-01-24T15:51:48Z,4.7,"73 km S of Fīrūzābād, Iran",Depth uncertainty,1.858
+us6000pm7l,2025-01-24T13:56:53Z,4.6,"24 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000pm7l,2025-01-24T13:56:53Z,4.6,"24 km NW of Āwash, Ethiopia",Depth uncertainty,1.804
+us6000pm1e,2025-01-24T13:54:26Z,4.7,"17 km N of Āwash, Ethiopia",Estimated depth,10
+us6000pm1e,2025-01-24T13:54:26Z,4.7,"17 km N of Āwash, Ethiopia",Depth uncertainty,1.76
+us6000pm1b,2025-01-24T13:37:10Z,4.8,"78 km W of Kendari, Indonesia",Estimated depth,10
+us6000pm1b,2025-01-24T13:37:10Z,4.8,"78 km W of Kendari, Indonesia",Depth uncertainty,1.851
+us7000paeu,2025-01-24T13:35:58Z,4.5,"188 km ESE of Kokopo, Papua New Guinea",Estimated depth,53.515
+us7000paeu,2025-01-24T13:35:58Z,4.5,"188 km ESE of Kokopo, Papua New Guinea",Depth uncertainty,5.367
+us6000pm0v,2025-01-24T11:18:40Z,4.8,"11 km SSW of Yujing, Taiwan",Estimated depth,10.976
+us6000pm0v,2025-01-24T11:18:40Z,4.8,"11 km SSW of Yujing, Taiwan",Depth uncertainty,4.129
+us6000pm11,2025-01-24T10:16:18Z,4.7,"69 km SSW of Merizo Village, Guam",Estimated depth,35
+us6000pm11,2025-01-24T10:16:18Z,4.7,"69 km SSW of Merizo Village, Guam",Depth uncertainty,1.936
+us6000plzq,2025-01-24T06:27:37Z,4.9,Prince Edward Islands region,Estimated depth,10
+us6000plzq,2025-01-24T06:27:37Z,4.9,Prince Edward Islands region,Depth uncertainty,1.906
+us6000plzm,2025-01-24T05:59:17Z,4.6,Southern Tibetan Plateau,Estimated depth,10
+us6000plzm,2025-01-24T05:59:17Z,4.6,Southern Tibetan Plateau,Depth uncertainty,1.865
+us6000plzg,2025-01-24T04:26:55Z,5,West Chile Rise,Estimated depth,10
+us6000plzg,2025-01-24T04:26:55Z,5,West Chile Rise,Depth uncertainty,1.905
+us7000paem,2025-01-24T03:30:06Z,4.5,"Izu Islands, Japan region",Estimated depth,10
+us7000paem,2025-01-24T03:30:06Z,4.5,"Izu Islands, Japan region",Depth uncertainty,1.843
+us6000plz7,2025-01-24T02:54:01Z,4.6,"201 km WNW of Abepura, Indonesia",Estimated depth,35
+us6000plz7,2025-01-24T02:54:01Z,4.6,"201 km WNW of Abepura, Indonesia",Depth uncertainty,1.917
+us6000plyr,2025-01-24T01:01:42Z,4.6,"29 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000plyr,2025-01-24T01:01:42Z,4.6,"29 km NW of Āwash, Ethiopia",Depth uncertainty,1.924
+us6000ply9,2025-01-23T23:01:17Z,4.8,"218 km NW of Dampier, Australia",Estimated depth,10
+us6000ply9,2025-01-23T23:01:17Z,4.8,"218 km NW of Dampier, Australia",Depth uncertainty,1.903
+us7000padr,2025-01-23T20:03:32Z,4.5,"104 km ESE of Yigo Village, Guam",Estimated depth,10
+us7000padr,2025-01-23T20:03:32Z,4.5,"104 km ESE of Yigo Village, Guam",Depth uncertainty,1.904
+us6000plwx,2025-01-23T19:59:28Z,4.9,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000plwx,2025-01-23T19:59:28Z,4.9,southern Mid-Atlantic Ridge,Depth uncertainty,1.871
+us6000plwf,2025-01-23T19:23:36Z,5,"104 km E of Wāngjing, India",Estimated depth,117.542
+us6000plwf,2025-01-23T19:23:36Z,5,"104 km E of Wāngjing, India",Depth uncertainty,6.114
+us6000plwd,2025-01-23T18:51:46Z,4.6,"35 km N of Loreto, Philippines",Estimated depth,17.206
+us6000plwd,2025-01-23T18:51:46Z,4.6,"35 km N of Loreto, Philippines",Depth uncertainty,4.458
+us6000plte,2025-01-23T16:19:28Z,4.6,"14 km SW of Āwash, Ethiopia",Estimated depth,10
+us6000plte,2025-01-23T16:19:28Z,4.6,"14 km SW of Āwash, Ethiopia",Depth uncertainty,1.896
+us6000plt6,2025-01-23T15:04:48Z,4.7,"73 km E of Petropavlovsk-Kamchatsky, Russia",Estimated depth,66.886
+us6000plt6,2025-01-23T15:04:48Z,4.7,"73 km E of Petropavlovsk-Kamchatsky, Russia",Depth uncertainty,5.914
+us6000plsz,2025-01-23T13:38:03Z,4.5,"257 km SE of Katsuura, Japan",Estimated depth,29.301
+us6000plsz,2025-01-23T13:38:03Z,4.5,"257 km SE of Katsuura, Japan",Depth uncertainty,6.502
+us6000plst,2025-01-23T11:14:02Z,5.6,"190 km NE of Sola, Vanuatu",Estimated depth,598
+us6000plst,2025-01-23T11:14:02Z,5.6,"190 km NE of Sola, Vanuatu",Depth uncertainty,1.682
+us6000plsn,2025-01-23T09:50:52Z,4.8,"292 km WSW of Merizo Village, Guam",Estimated depth,35
+us6000plsn,2025-01-23T09:50:52Z,4.8,"292 km WSW of Merizo Village, Guam",Depth uncertainty,1.934
+us7000padg,2025-01-23T08:23:27Z,4.5,"198 km W of Lata, Solomon Islands",Estimated depth,10
+us7000padg,2025-01-23T08:23:27Z,4.5,"198 km W of Lata, Solomon Islands",Depth uncertainty,1.902
+us6000plrx,2025-01-23T06:17:43Z,4.6,"56 km NNE of Isangel, Vanuatu",Estimated depth,260.446
+us6000plrx,2025-01-23T06:17:43Z,4.6,"56 km NNE of Isangel, Vanuatu",Depth uncertainty,7.743
+us6000plru,2025-01-23T05:42:13Z,4.9,"79 km SSW of Fīrūzābād, Iran",Estimated depth,10
+us6000plru,2025-01-23T05:42:13Z,4.9,"79 km SSW of Fīrūzābād, Iran",Depth uncertainty,1.829
+us6000plrr,2025-01-23T05:22:53Z,5,"14 km N of Metahāra, Ethiopia",Estimated depth,10
+us6000plrr,2025-01-23T05:22:53Z,5,"14 km N of Metahāra, Ethiopia",Depth uncertainty,1.872
+us6000plrd,2025-01-23T03:45:46Z,4.5,"42 km S of Zangguy, China",Estimated depth,47.385
+us6000plrd,2025-01-23T03:45:46Z,4.5,"42 km S of Zangguy, China",Depth uncertainty,9.351
+us6000plrc,2025-01-23T03:41:16Z,5.4,"8 km E of Siocon, Philippines",Estimated depth,62.013
+us6000plrc,2025-01-23T03:41:16Z,5.4,"8 km E of Siocon, Philippines",Depth uncertainty,6.058
+us6000plr5,2025-01-23T02:18:06Z,4.5,"10 km WNW of Metahāra, Ethiopia",Estimated depth,10
+us6000plr5,2025-01-23T02:18:06Z,4.5,"10 km WNW of Metahāra, Ethiopia",Depth uncertainty,1.883
+us6000plr3,2025-01-23T01:56:55Z,4.8,"2 km WSW of Villa Canales, Guatemala",Estimated depth,188.477
+us6000plr3,2025-01-23T01:56:55Z,4.8,"2 km WSW of Villa Canales, Guatemala",Depth uncertainty,6.482
+us6000plql,2025-01-22T23:39:46Z,5.7,"3 km NNW of San Francisco, Philippines",Estimated depth,9
+us6000plql,2025-01-22T23:39:46Z,5.7,"3 km NNW of San Francisco, Philippines",Depth uncertainty,1.029
+us6000plqf,2025-01-22T23:09:04Z,4.5,"17 km N of Katashina, Japan",Estimated depth,10
+us6000plqf,2025-01-22T23:09:04Z,4.5,"17 km N of Katashina, Japan",Depth uncertainty,1.846
+us7000pacr,2025-01-22T22:37:38Z,4.7,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pacr,2025-01-22T22:37:38Z,4.7,southern Mid-Atlantic Ridge,Depth uncertainty,1.918
+us7000pacl,2025-01-22T19:40:40Z,4.5,"Kermadec Islands, New Zealand",Estimated depth,63.911
+us7000pacl,2025-01-22T19:40:40Z,4.5,"Kermadec Islands, New Zealand",Depth uncertainty,3.316
+us7000pacm,2025-01-22T19:30:53Z,4.6,Kermadec Islands region,Estimated depth,10
+us7000pacm,2025-01-22T19:30:53Z,4.6,Kermadec Islands region,Depth uncertainty,1.864
+us6000plnt,2025-01-22T19:06:32Z,4.7,"193 km SSW of Merizo Village, Guam",Estimated depth,10
+us6000plnt,2025-01-22T19:06:32Z,4.7,"193 km SSW of Merizo Village, Guam",Depth uncertainty,1.931
+us6000plnj,2025-01-22T18:42:00Z,4.6,south of the Fiji Islands,Estimated depth,542.558
+us6000plnj,2025-01-22T18:42:00Z,4.6,south of the Fiji Islands,Depth uncertainty,7.366
+us6000plnf,2025-01-22T18:26:08Z,5.3,southeast Indian Ridge,Estimated depth,10
+us6000plnf,2025-01-22T18:26:08Z,5.3,southeast Indian Ridge,Depth uncertainty,1.753
+us6000plms,2025-01-22T17:49:29Z,4.8,"20 km NNE of Katashina, Japan",Estimated depth,10
+us6000plms,2025-01-22T17:49:29Z,4.8,"20 km NNE of Katashina, Japan",Depth uncertainty,1.79
+us7000pach,2025-01-22T15:59:39Z,4.6,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pach,2025-01-22T15:59:39Z,4.6,southern Mid-Atlantic Ridge,Depth uncertainty,1.864
+us6000plkt,2025-01-22T13:33:26Z,4.6,"18 km SSE of Union, Philippines",Estimated depth,82.342
+us6000plkt,2025-01-22T13:33:26Z,4.6,"18 km SSE of Union, Philippines",Depth uncertainty,6.904
+us6000plkr,2025-01-22T13:26:06Z,4.9,"51 km S of Adak, Alaska",Estimated depth,44.74
+us6000plkr,2025-01-22T13:26:06Z,4.9,"51 km S of Adak, Alaska",Depth uncertainty,4.798
+us7000pacd,2025-01-22T11:36:52Z,4.6,Pacific-Antarctic Ridge,Estimated depth,10
+us7000pacd,2025-01-22T11:36:52Z,4.6,Pacific-Antarctic Ridge,Depth uncertainty,1.926
+us7000pacc,2025-01-22T10:42:53Z,4.5,"78 km E of Yigo Village, Guam",Estimated depth,49.874
+us7000pacc,2025-01-22T10:42:53Z,4.5,"78 km E of Yigo Village, Guam",Depth uncertainty,7.642
+us6000plk7,2025-01-22T09:47:50Z,5,"107 km NE of Tadine, New Caledonia",Estimated depth,10
+us6000plk7,2025-01-22T09:47:50Z,5,"107 km NE of Tadine, New Caledonia",Depth uncertainty,1.871
+us6000pljv,2025-01-22T08:11:42Z,4.7,"77 km E of Hengchun, Taiwan",Estimated depth,10
+us6000pljv,2025-01-22T08:11:42Z,4.7,"77 km E of Hengchun, Taiwan",Depth uncertainty,1.865
+us7000pac2,2025-01-22T00:26:12Z,4.6,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pac2,2025-01-22T00:26:12Z,4.6,southern Mid-Atlantic Ridge,Depth uncertainty,1.902
+us7000pabs,2025-01-22T00:14:22Z,4.5,"183 km S of Dampit, Indonesia",Estimated depth,10
+us7000pabs,2025-01-22T00:14:22Z,4.5,"183 km S of Dampit, Indonesia",Depth uncertainty,1.883
+us6000plis,2025-01-22T00:14:16Z,4.5,"18 km NE of Yujing, Taiwan",Estimated depth,13.118
+us6000plis,2025-01-22T00:14:16Z,4.5,"18 km NE of Yujing, Taiwan",Depth uncertainty,2.818
+us7000pabr,2025-01-22T00:06:59Z,4.9,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pabr,2025-01-22T00:06:59Z,4.9,southern Mid-Atlantic Ridge,Depth uncertainty,1.872
+us6000plip,2025-01-21T23:34:45Z,4.6,"219 km E of Levuka, Fiji",Estimated depth,535.905
+us6000plip,2025-01-21T23:34:45Z,4.6,"219 km E of Levuka, Fiji",Depth uncertainty,7.906
+us6000plig,2025-01-21T22:37:14Z,4.6,western Xizang,Estimated depth,10
+us6000plig,2025-01-21T22:37:14Z,4.6,western Xizang,Depth uncertainty,1.905
+us7000pa52,2025-01-21T22:05:38Z,4.6,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pa52,2025-01-21T22:05:38Z,4.6,southern Mid-Atlantic Ridge,Depth uncertainty,1.914
+us6000pli7,2025-01-21T21:44:48Z,5.1,"19 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000pli7,2025-01-21T21:44:48Z,5.1,"19 km NW of Āwash, Ethiopia",Depth uncertainty,1.889
+us7000pa4w,2025-01-21T21:12:21Z,4.7,South Sandwich Islands region,Estimated depth,10
+us7000pa4w,2025-01-21T21:12:21Z,4.7,South Sandwich Islands region,Depth uncertainty,1.974
+us7000pa53,2025-01-21T21:03:20Z,4.7,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pa53,2025-01-21T21:03:20Z,4.7,southern Mid-Atlantic Ridge,Depth uncertainty,1.898
+us6000plhu,2025-01-21T20:46:28Z,4.8,south of the Fiji Islands,Estimated depth,536.33
+us6000plhu,2025-01-21T20:46:28Z,4.8,south of the Fiji Islands,Depth uncertainty,7.06
+us6000plhn,2025-01-21T20:38:43Z,5,"4 km SW of Behram, Turkey",Estimated depth,5.618
+us6000plhn,2025-01-21T20:38:43Z,5,"4 km SW of Behram, Turkey",Depth uncertainty,3.393
+us7000pa51,2025-01-21T20:11:56Z,4.6,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pa51,2025-01-21T20:11:56Z,4.6,southern Mid-Atlantic Ridge,Depth uncertainty,1.884
+us6000plhj,2025-01-21T20:00:51Z,5.3,"173 km SE of Lorengau, Papua New Guinea",Estimated depth,10
+us6000plhj,2025-01-21T20:00:51Z,5.3,"173 km SE of Lorengau, Papua New Guinea",Depth uncertainty,1.814
+us7000pa50,2025-01-21T19:05:44Z,4.5,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pa50,2025-01-21T19:05:44Z,4.5,southern Mid-Atlantic Ridge,Depth uncertainty,1.875
+us7000pa4s,2025-01-21T18:52:56Z,4.6,"215 km WSW of Kavieng, Papua New Guinea",Estimated depth,28.382
+us7000pa4s,2025-01-21T18:52:56Z,4.6,"215 km WSW of Kavieng, Papua New Guinea",Depth uncertainty,5.936
+us6000plh9,2025-01-21T18:48:21Z,5.1,"71 km SSE of Hengchun, Taiwan",Estimated depth,11.338
+us6000plh9,2025-01-21T18:48:21Z,5.1,"71 km SSE of Hengchun, Taiwan",Depth uncertainty,3.569
+us6000plh8,2025-01-21T18:42:14Z,4.8,Kermadec Islands region,Estimated depth,35.772
+us6000plh8,2025-01-21T18:42:14Z,4.8,Kermadec Islands region,Depth uncertainty,6.577
+us7000pa4z,2025-01-21T18:37:47Z,4.7,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pa4z,2025-01-21T18:37:47Z,4.7,southern Mid-Atlantic Ridge,Depth uncertainty,1.924
+us6000plfq,2025-01-21T16:58:16Z,4.7,"37 km WSW of Ollagüe, Chile",Estimated depth,117.181
+us6000plfq,2025-01-21T16:58:16Z,4.7,"37 km WSW of Ollagüe, Chile",Depth uncertainty,5.386
+us6000plfb,2025-01-21T13:40:17Z,5.3,"134 km ESE of La Rivera, Mexico",Estimated depth,10
+us6000plfb,2025-01-21T13:40:17Z,5.3,"134 km ESE of La Rivera, Mexico",Depth uncertainty,1.922
+us6000plfc,2025-01-21T13:32:53Z,4.9,central Mid-Atlantic Ridge,Estimated depth,10
+us6000plfc,2025-01-21T13:32:53Z,4.9,central Mid-Atlantic Ridge,Depth uncertainty,1.857
+us6000plew,2025-01-21T11:55:03Z,5.2,"126 km S of Unalaska, Alaska",Estimated depth,10
+us6000plew,2025-01-21T11:55:03Z,5.2,"126 km S of Unalaska, Alaska",Depth uncertainty,1.835
+us6000plem,2025-01-21T11:16:01Z,4.9,"93 km W of Ternate, Indonesia",Estimated depth,42.455
+us6000plem,2025-01-21T11:16:01Z,4.9,"93 km W of Ternate, Indonesia",Depth uncertainty,6.29
+us6000plel,2025-01-21T11:15:29Z,5.5,"83 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000plel,2025-01-21T11:15:29Z,5.5,"83 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.856
+us6000plei,2025-01-21T10:57:24Z,5.2,"94 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000plei,2025-01-21T10:57:24Z,5.2,"94 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.852
+us6000pldv,2025-01-21T07:25:46Z,4.9,"21 km NE of Isangel, Vanuatu",Estimated depth,214.496
+us6000pldv,2025-01-21T07:25:46Z,4.9,"21 km NE of Isangel, Vanuatu",Depth uncertainty,7.265
+us6000pldh,2025-01-21T06:05:14Z,5.5,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000pldh,2025-01-21T06:05:14Z,5.5,southern Mid-Atlantic Ridge,Depth uncertainty,1.786
+us6000pldf,2025-01-21T05:47:50Z,5.5,"33 km WNW of Agat Village, Guam",Estimated depth,130
+us6000pldf,2025-01-21T05:47:50Z,5.5,"33 km WNW of Agat Village, Guam",Depth uncertainty,1.846
+us6000plde,2025-01-21T05:36:11Z,5.1,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000plde,2025-01-21T05:36:11Z,5.1,southern Mid-Atlantic Ridge,Depth uncertainty,1.824
+us6000pldc,2025-01-21T05:29:32Z,4.9,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000pldc,2025-01-21T05:29:32Z,4.9,southern Mid-Atlantic Ridge,Depth uncertainty,1.863
+us6000pld9,2025-01-21T05:13:36Z,5.2,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000pld9,2025-01-21T05:13:36Z,5.2,southern Mid-Atlantic Ridge,Depth uncertainty,1.702
+us6000pld4,2025-01-21T04:01:39Z,4.8,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000pld4,2025-01-21T04:01:39Z,4.8,southern Mid-Atlantic Ridge,Depth uncertainty,1.866
+us7000pa4a,2025-01-21T03:32:22Z,4.6,southern Mid-Atlantic Ridge,Estimated depth,10
+us7000pa4a,2025-01-21T03:32:22Z,4.6,southern Mid-Atlantic Ridge,Depth uncertainty,1.904
+us6000plcp,2025-01-21T02:10:40Z,4.6,"Pagan region, Northern Mariana Islands",Estimated depth,179.215
+us6000plcp,2025-01-21T02:10:40Z,4.6,"Pagan region, Northern Mariana Islands",Depth uncertainty,6.991
+us6000plca,2025-01-21T00:14:17Z,4.8,Southern Tibetan Plateau,Estimated depth,10
+us6000plca,2025-01-21T00:14:17Z,4.8,Southern Tibetan Plateau,Depth uncertainty,1.847
+us6000plc2,2025-01-20T23:26:07Z,4.8,"31 km N of Saipan, Northern Mariana Islands",Estimated depth,131.672
+us6000plc2,2025-01-20T23:26:07Z,4.8,"31 km N of Saipan, Northern Mariana Islands",Depth uncertainty,6.027
+us6000plbf,2025-01-20T21:03:11Z,5,Southern Tibetan Plateau,Estimated depth,10
+us6000plbf,2025-01-20T21:03:11Z,5,Southern Tibetan Plateau,Depth uncertainty,1.799
+us6000plb2,2025-01-20T19:19:18Z,4.6,"101 km E of Shikotan, Russia",Estimated depth,35
+us6000plb2,2025-01-20T19:19:18Z,4.6,"101 km E of Shikotan, Russia",Depth uncertainty,1.932
+us6000play,2025-01-20T18:14:37Z,4.6,"33 km SSW of Ōfunato, Japan",Estimated depth,76.386
+us6000play,2025-01-20T18:14:37Z,4.6,"33 km SSW of Ōfunato, Japan",Depth uncertainty,7.667
+us6000pl9y,2025-01-20T17:42:31Z,4.8,"3 km NNE of Yujing, Taiwan",Estimated depth,10.872
+us6000pl9y,2025-01-20T17:42:31Z,4.8,"3 km NNE of Yujing, Taiwan",Depth uncertainty,4.121
+us7000pa2g,2025-01-20T16:56:56Z,4.6,"7 km NNW of Yujing, Taiwan",Estimated depth,10
+us7000pa2g,2025-01-20T16:56:56Z,4.6,"7 km NNW of Yujing, Taiwan",Depth uncertainty,1.735
+us7000pa2f,2025-01-20T16:29:22Z,4.6,"3 km NNW of Yujing, Taiwan",Estimated depth,10
+us7000pa2f,2025-01-20T16:29:22Z,4.6,"3 km NNW of Yujing, Taiwan",Depth uncertainty,0.79
+us6000pl8l,2025-01-20T16:26:24Z,5.1,"2 km WNW of Yujing, Taiwan",Estimated depth,10
+us6000pl8l,2025-01-20T16:26:24Z,5.1,"2 km WNW of Yujing, Taiwan",Depth uncertainty,1.812
+us6000pl8h,2025-01-20T16:17:26Z,6,"10 km NE of Yujing, Taiwan",Estimated depth,16
+us6000pl8h,2025-01-20T16:17:26Z,6,"10 km NE of Yujing, Taiwan",Depth uncertainty,1.721
+us6000pl89,2025-01-20T14:49:37Z,5.3,Easter Island region,Estimated depth,10
+us6000pl89,2025-01-20T14:49:37Z,5.3,Easter Island region,Depth uncertainty,1.786
+us7000pa2l,2025-01-20T14:46:13Z,5.2,Easter Island region,Estimated depth,10
+us7000pa2l,2025-01-20T14:46:13Z,5.2,Easter Island region,Depth uncertainty,1.814
+us7000pa2c,2025-01-20T14:39:02Z,4.9,Easter Island region,Estimated depth,10
+us7000pa2c,2025-01-20T14:39:02Z,4.9,Easter Island region,Depth uncertainty,1.815
+us6000pl82,2025-01-20T13:59:55Z,4.5,"16 km WSW of Neijiang, China",Estimated depth,10
+us6000pl82,2025-01-20T13:59:55Z,4.5,"16 km WSW of Neijiang, China",Depth uncertainty,1.824
+us6000pl7f,2025-01-20T11:20:36Z,5.3,"Nicobar Islands, India region",Estimated depth,10
+us6000pl7f,2025-01-20T11:20:36Z,5.3,"Nicobar Islands, India region",Depth uncertainty,1.731
+us6000pl78,2025-01-20T10:42:58Z,5.4,"6 km WSW of Talisay, Philippines",Estimated depth,100
+us6000pl78,2025-01-20T10:42:58Z,5.4,"6 km WSW of Talisay, Philippines",Depth uncertainty,1.876
+us6000pl6v,2025-01-20T08:48:58Z,4.9,"57 km S of Lata, Solomon Islands",Estimated depth,28.649
+us6000pl6v,2025-01-20T08:48:58Z,4.9,"57 km S of Lata, Solomon Islands",Depth uncertainty,5.31
+us6000pl6q,2025-01-20T08:38:42Z,5.5,"62 km S of Lata, Solomon Islands",Estimated depth,36.358
+us6000pl6q,2025-01-20T08:38:42Z,5.5,"62 km S of Lata, Solomon Islands",Depth uncertainty,6.673
+us6000pl6i,2025-01-20T07:15:38Z,4.5,"Kermadec Islands, New Zealand",Estimated depth,68.291
+us6000pl6i,2025-01-20T07:15:38Z,4.5,"Kermadec Islands, New Zealand",Depth uncertainty,8.73
+us6000pl6f,2025-01-20T06:24:42Z,4.5,"166 km NW of Kavieng, Papua New Guinea",Estimated depth,10
+us6000pl6f,2025-01-20T06:24:42Z,4.5,"166 km NW of Kavieng, Papua New Guinea",Depth uncertainty,1.954
+us6000pl6c,2025-01-20T05:57:10Z,5,"217 km SW of Port Blair, India",Estimated depth,10
+us6000pl6c,2025-01-20T05:57:10Z,5,"217 km SW of Port Blair, India",Depth uncertainty,1.863
+us6000pl5y,2025-01-20T03:46:57Z,4.5,"67 km SSE of Pondaguitan, Philippines",Estimated depth,82.586
+us6000pl5y,2025-01-20T03:46:57Z,4.5,"67 km SSE of Pondaguitan, Philippines",Depth uncertainty,7.517
+us7000pa1s,2025-01-20T03:04:58Z,4.8,north of Ascension Island,Estimated depth,10
+us7000pa1s,2025-01-20T03:04:58Z,4.8,north of Ascension Island,Depth uncertainty,1.911
+us7000pa1p,2025-01-20T01:54:22Z,4.6,southern Pacific Ocean,Estimated depth,10
+us7000pa1p,2025-01-20T01:54:22Z,4.6,southern Pacific Ocean,Depth uncertainty,1.731
+us6000pl4q,2025-01-19T21:07:51Z,4.7,"60 km ESE of Cairima, China",Estimated depth,24.177
+us6000pl4q,2025-01-19T21:07:51Z,4.7,"60 km ESE of Cairima, China",Depth uncertainty,5.088
+us7000p9vb,2025-01-19T20:30:44Z,4.5,Easter Island region,Estimated depth,10
+us7000p9vb,2025-01-19T20:30:44Z,4.5,Easter Island region,Depth uncertainty,1.919
+us7000p9va,2025-01-19T19:45:47Z,4.5,"202 km W of Lata, Solomon Islands",Estimated depth,10
+us7000p9va,2025-01-19T19:45:47Z,4.5,"202 km W of Lata, Solomon Islands",Depth uncertainty,1.874
+us6000pl3u,2025-01-19T17:56:44Z,4.5,Southern Tibetan Plateau,Estimated depth,10
+us6000pl3u,2025-01-19T17:56:44Z,4.5,Southern Tibetan Plateau,Depth uncertainty,1.822
+us7000p9v8,2025-01-19T17:51:30Z,4.6,"4 km NNW of Ribeirinha, Portugal",Estimated depth,10
+us7000p9v8,2025-01-19T17:51:30Z,4.6,"4 km NNW of Ribeirinha, Portugal",Depth uncertainty,1.861
+us6000pl2z,2025-01-19T11:20:29Z,4.5,"111 km SW of Ternate, Indonesia",Estimated depth,56.167
+us6000pl2z,2025-01-19T11:20:29Z,4.5,"111 km SW of Ternate, Indonesia",Depth uncertainty,8.604
+us6000pl2t,2025-01-19T10:27:23Z,4.8,"136 km N of Lae, Papua New Guinea",Estimated depth,197.896
+us6000pl2t,2025-01-19T10:27:23Z,4.8,"136 km N of Lae, Papua New Guinea",Depth uncertainty,8.464
+us6000pl2r,2025-01-19T09:58:43Z,4.5,"107 km SSE of Angoram, Papua New Guinea",Estimated depth,113.665
+us6000pl2r,2025-01-19T09:58:43Z,4.5,"107 km SSE of Angoram, Papua New Guinea",Depth uncertainty,7.608
+us6000pl25,2025-01-19T06:28:33Z,4.5,"8 km ENE of Zaragoza, Colombia",Estimated depth,75.464
+us6000pl25,2025-01-19T06:28:33Z,4.5,"8 km ENE of Zaragoza, Colombia",Depth uncertainty,7.873
+us6000pl0x,2025-01-19T02:20:25Z,4.6,"44 km NNE of Bandar-e Genāveh, Iran",Estimated depth,10
+us6000pl0x,2025-01-19T02:20:25Z,4.6,"44 km NNE of Bandar-e Genāveh, Iran",Depth uncertainty,1.918
+us6000pl0k,2025-01-19T00:59:17Z,4.9,south of the Kermadec Islands,Estimated depth,31.706
+us6000pl0k,2025-01-19T00:59:17Z,4.9,south of the Kermadec Islands,Depth uncertainty,6.765
+us7000p9uq,2025-01-19T00:27:33Z,4.5,"67 km E of Luganville, Vanuatu",Estimated depth,125.269
+us7000p9uq,2025-01-19T00:27:33Z,4.5,"67 km E of Luganville, Vanuatu",Depth uncertainty,5.855
+us6000pl09,2025-01-18T23:15:38Z,5,Macquarie Island region,Estimated depth,10
+us6000pl09,2025-01-18T23:15:38Z,5,Macquarie Island region,Depth uncertainty,1.869
+us6000pkzn,2025-01-18T20:32:35Z,4.6,"79 km W of Pangai, Tonga",Estimated depth,68.739
+us6000pkzn,2025-01-18T20:32:35Z,4.6,"79 km W of Pangai, Tonga",Depth uncertainty,8.651
+us6000pkzi,2025-01-18T20:01:47Z,4.5,"107 km E of Wāngjing, India",Estimated depth,128.424
+us6000pkzi,2025-01-18T20:01:47Z,4.5,"107 km E of Wāngjing, India",Depth uncertainty,7.598
+us6000pkzg,2025-01-18T19:44:18Z,5,"69 km NE of Yonakuni, Japan",Estimated depth,10
+us6000pkzg,2025-01-18T19:44:18Z,5,"69 km NE of Yonakuni, Japan",Depth uncertainty,1.881
+us6000pkzd,2025-01-18T19:37:59Z,4.6,"103 km N of Ambon, Indonesia",Estimated depth,22.723
+us6000pkzd,2025-01-18T19:37:59Z,4.6,"103 km N of Ambon, Indonesia",Depth uncertainty,5.046
+us6000pkzc,2025-01-18T19:31:29Z,5,"65 km NE of Yonakuni, Japan",Estimated depth,10
+us6000pkzc,2025-01-18T19:31:29Z,5,"65 km NE of Yonakuni, Japan",Depth uncertainty,1.883
+us6000pkza,2025-01-18T18:55:03Z,4.7,"76 km NE of Yonakuni, Japan",Estimated depth,10
+us6000pkza,2025-01-18T18:55:03Z,4.7,"76 km NE of Yonakuni, Japan",Depth uncertainty,1.852
+us6000pkz1,2025-01-18T18:38:53Z,4.7,"9 km E of Ambunti, Papua New Guinea",Estimated depth,113.531
+us6000pkz1,2025-01-18T18:38:53Z,4.7,"9 km E of Ambunti, Papua New Guinea",Depth uncertainty,6.782
+us6000pkz0,2025-01-18T18:27:09Z,4.5,"76 km NE of Yonakuni, Japan",Estimated depth,10
+us6000pkz0,2025-01-18T18:27:09Z,4.5,"76 km NE of Yonakuni, Japan",Depth uncertainty,0.984
+us6000pkyr,2025-01-18T16:53:59Z,4.9,"76 km NE of Yonakuni, Japan",Estimated depth,10
+us6000pkyr,2025-01-18T16:53:59Z,4.9,"76 km NE of Yonakuni, Japan",Depth uncertainty,1.844
+us6000pkyi,2025-01-18T16:26:31Z,4.6,Southern Tibetan Plateau,Estimated depth,10
+us6000pkyi,2025-01-18T16:26:31Z,4.6,Southern Tibetan Plateau,Depth uncertainty,1.848
+us6000pkyg,2025-01-18T16:09:04Z,4.8,"72 km NE of Yonakuni, Japan",Estimated depth,10
+us6000pkyg,2025-01-18T16:09:04Z,4.8,"72 km NE of Yonakuni, Japan",Depth uncertainty,1.836
+us6000pky9,2025-01-18T15:36:54Z,4.8,Southern Tibetan Plateau,Estimated depth,10
+us6000pky9,2025-01-18T15:36:54Z,4.8,Southern Tibetan Plateau,Depth uncertainty,1.83
+us6000pkxx,2025-01-18T13:19:21Z,4.5,"30 km NNE of Labuan Bajo, Indonesia",Estimated depth,171.329
+us6000pkxx,2025-01-18T13:19:21Z,4.5,"30 km NNE of Labuan Bajo, Indonesia",Depth uncertainty,8.324
+us6000pkwy,2025-01-18T08:37:46Z,5.1,"106 km SW of Ternate, Indonesia",Estimated depth,57.508
+us6000pkwy,2025-01-18T08:37:46Z,5.1,"106 km SW of Ternate, Indonesia",Depth uncertainty,4.213
+us7000p9lx,2025-01-18T06:58:17Z,4.6,Pacific-Antarctic Ridge,Estimated depth,10
+us7000p9lx,2025-01-18T06:58:17Z,4.6,Pacific-Antarctic Ridge,Depth uncertainty,1.895
+us6000pkwe,2025-01-18T06:04:40Z,4.8,Fiji region,Estimated depth,612.463
+us6000pkwe,2025-01-18T06:04:40Z,4.8,Fiji region,Depth uncertainty,8.509
+us6000pkw9,2025-01-18T05:04:22Z,4.9,"263 km SW of Banda Aceh, Indonesia",Estimated depth,10
+us6000pkw9,2025-01-18T05:04:22Z,4.9,"263 km SW of Banda Aceh, Indonesia",Depth uncertainty,1.888
+us6000pkw5,2025-01-18T04:43:20Z,4.6,"175 km SE of Petropavlovsk-Kamchatsky, Russia",Estimated depth,10
+us6000pkw5,2025-01-18T04:43:20Z,4.6,"175 km SE of Petropavlovsk-Kamchatsky, Russia",Depth uncertainty,1.976
+us6000pkw2,2025-01-18T04:41:59Z,4.9,south of the Kermadec Islands,Estimated depth,10
+us6000pkw2,2025-01-18T04:41:59Z,4.9,south of the Kermadec Islands,Depth uncertainty,1.917
+us6000pkw0,2025-01-18T04:19:49Z,4.9,south of the Kermadec Islands,Estimated depth,35
+us6000pkw0,2025-01-18T04:19:49Z,4.9,south of the Kermadec Islands,Depth uncertainty,1.792
+us6000pkvv,2025-01-18T03:16:15Z,4.6,"141 km SE of Kokopo, Papua New Guinea",Estimated depth,33.352
+us6000pkvv,2025-01-18T03:16:15Z,4.6,"141 km SE of Kokopo, Papua New Guinea",Depth uncertainty,7.471
+us6000pkvp,2025-01-18T02:19:01Z,4.5,"13 km SSE of Yunguyo, Peru",Estimated depth,235.03
+us6000pkvp,2025-01-18T02:19:01Z,4.5,"13 km SSE of Yunguyo, Peru",Depth uncertainty,6.155
+us7000p9ly,2025-01-18T01:55:48Z,4.5,south of the Fiji Islands,Estimated depth,539.084
+us7000p9ly,2025-01-18T01:55:48Z,4.5,south of the Fiji Islands,Depth uncertainty,9.254
+us6000pkvm,2025-01-18T01:55:26Z,4.6,central Mid-Atlantic Ridge,Estimated depth,10
+us6000pkvm,2025-01-18T01:55:26Z,4.6,central Mid-Atlantic Ridge,Depth uncertainty,1.896
+us6000pkv1,2025-01-18T00:33:52Z,4.7,"42 km W of Kirakira, Solomon Islands",Estimated depth,85.97
+us6000pkv1,2025-01-18T00:33:52Z,4.7,"42 km W of Kirakira, Solomon Islands",Depth uncertainty,7.931
+us6000pkuv,2025-01-18T00:00:47Z,4.6,south of the Fiji Islands,Estimated depth,538.361
+us6000pkuv,2025-01-18T00:00:47Z,4.6,south of the Fiji Islands,Depth uncertainty,9.025
+us6000pmld,2025-01-17T19:57:52Z,4.5,"74 km SSE of China, Japan",Estimated depth,24.049
+us6000pmld,2025-01-17T19:57:52Z,4.5,"74 km SSE of China, Japan",Depth uncertainty,5.068
+us6000pmlc,2025-01-17T19:28:06Z,4.5,"1 km ESE of Bulan, Philippines",Estimated depth,10
+us6000pmlc,2025-01-17T19:28:06Z,4.5,"1 km ESE of Bulan, Philippines",Depth uncertainty,1.78
+us6000pkt6,2025-01-17T19:19:32Z,4.8,western Indian-Antarctic Ridge,Estimated depth,10
+us6000pkt6,2025-01-17T19:19:32Z,4.8,western Indian-Antarctic Ridge,Depth uncertainty,1.754
+us6000pmlb,2025-01-17T19:16:38Z,4.5,south of the Kermadec Islands,Estimated depth,60.183
+us6000pmlb,2025-01-17T19:16:38Z,4.5,south of the Kermadec Islands,Depth uncertainty,10.976
+us6000pkt1,2025-01-17T18:53:55Z,4.5,"92 km ENE of Popondetta, Papua New Guinea",Estimated depth,9.858
+us6000pkt1,2025-01-17T18:53:55Z,4.5,"92 km ENE of Popondetta, Papua New Guinea",Depth uncertainty,4.45
+us6000pksw,2025-01-17T18:21:56Z,5,"87 km SW of Panguna, Papua New Guinea",Estimated depth,10
+us6000pksw,2025-01-17T18:21:56Z,5,"87 km SW of Panguna, Papua New Guinea",Depth uncertainty,1.493
+us6000pml9,2025-01-17T18:17:02Z,4.7,"84 km SW of Panguna, Papua New Guinea",Estimated depth,10
+us6000pml9,2025-01-17T18:17:02Z,4.7,"84 km SW of Panguna, Papua New Guinea",Depth uncertainty,1.888
+us6000pkst,2025-01-17T18:15:18Z,4.7,"97 km SW of Panguna, Papua New Guinea",Estimated depth,10
+us6000pkst,2025-01-17T18:15:18Z,4.7,"97 km SW of Panguna, Papua New Guinea",Depth uncertainty,1.859
+us6000pmli,2025-01-17T17:58:22Z,4.5,"8 km ESE of Metahāra, Ethiopia",Estimated depth,10
+us6000pmli,2025-01-17T17:58:22Z,4.5,"8 km ESE of Metahāra, Ethiopia",Depth uncertainty,1.914
+us6000pkq9,2025-01-17T17:34:33Z,4.8,"52 km ENE of Port-Olry, Vanuatu",Estimated depth,137.371
+us6000pkq9,2025-01-17T17:34:33Z,4.8,"52 km ENE of Port-Olry, Vanuatu",Depth uncertainty,5.895
+us6000pkpl,2025-01-17T17:18:38Z,4.5,"32 km NNW of Metahāra, Ethiopia",Estimated depth,10
+us6000pkpl,2025-01-17T17:18:38Z,4.5,"32 km NNW of Metahāra, Ethiopia",Depth uncertainty,1.842
+us6000pkm8,2025-01-17T12:35:42Z,4.6,"260 km SSE of Katsuura, Japan",Estimated depth,10
+us6000pkm8,2025-01-17T12:35:42Z,4.6,"260 km SSE of Katsuura, Japan",Depth uncertainty,1.863
+us6000pmkx,2025-01-17T12:04:36Z,4.5,"25 km SE of Metahāra, Ethiopia",Estimated depth,10
+us6000pmkx,2025-01-17T12:04:36Z,4.5,"25 km SE of Metahāra, Ethiopia",Depth uncertainty,1.946
+us6000pml4,2025-01-17T11:10:28Z,4.6,"8 km NW of Basotu, Tanzania",Estimated depth,10
+us6000pml4,2025-01-17T11:10:28Z,4.6,"8 km NW of Basotu, Tanzania",Depth uncertainty,1.901
+us6000pkld,2025-01-17T08:55:52Z,5,"4 km NNE of Talacogon, Philippines",Estimated depth,10
+us6000pkld,2025-01-17T08:55:52Z,5,"4 km NNE of Talacogon, Philippines",Depth uncertainty,1.875
+us6000pkle,2025-01-17T08:52:00Z,4.9,Southwest Indian Ridge,Estimated depth,10
+us6000pkle,2025-01-17T08:52:00Z,4.9,Southwest Indian Ridge,Depth uncertainty,1.818
+us6000pkl5,2025-01-17T07:43:54Z,4.9,"59 km W of Kirakira, Solomon Islands",Estimated depth,79.33
+us6000pkl5,2025-01-17T07:43:54Z,4.9,"59 km W of Kirakira, Solomon Islands",Depth uncertainty,6.997
+us6000pkl2,2025-01-17T07:09:31Z,4.6,"70 km SSE of China, Japan",Estimated depth,10
+us6000pkl2,2025-01-17T07:09:31Z,4.6,"70 km SSE of China, Japan",Depth uncertainty,1.896
+us6000pkke,2025-01-17T05:02:55Z,4.6,"84 km S of Koshima, Japan",Estimated depth,27.305
+us6000pkke,2025-01-17T05:02:55Z,4.6,"84 km S of Koshima, Japan",Depth uncertainty,5.036
+us6000pkkb,2025-01-17T04:24:02Z,4.9,"155 km W of Lata, Solomon Islands",Estimated depth,10
+us6000pkkb,2025-01-17T04:24:02Z,4.9,"155 km W of Lata, Solomon Islands",Depth uncertainty,1.887
+us6000pkjx,2025-01-17T01:46:17Z,4.7,"52 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pkjx,2025-01-17T01:46:17Z,4.7,"52 km NNW of Āwash, Ethiopia",Depth uncertainty,1.895
+us6000pkjv,2025-01-17T01:35:54Z,4.8,central Mid-Atlantic Ridge,Estimated depth,10
+us6000pkjv,2025-01-17T01:35:54Z,4.8,central Mid-Atlantic Ridge,Depth uncertainty,1.874
+us6000pkjr,2025-01-17T01:10:39Z,4.9,"89 km SW of Panguna, Papua New Guinea",Estimated depth,10
+us6000pkjr,2025-01-17T01:10:39Z,4.9,"89 km SW of Panguna, Papua New Guinea",Depth uncertainty,1.854
+us6000pkla,2025-01-17T01:10:18Z,5,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000pkla,2025-01-17T01:10:18Z,5,southern Mid-Atlantic Ridge,Depth uncertainty,1.703
+us6000pkih,2025-01-16T20:24:27Z,4.7,"6 km WSW of Āwash, Ethiopia",Estimated depth,10
+us6000pkih,2025-01-16T20:24:27Z,4.7,"6 km WSW of Āwash, Ethiopia",Depth uncertainty,1.88
+us6000pki5,2025-01-16T19:20:53Z,4.7,"43 km NNW of Borāzjān, Iran",Estimated depth,10
+us6000pki5,2025-01-16T19:20:53Z,4.7,"43 km NNW of Borāzjān, Iran",Depth uncertainty,1.851
+us6000pkeg,2025-01-16T13:27:32Z,5,"147 km S of Isangel, Vanuatu",Estimated depth,28.656
+us6000pkeg,2025-01-16T13:27:32Z,5,"147 km S of Isangel, Vanuatu",Depth uncertainty,4.737
+us6000pkea,2025-01-16T13:12:33Z,4.5,western Xizang,Estimated depth,10
+us6000pkea,2025-01-16T13:12:33Z,4.5,western Xizang,Depth uncertainty,1.839
+us6000pke3,2025-01-16T12:02:14Z,4.9,south of the Fiji Islands,Estimated depth,97.85
+us6000pke3,2025-01-16T12:02:14Z,4.9,south of the Fiji Islands,Depth uncertainty,7.767
+us6000pm4s,2025-01-16T05:58:39Z,4.7,north of Ascension Island,Estimated depth,10
+us6000pm4s,2025-01-16T05:58:39Z,4.7,north of Ascension Island,Depth uncertainty,1.894
+us6000pkck,2025-01-16T05:49:59Z,4.9,Chagos Archipelago region,Estimated depth,10
+us6000pkck,2025-01-16T05:49:59Z,4.9,Chagos Archipelago region,Depth uncertainty,1.914
+us6000pm4w,2025-01-16T03:44:12Z,4.6,South Sandwich Islands region,Estimated depth,10
+us6000pm4w,2025-01-16T03:44:12Z,4.6,South Sandwich Islands region,Depth uncertainty,1.855
+us6000pkc3,2025-01-16T03:20:02Z,4.9,Southern Tibetan Plateau,Estimated depth,10
+us6000pkc3,2025-01-16T03:20:02Z,4.9,Southern Tibetan Plateau,Depth uncertainty,1.902
+us6000pkbw,2025-01-16T02:36:52Z,4.5,"33 km S of Āwash, Ethiopia",Estimated depth,10
+us6000pkbw,2025-01-16T02:36:52Z,4.5,"33 km S of Āwash, Ethiopia",Depth uncertainty,1.941
+us6000pkbs,2025-01-16T02:17:53Z,4.6,"38 km W of Pangai, Tonga",Estimated depth,104.997
+us6000pkbs,2025-01-16T02:17:53Z,4.6,"38 km W of Pangai, Tonga",Depth uncertainty,12.524
+us6000pm4h,2025-01-16T02:17:22Z,4.5,"102 km W of Panguna, Papua New Guinea",Estimated depth,10
+us6000pm4h,2025-01-16T02:17:22Z,4.5,"102 km W of Panguna, Papua New Guinea",Depth uncertainty,1.94
+us6000pkbn,2025-01-16T01:07:26Z,4.6,"27 km NNW of Lubuklinggau, Indonesia",Estimated depth,198.437
+us6000pkbn,2025-01-16T01:07:26Z,4.6,"27 km NNW of Lubuklinggau, Indonesia",Depth uncertainty,7.176
+us6000pkb1,2025-01-16T00:07:26Z,4.5,"41 km SSE of Tateyama, Japan",Estimated depth,56.494
+us6000pkb1,2025-01-16T00:07:26Z,4.5,"41 km SSE of Tateyama, Japan",Depth uncertainty,6.913
+us6000pka6,2025-01-15T22:38:22Z,4.8,"77 km ENE of Mutsu, Japan",Estimated depth,55.333
+us6000pka6,2025-01-15T22:38:22Z,4.8,"77 km ENE of Mutsu, Japan",Depth uncertainty,5.54
+us6000pk9u,2025-01-15T21:37:01Z,5.7,"26 km SE of Lata, Solomon Islands",Estimated depth,42
+us6000pk9u,2025-01-15T21:37:01Z,5.7,"26 km SE of Lata, Solomon Islands",Depth uncertainty,1.832
+us6000pk95,2025-01-15T20:04:39Z,4.6,south of the Fiji Islands,Estimated depth,492.851
+us6000pk95,2025-01-15T20:04:39Z,4.6,south of the Fiji Islands,Depth uncertainty,14.034
+us6000pk8m,2025-01-15T19:22:02Z,4.9,"60 km ENE of Tatsugō, Japan",Estimated depth,35
+us6000pk8m,2025-01-15T19:22:02Z,4.9,"60 km ENE of Tatsugō, Japan",Depth uncertainty,1.847
+us6000pk85,2025-01-15T18:03:22Z,4.9,"11 km NE of Caibiran, Philippines",Estimated depth,10
+us6000pk85,2025-01-15T18:03:22Z,4.9,"11 km NE of Caibiran, Philippines",Depth uncertainty,1.855
+us6000pm3r,2025-01-15T16:59:49Z,4.5,Kermadec Islands region,Estimated depth,10
+us6000pm3r,2025-01-15T16:59:49Z,4.5,Kermadec Islands region,Depth uncertainty,1.973
+us6000pm3q,2025-01-15T16:29:19Z,4.5,"93 km SE of Alo, Wallis and Futuna",Estimated depth,10
+us6000pm3q,2025-01-15T16:29:19Z,4.5,"93 km SE of Alo, Wallis and Futuna",Depth uncertainty,1.88
+us6000pk5t,2025-01-15T14:12:36Z,4.9,"268 km E of Kuril’sk, Russia",Estimated depth,10
+us6000pk5t,2025-01-15T14:12:36Z,4.9,"268 km E of Kuril’sk, Russia",Depth uncertainty,1.885
+us6000pk50,2025-01-15T12:06:36Z,5.1,South Sandwich Islands region,Estimated depth,10
+us6000pk50,2025-01-15T12:06:36Z,5.1,South Sandwich Islands region,Depth uncertainty,1.867
+us6000pk4k,2025-01-15T10:05:54Z,4.5,"183 km SE of Pondaguitan, Philippines",Estimated depth,35
+us6000pk4k,2025-01-15T10:05:54Z,4.5,"183 km SE of Pondaguitan, Philippines",Depth uncertainty,1.926
+us6000pk3x,2025-01-15T07:32:20Z,5,"39 km NNW of Port-Vila, Vanuatu",Estimated depth,74.892
+us6000pk3x,2025-01-15T07:32:20Z,5,"39 km NNW of Port-Vila, Vanuatu",Depth uncertainty,5.116
+us6000pk2k,2025-01-15T04:20:47Z,5.1,"Kermadec Islands, New Zealand",Estimated depth,40.572
+us6000pk2k,2025-01-15T04:20:47Z,5.1,"Kermadec Islands, New Zealand",Depth uncertainty,6.33
+us6000pk2c,2025-01-15T03:04:21Z,4.5,Kuril Islands,Estimated depth,56.05
+us6000pk2c,2025-01-15T03:04:21Z,4.5,Kuril Islands,Depth uncertainty,7.27
+us6000pk28,2025-01-15T02:08:39Z,5,"30 km ESE of Vanimo, Papua New Guinea",Estimated depth,16.416
+us6000pk28,2025-01-15T02:08:39Z,5,"30 km ESE of Vanimo, Papua New Guinea",Depth uncertainty,4.539
+us6000pk0k,2025-01-14T20:51:53Z,4.6,"76 km SE of Pondaguitan, Philippines",Estimated depth,72.017
+us6000pk0k,2025-01-14T20:51:53Z,4.6,"76 km SE of Pondaguitan, Philippines",Depth uncertainty,6.574
+us6000pjz0,2025-01-14T19:40:24Z,5.1,"73 km NW of Kimbe, Papua New Guinea",Estimated depth,391.805
+us6000pjz0,2025-01-14T19:40:24Z,5.1,"73 km NW of Kimbe, Papua New Guinea",Depth uncertainty,5.348
+us6000pjym,2025-01-14T19:02:04Z,5.6,central Mid-Atlantic Ridge,Estimated depth,10
+us6000pjym,2025-01-14T19:02:04Z,5.6,central Mid-Atlantic Ridge,Depth uncertainty,1.829
+us6000pjxl,2025-01-14T17:12:39Z,5.3,"43 km ENE of Nichinan, Japan",Estimated depth,37.94
+us6000pjxl,2025-01-14T17:12:39Z,5.3,"43 km ENE of Nichinan, Japan",Depth uncertainty,3.101
+us6000pjxh,2025-01-14T16:16:58Z,4.7,"39 km SSE of Dompu, Indonesia",Estimated depth,10.548
+us6000pjxh,2025-01-14T16:16:58Z,4.7,"39 km SSE of Dompu, Indonesia",Depth uncertainty,3.875
+us6000pjx5,2025-01-14T14:55:56Z,5,"19 km SE of Metahāra, Ethiopia",Estimated depth,10
+us6000pjx5,2025-01-14T14:55:56Z,5,"19 km SE of Metahāra, Ethiopia",Depth uncertainty,1.804
+us6000pm2i,2025-01-14T14:39:03Z,4.5,"160 km SE of Kirakira, Solomon Islands",Estimated depth,10
+us6000pm2i,2025-01-14T14:39:03Z,4.5,"160 km SE of Kirakira, Solomon Islands",Depth uncertainty,1.894
+us6000pjx0,2025-01-14T14:09:23Z,5.2,central East Pacific Rise,Estimated depth,10
+us6000pjx0,2025-01-14T14:09:23Z,5.2,central East Pacific Rise,Depth uncertainty,1.87
+us6000pjw8,2025-01-14T08:05:21Z,5.2,"115 km SSE of Akureyri, Iceland",Estimated depth,10
+us6000pjw8,2025-01-14T08:05:21Z,5.2,"115 km SSE of Akureyri, Iceland",Depth uncertainty,1.784
+us6000pjw6,2025-01-14T07:47:26Z,4.5,"123 km S of Akureyri, Iceland",Estimated depth,10
+us6000pjw6,2025-01-14T07:47:26Z,4.5,"123 km S of Akureyri, Iceland",Depth uncertainty,1.925
+us6000pjw5,2025-01-14T07:38:34Z,4.5,"246 km E of Kuril’sk, Russia",Estimated depth,43.118
+us6000pjw5,2025-01-14T07:38:34Z,4.5,"246 km E of Kuril’sk, Russia",Depth uncertainty,7.669
+us6000pm24,2025-01-14T07:35:23Z,4.5,"7 km SSW of Port-Vila, Vanuatu",Estimated depth,19.54
+us6000pm24,2025-01-14T07:35:23Z,4.5,"7 km SSW of Port-Vila, Vanuatu",Depth uncertainty,4.284
+us6000pjvf,2025-01-14T04:12:22Z,5,"178 km WSW of Hihifo, Tonga",Estimated depth,322.588
+us6000pjvf,2025-01-14T04:12:22Z,5,"178 km WSW of Hihifo, Tonga",Depth uncertainty,5.379
+us6000pjuu,2025-01-14T01:31:39Z,4.6,"13 km NNE of Metahāra, Ethiopia",Estimated depth,10
+us6000pjuu,2025-01-14T01:31:39Z,4.6,"13 km NNE of Metahāra, Ethiopia",Depth uncertainty,1.951
+us6000pjue,2025-01-14T00:23:29Z,4.6,"44 km E of La Tirana, Chile",Estimated depth,91.224
+us6000pjue,2025-01-14T00:23:29Z,4.6,"44 km E of La Tirana, Chile",Depth uncertainty,3.813
+us6000pju2,2025-01-13T22:48:34Z,4.6,"131 km SE of Kimbe, Papua New Guinea",Estimated depth,10
+us6000pju2,2025-01-13T22:48:34Z,4.6,"131 km SE of Kimbe, Papua New Guinea",Depth uncertainty,1.772
+us6000pjtr,2025-01-13T22:23:31Z,4.5,"49 km E of Ollagüe, Chile",Estimated depth,182.978
+us6000pjtr,2025-01-13T22:23:31Z,4.5,"49 km E of Ollagüe, Chile",Depth uncertainty,7.94
+us6000pjt7,2025-01-13T20:50:19Z,4.5,"Devon Island, Nunavut, Canada",Estimated depth,10
+us6000pjt7,2025-01-13T20:50:19Z,4.5,"Devon Island, Nunavut, Canada",Depth uncertainty,1.902
+us6000pjsw,2025-01-13T20:24:35Z,4.8,"19 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pjsw,2025-01-13T20:24:35Z,4.8,"19 km NNW of Āwash, Ethiopia",Depth uncertainty,1.89
+us6000plvk,2025-01-13T19:36:23Z,4.5,"Bonin Islands, Japan region",Estimated depth,10
+us6000plvk,2025-01-13T19:36:23Z,4.5,"Bonin Islands, Japan region",Depth uncertainty,1.922
+us6000pjsj,2025-01-13T19:24:58Z,4.6,"73 km NW of Mohr, Iran",Estimated depth,10
+us6000pjsj,2025-01-13T19:24:58Z,4.6,"73 km NW of Mohr, Iran",Depth uncertainty,1.869
+us6000pjse,2025-01-13T19:00:12Z,4.5,southeast of the Loyalty Islands,Estimated depth,10
+us6000pjse,2025-01-13T19:00:12Z,4.5,southeast of the Loyalty Islands,Depth uncertainty,1.876
+us6000plvs,2025-01-13T18:41:20Z,4.6,Southwest Indian Ridge,Estimated depth,10
+us6000plvs,2025-01-13T18:41:20Z,4.6,Southwest Indian Ridge,Depth uncertainty,1.872
+us6000plvh,2025-01-13T18:36:31Z,4.6,"165 km SSW of Merizo Village, Guam",Estimated depth,10
+us6000plvh,2025-01-13T18:36:31Z,4.6,"165 km SSW of Merizo Village, Guam",Depth uncertainty,1.929
+us6000pjqv,2025-01-13T17:52:08Z,5,Southwest Indian Ridge,Estimated depth,10
+us6000pjqv,2025-01-13T17:52:08Z,5,Southwest Indian Ridge,Depth uncertainty,1.741
+us6000pjqd,2025-01-13T16:35:21Z,4.5,"251 km E of Levuka, Fiji",Estimated depth,496.617
+us6000pjqd,2025-01-13T16:35:21Z,4.5,"251 km E of Levuka, Fiji",Depth uncertainty,6.481
+us6000pjqa,2025-01-13T16:14:57Z,5.2,"24 km ESE of Takanabe, Japan",Estimated depth,40.319
+us6000pjqa,2025-01-13T16:14:57Z,5.2,"24 km ESE of Takanabe, Japan",Depth uncertainty,6.272
+us6000pjq9,2025-01-13T15:44:42Z,4.6,Southern Tibetan Plateau,Estimated depth,10
+us6000pjq9,2025-01-13T15:44:42Z,4.6,Southern Tibetan Plateau,Depth uncertainty,1.815
+us6000plv2,2025-01-13T15:18:59Z,4.5,"41 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000plv2,2025-01-13T15:18:59Z,4.5,"41 km NNW of Āwash, Ethiopia",Depth uncertainty,1.914
+us6000pjpb,2025-01-13T12:58:22Z,5.1,Southern Tibetan Plateau,Estimated depth,10
+us6000pjpb,2025-01-13T12:58:22Z,5.1,Southern Tibetan Plateau,Depth uncertainty,1.766
+us6000pjp9,2025-01-13T12:57:37Z,5,Southern Tibetan Plateau,Estimated depth,10
+us6000pjp9,2025-01-13T12:57:37Z,5,Southern Tibetan Plateau,Depth uncertainty,1.772
+us6000pjp8,2025-01-13T12:54:37Z,5,"111 km WSW of Abepura, Indonesia",Estimated depth,51.782
+us6000pjp8,2025-01-13T12:54:37Z,5,"111 km WSW of Abepura, Indonesia",Depth uncertainty,6.289
+us6000plv6,2025-01-13T12:35:21Z,4.5,"37 km ESE of Miyazaki, Japan",Estimated depth,43.566
+us6000plv6,2025-01-13T12:35:21Z,4.5,"37 km ESE of Miyazaki, Japan",Depth uncertainty,8.338
+us6000pjp4,2025-01-13T12:24:06Z,5.4,central Mid-Atlantic Ridge,Estimated depth,10
+us6000pjp4,2025-01-13T12:24:06Z,5.4,central Mid-Atlantic Ridge,Depth uncertainty,1.905
+us6000pjny,2025-01-13T12:19:32Z,6.8,"15 km SE of Miyazaki, Japan",Estimated depth,39
+us6000pjny,2025-01-13T12:19:32Z,6.8,"15 km SE of Miyazaki, Japan",Depth uncertainty,1.827
+us6000pjnw,2025-01-13T11:47:08Z,4.9,"124 km NNE of Lospalos, Timor Leste",Estimated depth,138.933
+us6000pjnw,2025-01-13T11:47:08Z,4.9,"124 km NNE of Lospalos, Timor Leste",Depth uncertainty,5.508
+us6000pjnv,2025-01-13T11:41:09Z,5,"23 km SW of Burias, Philippines",Estimated depth,37.472
+us6000pjnv,2025-01-13T11:41:09Z,5,"23 km SW of Burias, Philippines",Depth uncertainty,5.33
+us6000plur,2025-01-13T10:14:39Z,4.5,South Sandwich Islands region,Estimated depth,10
+us6000plur,2025-01-13T10:14:39Z,4.5,South Sandwich Islands region,Depth uncertainty,1.914
+us6000pluq,2025-01-13T09:41:20Z,4.5,"117 km SSE of Lata, Solomon Islands",Estimated depth,10
+us6000pluq,2025-01-13T09:41:20Z,4.5,"117 km SSE of Lata, Solomon Islands",Depth uncertainty,1.968
+us6000pjn2,2025-01-13T07:08:04Z,5,"53 km N of Lae, Papua New Guinea",Estimated depth,67.616
+us6000pjn2,2025-01-13T07:08:04Z,5,"53 km N of Lae, Papua New Guinea",Depth uncertainty,6.408
+us6000pjnm,2025-01-13T06:22:14Z,4.6,"7 km NE of Metahāra, Ethiopia",Estimated depth,10
+us6000pjnm,2025-01-13T06:22:14Z,4.6,"7 km NE of Metahāra, Ethiopia",Depth uncertainty,1.294
+us6000pjmh,2025-01-13T03:10:23Z,4.8,"186 km W of Abepura, Indonesia",Estimated depth,73.472
+us6000pjmh,2025-01-13T03:10:23Z,4.8,"186 km W of Abepura, Indonesia",Depth uncertainty,1.208
+us6000pjm2,2025-01-13T02:20:54Z,5,"16 km SE of Eloy Alfaro, Ecuador",Estimated depth,90.55
+us6000pjm2,2025-01-13T02:20:54Z,5,"16 km SE of Eloy Alfaro, Ecuador",Depth uncertainty,4.371
+us6000plvw,2025-01-13T00:21:36Z,4.8,"13 km W of Taguisa, Philippines",Estimated depth,552.944
+us6000plvw,2025-01-13T00:21:36Z,4.8,"13 km W of Taguisa, Philippines",Depth uncertainty,8.286
+us6000pjn1,2025-01-13T00:21:17Z,4.8,"15 km NW of Bantogon, Philippines",Estimated depth,552.886
+us6000pjn1,2025-01-13T00:21:17Z,4.8,"15 km NW of Bantogon, Philippines",Depth uncertainty,6.514
+us6000pjlq,2025-01-13T00:19:47Z,5.4,"20 km W of Taguisa, Philippines",Estimated depth,541.546
+us6000pjlq,2025-01-13T00:19:47Z,5.4,"20 km W of Taguisa, Philippines",Depth uncertainty,5.69
+us6000pjlb,2025-01-12T22:21:14Z,4.8,"Bonin Islands, Japan region",Estimated depth,35
+us6000pjlb,2025-01-12T22:21:14Z,4.8,"Bonin Islands, Japan region",Depth uncertainty,1.765
+us6000pjl0,2025-01-12T20:21:13Z,4.5,"244 km SSW of Jimbaran, Indonesia",Estimated depth,10
+us6000pjl0,2025-01-12T20:21:13Z,4.5,"244 km SSW of Jimbaran, Indonesia",Depth uncertainty,1.902
+us6000pjkz,2025-01-12T20:05:50Z,4.5,"43 km WNW of Larsnes, Norway",Estimated depth,10
+us6000pjkz,2025-01-12T20:05:50Z,4.5,"43 km WNW of Larsnes, Norway",Depth uncertainty,1.901
+us6000pjkx,2025-01-12T19:49:15Z,4.9,"4 km SSW of Metahāra, Ethiopia",Estimated depth,10
+us6000pjkx,2025-01-12T19:49:15Z,4.9,"4 km SSW of Metahāra, Ethiopia",Depth uncertainty,1.756
+us6000pjkt,2025-01-12T18:06:50Z,4.5,"77 km ESE of Monte Patria, Chile",Estimated depth,114.004
+us6000pjkt,2025-01-12T18:06:50Z,4.5,"77 km ESE of Monte Patria, Chile",Depth uncertainty,5.095
+us6000pjkq,2025-01-12T17:58:32Z,4.5,"Bonin Islands, Japan region",Estimated depth,407.452
+us6000pjkq,2025-01-12T17:58:32Z,4.5,"Bonin Islands, Japan region",Depth uncertainty,7.906
+us6000pjk4,2025-01-12T15:03:57Z,5,"237 km E of Levuka, Fiji",Estimated depth,608.249
+us6000pjk4,2025-01-12T15:03:57Z,5,"237 km E of Levuka, Fiji",Depth uncertainty,6.992
+us6000pjk1,2025-01-12T14:49:06Z,4.5,"49 km SSE of Zavetnoye, Ukraine",Estimated depth,10
+us6000pjk1,2025-01-12T14:49:06Z,4.5,"49 km SSE of Zavetnoye, Ukraine",Depth uncertainty,1.888
+us6000pjjs,2025-01-12T11:55:43Z,4.5,"25 km N of Metahāra, Ethiopia",Estimated depth,10
+us6000pjjs,2025-01-12T11:55:43Z,4.5,"25 km N of Metahāra, Ethiopia",Depth uncertainty,1.906
+us6000pltu,2025-01-12T11:33:13Z,4.5,south of the Kermadec Islands,Estimated depth,35
+us6000pltu,2025-01-12T11:33:13Z,4.5,south of the Kermadec Islands,Depth uncertainty,1.932
+us6000pjjf,2025-01-12T10:46:30Z,4.9,"12 km SSE of Aquila, Mexico",Estimated depth,35
+us6000pjjf,2025-01-12T10:46:30Z,4.9,"12 km SSE of Aquila, Mexico",Depth uncertainty,1.939
+us6000pjjb,2025-01-12T09:54:01Z,4.5,Southern Tibetan Plateau,Estimated depth,10
+us6000pjjb,2025-01-12T09:54:01Z,4.5,Southern Tibetan Plateau,Depth uncertainty,1.892
+us6000pjiy,2025-01-12T09:18:25Z,4.8,"21 km ESE of Aquila, Mexico",Estimated depth,35
+us6000pjiy,2025-01-12T09:18:25Z,4.8,"21 km ESE of Aquila, Mexico",Depth uncertainty,1.936
+us6000pjj4,2025-01-12T09:15:57Z,4.6,south of the Kermadec Islands,Estimated depth,35
+us6000pjj4,2025-01-12T09:15:57Z,4.6,south of the Kermadec Islands,Depth uncertainty,1.989
+us6000pjig,2025-01-12T08:32:49Z,6.2,"18 km SE of Aquila, Mexico",Estimated depth,39
+us6000pjig,2025-01-12T08:32:49Z,6.2,"18 km SE of Aquila, Mexico",Depth uncertainty,1.934
+us6000pjie,2025-01-12T08:05:27Z,4.6,"186 km SE of Lata, Solomon Islands",Estimated depth,212.199
+us6000pjie,2025-01-12T08:05:27Z,4.6,"186 km SE of Lata, Solomon Islands",Depth uncertainty,8.935
+us6000pji9,2025-01-12T07:21:47Z,4.8,"22 km WNW of Metahāra, Ethiopia",Estimated depth,10
+us6000pji9,2025-01-12T07:21:47Z,4.8,"22 km WNW of Metahāra, Ethiopia",Depth uncertainty,1.9
+us6000pji5,2025-01-12T05:53:19Z,4.5,"99 km SW of Nabire, Indonesia",Estimated depth,10
+us6000pji5,2025-01-12T05:53:19Z,4.5,"99 km SW of Nabire, Indonesia",Depth uncertainty,1.916
+us6000pln4,2025-01-11T20:31:45Z,4.5,"48 km E of San Julian, Philippines",Estimated depth,35
+us6000pln4,2025-01-11T20:31:45Z,4.5,"48 km E of San Julian, Philippines",Depth uncertainty,0.699
+us6000pjg3,2025-01-11T20:21:15Z,5,south of the Kermadec Islands,Estimated depth,10
+us6000pjg3,2025-01-11T20:21:15Z,5,south of the Kermadec Islands,Depth uncertainty,1.877
+us6000pjg2,2025-01-11T20:13:28Z,5.1,"74 km ESE of Hihifo, Tonga",Estimated depth,35
+us6000pjg2,2025-01-11T20:13:28Z,5.1,"74 km ESE of Hihifo, Tonga",Depth uncertainty,1.844
+us6000pln2,2025-01-11T18:44:38Z,4.6,"157 km SW of Merizo Village, Guam",Estimated depth,11.284
+us6000pln2,2025-01-11T18:44:38Z,4.6,"157 km SW of Merizo Village, Guam",Depth uncertainty,4.57
+us6000pjfn,2025-01-11T17:48:37Z,4.6,"17 km ENE of Baganga, Philippines",Estimated depth,95.016
+us6000pjfn,2025-01-11T17:48:37Z,4.6,"17 km ENE of Baganga, Philippines",Depth uncertainty,7.01
+us6000pjfb,2025-01-11T15:19:44Z,5.2,"19 km NNE of Metahāra, Ethiopia",Estimated depth,10
+us6000pjfb,2025-01-11T15:19:44Z,5.2,"19 km NNE of Metahāra, Ethiopia",Depth uncertainty,1.828
+us6000pjf5,2025-01-11T13:46:30Z,4.5,"52 km SSE of Maumere, Indonesia",Estimated depth,103.239
+us6000pjf5,2025-01-11T13:46:30Z,4.5,"52 km SSE of Maumere, Indonesia",Depth uncertainty,4.525
+us6000plmz,2025-01-11T12:02:32Z,4.6,"96 km E of Kendari, Indonesia",Estimated depth,10
+us6000plmz,2025-01-11T12:02:32Z,4.6,"96 km E of Kendari, Indonesia",Depth uncertainty,1.891
+us6000pjed,2025-01-11T07:51:49Z,5,"29 km NE of Yigo Village, Guam",Estimated depth,99.185
+us6000pjed,2025-01-11T07:51:49Z,5,"29 km NE of Yigo Village, Guam",Depth uncertainty,1.211
+us6000pje9,2025-01-11T07:25:11Z,4.5,"95 km S of Jatiroto, Indonesia",Estimated depth,65.2
+us6000pje9,2025-01-11T07:25:11Z,4.5,"95 km S of Jatiroto, Indonesia",Depth uncertainty,7.573
+us6000pjd4,2025-01-11T03:33:38Z,4.9,"8 km W of Pablo L. Sidar, Mexico",Estimated depth,199.678
+us6000pjd4,2025-01-11T03:33:38Z,4.9,"8 km W of Pablo L. Sidar, Mexico",Depth uncertainty,4.463
+us6000pjcz,2025-01-11T02:52:45Z,4.9,"74 km ENE of Quorn, Australia",Estimated depth,10
+us6000pjcz,2025-01-11T02:52:45Z,4.9,"74 km ENE of Quorn, Australia",Depth uncertainty,1.771
+us6000pln9,2025-01-11T00:22:29Z,4.5,"34 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pln9,2025-01-11T00:22:29Z,4.5,"34 km NNW of Āwash, Ethiopia",Depth uncertainty,1.986
+us6000pjby,2025-01-11T00:19:00Z,5.2,"39 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pjby,2025-01-11T00:19:00Z,5.2,"39 km NNW of Āwash, Ethiopia",Depth uncertainty,1.717
+us6000pjbk,2025-01-10T23:58:28Z,4.5,"5 km WNW of Āwash, Ethiopia",Estimated depth,10
+us6000pjbk,2025-01-10T23:58:28Z,4.5,"5 km WNW of Āwash, Ethiopia",Depth uncertainty,1.964
+us6000plmf,2025-01-10T23:43:15Z,4.6,"47 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000plmf,2025-01-10T23:43:15Z,4.6,"47 km NNW of Āwash, Ethiopia",Depth uncertainty,1.984
+us6000pjbe,2025-01-10T23:42:57Z,4.6,"16 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000pjbe,2025-01-10T23:42:57Z,4.6,"16 km NW of Āwash, Ethiopia",Depth uncertainty,1.917
+us6000plm5,2025-01-10T23:07:10Z,4.5,South Sandwich Islands region,Estimated depth,10
+us6000plm5,2025-01-10T23:07:10Z,4.5,South Sandwich Islands region,Depth uncertainty,1.917
+us6000pjb8,2025-01-10T22:45:36Z,4.5,"82 km N of Barishal, Pakistan",Estimated depth,10
+us6000pjb8,2025-01-10T22:45:36Z,4.5,"82 km N of Barishal, Pakistan",Depth uncertainty,1.972
+us6000plm2,2025-01-10T22:22:39Z,4.7,Scotia Sea,Estimated depth,10
+us6000plm2,2025-01-10T22:22:39Z,4.7,Scotia Sea,Depth uncertainty,1.941
+us6000pj8x,2025-01-10T17:48:49Z,4.5,"103 km WNW of Aykol, China",Estimated depth,14.385
+us6000pj8x,2025-01-10T17:48:49Z,4.5,"103 km WNW of Aykol, China",Depth uncertainty,4.049
+us6000pj8j,2025-01-10T15:55:20Z,4.6,"281 km SW of Gizo, Solomon Islands",Estimated depth,10
+us6000pj8j,2025-01-10T15:55:20Z,4.6,"281 km SW of Gizo, Solomon Islands",Depth uncertainty,1.883
+us6000pj66,2025-01-10T14:31:33Z,5.2,southeast of Easter Island,Estimated depth,10
+us6000pj66,2025-01-10T14:31:33Z,5.2,southeast of Easter Island,Depth uncertainty,1.895
+us6000pj5v,2025-01-10T13:10:28Z,4.8,"13 km SSE of Metahāra, Ethiopia",Estimated depth,10
+us6000pj5v,2025-01-10T13:10:28Z,4.8,"13 km SSE of Metahāra, Ethiopia",Depth uncertainty,1.927
+us6000pj5q,2025-01-10T12:31:21Z,4.5,"30 km WNW of Linfen, China",Estimated depth,10
+us6000pj5q,2025-01-10T12:31:21Z,4.5,"30 km WNW of Linfen, China",Depth uncertainty,1.899
+us6000pj5g,2025-01-10T11:24:22Z,4.7,Mid-Indian Ridge,Estimated depth,10
+us6000pj5g,2025-01-10T11:24:22Z,4.7,Mid-Indian Ridge,Depth uncertainty,1.834
+us6000pllp,2025-01-10T11:11:31Z,4.5,"125 km ESE of Bitung, Indonesia",Estimated depth,47.401
+us6000pllp,2025-01-10T11:11:31Z,4.5,"125 km ESE of Bitung, Indonesia",Depth uncertainty,8.227
+us6000pj54,2025-01-10T10:26:30Z,4.5,"174 km NE of Lospalos, Timor Leste",Estimated depth,161.573
+us6000pj54,2025-01-10T10:26:30Z,4.5,"174 km NE of Lospalos, Timor Leste",Depth uncertainty,7.982
+us6000pj51,2025-01-10T09:57:50Z,4.7,"1 km NNW of Metahāra, Ethiopia",Estimated depth,10
+us6000pj51,2025-01-10T09:57:50Z,4.7,"1 km NNW of Metahāra, Ethiopia",Depth uncertainty,1.879
+us6000pj4s,2025-01-10T08:14:32Z,5.6,"31 km SSW of Bahía Solano, Colombia",Estimated depth,18
+us6000pj4s,2025-01-10T08:14:32Z,5.6,"31 km SSW of Bahía Solano, Colombia",Depth uncertainty,1.851
+us6000pj4g,2025-01-10T05:49:44Z,4.8,"30 km ENE of Hinatuan, Philippines",Estimated depth,63.071
+us6000pj4g,2025-01-10T05:49:44Z,4.8,"30 km ENE of Hinatuan, Philippines",Depth uncertainty,5.72
+us6000pj4c,2025-01-10T05:29:31Z,4.5,"41 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000pj4c,2025-01-10T05:29:31Z,4.5,"41 km NW of Āwash, Ethiopia",Depth uncertainty,1.927
+us6000pll8,2025-01-10T02:02:34Z,4.5,"6 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pll8,2025-01-10T02:02:34Z,4.5,"6 km NNW of Āwash, Ethiopia",Depth uncertainty,1.985
+us6000pj2q,2025-01-10T01:34:40Z,5.3,"81 km WNW of Pangai, Tonga",Estimated depth,11.931
+us6000pj2q,2025-01-10T01:34:40Z,5.3,"81 km WNW of Pangai, Tonga",Depth uncertainty,3.75
+us6000pj17,2025-01-09T20:52:31Z,4.7,"33 km NNW of Camiña, Chile",Estimated depth,103.324
+us6000pj17,2025-01-09T20:52:31Z,4.7,"33 km NNW of Camiña, Chile",Depth uncertainty,4.323
+us6000plgr,2025-01-09T20:10:09Z,4.7,Kermadec Islands region,Estimated depth,10
+us6000plgr,2025-01-09T20:10:09Z,4.7,Kermadec Islands region,Depth uncertainty,1.916
+us6000pj06,2025-01-09T19:11:11Z,4.5,"78 km SSE of Pondaguitan, Philippines",Estimated depth,155.3
+us6000pj06,2025-01-09T19:11:11Z,4.5,"78 km SSE of Pondaguitan, Philippines",Depth uncertainty,1.923
+us6000pixy,2025-01-09T16:42:14Z,4.7,"73 km W of Tobelo, Indonesia",Estimated depth,10
+us6000pixy,2025-01-09T16:42:14Z,4.7,"73 km W of Tobelo, Indonesia",Depth uncertainty,1.844
+us6000pixh,2025-01-09T16:31:45Z,5.8,"10 km E of Acajutla, El Salvador",Estimated depth,95
+us6000pixh,2025-01-09T16:31:45Z,5.8,"10 km E of Acajutla, El Salvador",Depth uncertainty,1.88
+us6000plgj,2025-01-09T15:22:22Z,4.5,Mauritius - Reunion region,Estimated depth,10
+us6000plgj,2025-01-09T15:22:22Z,4.5,Mauritius - Reunion region,Depth uncertainty,1.796
+us6000pivu,2025-01-09T14:48:41Z,4.5,Vanuatu region,Estimated depth,623.083
+us6000pivu,2025-01-09T14:48:41Z,4.5,Vanuatu region,Depth uncertainty,8.09
+us6000plgh,2025-01-09T14:35:06Z,4.6,"37 km WSW of Buala, Solomon Islands",Estimated depth,82.203
+us6000plgh,2025-01-09T14:35:06Z,4.6,"37 km WSW of Buala, Solomon Islands",Depth uncertainty,8
+us6000plg8,2025-01-09T11:18:54Z,4.5,Kermadec Islands region,Estimated depth,40.035
+us6000plg8,2025-01-09T11:18:54Z,4.5,Kermadec Islands region,Depth uncertainty,6.728
+us6000piv5,2025-01-09T10:52:34Z,4.9,west of Macquarie Island,Estimated depth,10
+us6000piv5,2025-01-09T10:52:34Z,4.9,west of Macquarie Island,Depth uncertainty,1.772
+us6000plg4,2025-01-09T09:51:23Z,4.5,"Maug Islands region, Northern Mariana Islands",Estimated depth,67.825
+us6000plg4,2025-01-09T09:51:23Z,4.5,"Maug Islands region, Northern Mariana Islands",Depth uncertainty,7.935
+us6000plgc,2025-01-09T08:20:21Z,4.7,Easter Island region,Estimated depth,10
+us6000plgc,2025-01-09T08:20:21Z,4.7,Easter Island region,Depth uncertainty,1.957
+us6000pit5,2025-01-09T04:38:39Z,4.5,"18 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pit5,2025-01-09T04:38:39Z,4.5,"18 km NNW of Āwash, Ethiopia",Depth uncertainty,1.959
+us6000pisp,2025-01-09T02:43:58Z,5,"93 km SW of Port-Vila, Vanuatu",Estimated depth,10
+us6000pisp,2025-01-09T02:43:58Z,5,"93 km SW of Port-Vila, Vanuatu",Depth uncertainty,1.902
+us6000plg1,2025-01-09T01:23:16Z,4.6,"7 km N of Āwash, Ethiopia",Estimated depth,10
+us6000plg1,2025-01-09T01:23:16Z,4.6,"7 km N of Āwash, Ethiopia",Depth uncertainty,1.826
+us6000pir9,2025-01-08T22:17:08Z,4.6,"29 km N of Metahāra, Ethiopia",Estimated depth,10
+us6000pir9,2025-01-08T22:17:08Z,4.6,"29 km N of Metahāra, Ethiopia",Depth uncertainty,1.899
+us6000pir6,2025-01-08T22:07:41Z,4.9,"25 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pir6,2025-01-08T22:07:41Z,4.9,"25 km NNW of Āwash, Ethiopia",Depth uncertainty,1.862
+us6000piqu,2025-01-08T21:31:26Z,5.3,Drake Passage,Estimated depth,10
+us6000piqu,2025-01-08T21:31:26Z,5.3,Drake Passage,Depth uncertainty,1.766
+us6000pla8,2025-01-08T21:01:37Z,4.7,"104 km SE of Neiafu, Tonga",Estimated depth,10
+us6000pla8,2025-01-08T21:01:37Z,4.7,"104 km SE of Neiafu, Tonga",Depth uncertainty,1.893
+us6000piqq,2025-01-08T20:58:57Z,4.6,Reykjanes Ridge,Estimated depth,10
+us6000piqq,2025-01-08T20:58:57Z,4.6,Reykjanes Ridge,Depth uncertainty,1.94
+us6000piql,2025-01-08T20:56:14Z,4.6,"14 km SW of Āwash, Ethiopia",Estimated depth,10
+us6000piql,2025-01-08T20:56:14Z,4.6,"14 km SW of Āwash, Ethiopia",Depth uncertainty,1.969
+us6000piqd,2025-01-08T20:30:19Z,4.6,"36 km WSW of Mejillones, Chile",Estimated depth,23.388
+us6000piqd,2025-01-08T20:30:19Z,4.6,"36 km WSW of Mejillones, Chile",Depth uncertainty,4.952
+us6000pla6,2025-01-08T20:16:09Z,4.5,Reykjanes Ridge,Estimated depth,10
+us6000pla6,2025-01-08T20:16:09Z,4.5,Reykjanes Ridge,Depth uncertainty,1.934
+us6000piq7,2025-01-08T20:00:07Z,4.5,"113 km SSW of Sechura, Peru",Estimated depth,10
+us6000piq7,2025-01-08T20:00:07Z,4.5,"113 km SSW of Sechura, Peru",Depth uncertainty,1.864
+us6000pla3,2025-01-08T19:15:50Z,4.5,"5 km SSW of Tochigi, Japan",Estimated depth,94.286
+us6000pla3,2025-01-08T19:15:50Z,4.5,"5 km SSW of Tochigi, Japan",Depth uncertainty,7.006
+us6000pipw,2025-01-08T19:12:32Z,4.5,"8 km SSE of Silago, Philippines",Estimated depth,10
+us6000pipw,2025-01-08T19:12:32Z,4.5,"8 km SSE of Silago, Philippines",Depth uncertainty,1.893
+us6000pla5,2025-01-08T15:19:25Z,4.6,Pacific-Antarctic Ridge,Estimated depth,10
+us6000pla5,2025-01-08T15:19:25Z,4.6,Pacific-Antarctic Ridge,Depth uncertainty,1.793
+us6000pl9w,2025-01-08T15:05:34Z,4.6,Pacific-Antarctic Ridge,Estimated depth,10
+us6000pl9w,2025-01-08T15:05:34Z,4.6,Pacific-Antarctic Ridge,Depth uncertainty,1.918
+us6000pikx,2025-01-08T14:40:29Z,4.7,"61 km ESE of Koseda, Japan",Estimated depth,20.716
+us6000pikx,2025-01-08T14:40:29Z,4.7,"61 km ESE of Koseda, Japan",Depth uncertainty,5.343
+us6000piks,2025-01-08T14:15:59Z,5,Reykjanes Ridge,Estimated depth,10
+us6000piks,2025-01-08T14:15:59Z,5,Reykjanes Ridge,Depth uncertainty,1.865
+us6000pikk,2025-01-08T12:45:59Z,4.7,"80 km E of Mil’kovo, Russia",Estimated depth,130.62
+us6000pikk,2025-01-08T12:45:59Z,4.7,"80 km E of Mil’kovo, Russia",Depth uncertainty,7.987
+us6000pikd,2025-01-08T12:01:22Z,4.8,"173 km SE of Gizo, Solomon Islands",Estimated depth,10
+us6000pikd,2025-01-08T12:01:22Z,4.8,"173 km SE of Gizo, Solomon Islands",Depth uncertainty,1.894
+us6000pijq,2025-01-08T08:27:36Z,4.5,"9 km NE of Āwash, Ethiopia",Estimated depth,10
+us6000pijq,2025-01-08T08:27:36Z,4.5,"9 km NE of Āwash, Ethiopia",Depth uncertainty,1.924
+us6000pijd,2025-01-08T07:44:22Z,5.5,"Southern Qinghai, China",Estimated depth,10
+us6000pijd,2025-01-08T07:44:22Z,5.5,"Southern Qinghai, China",Depth uncertainty,1.805
+us6000pij7,2025-01-08T07:23:50Z,4.6,"Off the coast of Aisen, Chile",Estimated depth,10
+us6000pij7,2025-01-08T07:23:50Z,4.6,"Off the coast of Aisen, Chile",Depth uncertainty,1.829
+us6000piij,2025-01-08T03:51:21Z,5,Southern Tibetan Plateau,Estimated depth,10
+us6000piij,2025-01-08T03:51:21Z,5,Southern Tibetan Plateau,Depth uncertainty,1.839
+us6000pii1,2025-01-08T01:30:03Z,4.6,"16 km SE of Pasinler, Turkey",Estimated depth,10
+us6000pii1,2025-01-08T01:30:03Z,4.6,"16 km SE of Pasinler, Turkey",Depth uncertainty,1.881
+us6000pihy,2025-01-08T01:08:31Z,4.5,"63 km ESE of Kandrian, Papua New Guinea",Estimated depth,10
+us6000pihy,2025-01-08T01:08:31Z,4.5,"63 km ESE of Kandrian, Papua New Guinea",Depth uncertainty,1.93
+us6000pihw,2025-01-08T00:53:28Z,5.3,"12 km WNW of Āwash, Ethiopia",Estimated depth,10
+us6000pihw,2025-01-08T00:53:28Z,5.3,"12 km WNW of Āwash, Ethiopia",Depth uncertainty,1.868
+us6000pihu,2025-01-08T00:49:47Z,4.7,"30 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pihu,2025-01-08T00:49:47Z,4.7,"30 km NNW of Āwash, Ethiopia",Depth uncertainty,1.919
+us6000pkrs,2025-01-07T23:12:19Z,4.6,"87 km S of Pangai, Tonga",Estimated depth,35
+us6000pkrs,2025-01-07T23:12:19Z,4.6,"87 km S of Pangai, Tonga",Depth uncertainty,1.943
+us6000pkrv,2025-01-07T20:58:49Z,4.6,Mid-Indian Ridge,Estimated depth,10
+us6000pkrv,2025-01-07T20:58:49Z,4.6,Mid-Indian Ridge,Depth uncertainty,1.968
+us6000pigm,2025-01-07T20:12:56Z,4.7,south of Australia,Estimated depth,10
+us6000pigm,2025-01-07T20:12:56Z,4.7,south of Australia,Depth uncertainty,1.958
+us6000pigg,2025-01-07T19:52:52Z,4.5,Southern Tibetan Plateau,Estimated depth,10
+us6000pigg,2025-01-07T19:52:52Z,4.5,Southern Tibetan Plateau,Depth uncertainty,1.85
+us6000pifl,2025-01-07T17:52:21Z,5,"38 km NNW of Komodo, Indonesia",Estimated depth,10
+us6000pifl,2025-01-07T17:52:21Z,5,"38 km NNW of Komodo, Indonesia",Depth uncertainty,1.804
+us6000pife,2025-01-07T17:23:48Z,5.3,"Volcano Islands, Japan region",Estimated depth,534.482
+us6000pife,2025-01-07T17:23:48Z,5.3,"Volcano Islands, Japan region",Depth uncertainty,5.267
+us6000pifs,2025-01-07T16:44:13Z,4.9,Mid-Indian Ridge,Estimated depth,15.234
+us6000pifs,2025-01-07T16:44:13Z,4.9,Mid-Indian Ridge,Depth uncertainty,4.054
+us6000pifb,2025-01-07T16:38:59Z,5.2,Mid-Indian Ridge,Estimated depth,10
+us6000pifb,2025-01-07T16:38:59Z,5.2,Mid-Indian Ridge,Depth uncertainty,1.761
+us6000pksj,2025-01-07T15:40:57Z,4.5,"39 km SW of Metahāra, Ethiopia",Estimated depth,10
+us6000pksj,2025-01-07T15:40:57Z,4.5,"39 km SW of Metahāra, Ethiopia",Depth uncertainty,1.95
+us6000pif0,2025-01-07T13:29:35Z,4.6,Southern Tibetan Plateau,Estimated depth,10
+us6000pif0,2025-01-07T13:29:35Z,4.6,Southern Tibetan Plateau,Depth uncertainty,1.626
+us6000piez,2025-01-07T13:16:06Z,4.5,Banda Sea,Estimated depth,155.011
+us6000piez,2025-01-07T13:16:06Z,4.5,Banda Sea,Depth uncertainty,7.111
+us6000pidl,2025-01-07T10:19:49Z,4.5,"18 km ENE of Wadomari, Japan",Estimated depth,44.053
+us6000pidl,2025-01-07T10:19:49Z,4.5,"18 km ENE of Wadomari, Japan",Depth uncertainty,8.002
+us6000pidf,2025-01-07T09:18:58Z,4.6,"3 km N of Dapa, Philippines",Estimated depth,10
+us6000pidf,2025-01-07T09:18:58Z,4.6,"3 km N of Dapa, Philippines",Depth uncertainty,1.879
+us6000pidi,2025-01-07T09:06:56Z,4.9,"98 km ESE of Neiafu, Tonga",Estimated depth,10
+us6000pidi,2025-01-07T09:06:56Z,4.9,"98 km ESE of Neiafu, Tonga",Depth uncertainty,1.18
+us6000pida,2025-01-07T08:31:30Z,5.6,"Izu Islands, Japan region",Estimated depth,358
+us6000pida,2025-01-07T08:31:30Z,5.6,"Izu Islands, Japan region",Depth uncertainty,1.908
+us6000pidb,2025-01-07T08:25:52Z,4.9,"6 km NE of Metahāra, Ethiopia",Estimated depth,10
+us6000pidb,2025-01-07T08:25:52Z,4.9,"6 km NE of Metahāra, Ethiopia",Depth uncertainty,1.89
+us6000picz,2025-01-07T07:34:15Z,4.5,"123 km SSW of Kokopo, Papua New Guinea",Estimated depth,105.708
+us6000picz,2025-01-07T07:34:15Z,4.5,"123 km SSW of Kokopo, Papua New Guinea",Depth uncertainty,7.285
+us6000pick,2025-01-07T05:57:16Z,4.6,Southern Tibetan Plateau,Estimated depth,10
+us6000pick,2025-01-07T05:57:16Z,4.6,Southern Tibetan Plateau,Depth uncertainty,1.818
+us6000pic9,2025-01-07T04:15:30Z,5,Fiji region,Estimated depth,370.004
+us6000pic9,2025-01-07T04:15:30Z,5,Fiji region,Depth uncertainty,5.696
+us6000pic2,2025-01-07T03:45:54Z,4.5,Southern Tibetan Plateau,Estimated depth,10
+us6000pic2,2025-01-07T03:45:54Z,4.5,Southern Tibetan Plateau,Depth uncertainty,1.859
+us6000pibx,2025-01-07T03:37:29Z,4.7,"85 km ESE of Palora, Ecuador",Estimated depth,161.491
+us6000pibx,2025-01-07T03:37:29Z,4.7,"85 km ESE of Palora, Ecuador",Depth uncertainty,5.653
+us6000pibt,2025-01-07T03:22:31Z,4.6,"196 km SSE of Soe, Indonesia",Estimated depth,10
+us6000pibt,2025-01-07T03:22:31Z,4.6,"196 km SSE of Soe, Indonesia",Depth uncertainty,1.891
+us6000pibm,2025-01-07T02:47:21Z,4.8,"17 km WNW of Imabetsu, Japan",Estimated depth,158.63
+us6000pibm,2025-01-07T02:47:21Z,4.8,"17 km WNW of Imabetsu, Japan",Depth uncertainty,6.835
+us6000pkrz,2025-01-07T02:27:38Z,4.5,"49 km NE of Lobuche, Nepal",Estimated depth,10
+us6000pkrz,2025-01-07T02:27:38Z,4.5,"49 km NE of Lobuche, Nepal",Depth uncertainty,1.91
+us6000piba,2025-01-07T02:14:28Z,4.9,Tibetan Plateau,Estimated depth,10.975
+us6000piba,2025-01-07T02:14:28Z,4.9,Tibetan Plateau,Depth uncertainty,4.151
+us6000pkpu,2025-01-07T02:01:06Z,4.5,"101 km NNE of Lobuche, Nepal",Estimated depth,10
+us6000pkpu,2025-01-07T02:01:06Z,4.5,"101 km NNE of Lobuche, Nepal",Depth uncertainty,1.873
+us6000pib7,2025-01-07T01:59:48Z,4.6,Southern Tibetan Plateau,Estimated depth,10
+us6000pib7,2025-01-07T01:59:48Z,4.6,Southern Tibetan Plateau,Depth uncertainty,1.888
+us6000piav,2025-01-07T01:43:49Z,4.9,Southern Tibetan Plateau,Estimated depth,10
+us6000piav,2025-01-07T01:43:49Z,4.9,Southern Tibetan Plateau,Depth uncertainty,1.869
+us6000piar,2025-01-07T01:37:13Z,5,Southern Tibetan Plateau,Estimated depth,10
+us6000piar,2025-01-07T01:37:13Z,5,Southern Tibetan Plateau,Depth uncertainty,1.802
+us6000piap,2025-01-07T01:31:59Z,4.9,Southern Tibetan Plateau,Estimated depth,10
+us6000piap,2025-01-07T01:31:59Z,4.9,Southern Tibetan Plateau,Depth uncertainty,1.796
+us6000piak,2025-01-07T01:24:25Z,5,Southern Tibetan Plateau,Estimated depth,10
+us6000piak,2025-01-07T01:24:25Z,5,Southern Tibetan Plateau,Depth uncertainty,1.852
+us6000pkq7,2025-01-07T01:20:47Z,4.5,"70 km NNE of Lobuche, Nepal",Estimated depth,10
+us6000pkq7,2025-01-07T01:20:47Z,4.5,"70 km NNE of Lobuche, Nepal",Depth uncertainty,1.959
+us6000pkq5,2025-01-07T01:18:30Z,4.6,"89 km NE of Lobuche, Nepal",Estimated depth,10
+us6000pkq5,2025-01-07T01:18:30Z,4.6,"89 km NE of Lobuche, Nepal",Depth uncertainty,1.772
+us6000pks2,2025-01-07T01:17:24Z,4.7,"56 km NE of Lobuche, Nepal",Estimated depth,10
+us6000pks2,2025-01-07T01:17:24Z,4.7,"56 km NE of Lobuche, Nepal",Depth uncertainty,1.918
+us6000pkpp,2025-01-07T01:14:42Z,5.2,"83 km NE of Lobuche, Nepal",Estimated depth,10
+us6000pkpp,2025-01-07T01:14:42Z,5.2,"83 km NE of Lobuche, Nepal",Depth uncertainty,1.754
+us6000pia7,2025-01-07T01:13:27Z,5.2,Southern Tibetan Plateau,Estimated depth,10
+us6000pia7,2025-01-07T01:13:27Z,5.2,Southern Tibetan Plateau,Depth uncertainty,1.856
+us6000pks6,2025-01-07T01:10:54Z,5.2,"100 km NNE of Lobuche, Nepal",Estimated depth,10
+us6000pks6,2025-01-07T01:10:54Z,5.2,"100 km NNE of Lobuche, Nepal",Depth uncertainty,1.859
+us6000pks1,2025-01-07T01:09:13Z,5.4,"96 km NNE of Lobuche, Nepal",Estimated depth,10
+us6000pks1,2025-01-07T01:09:13Z,5.4,"96 km NNE of Lobuche, Nepal",Depth uncertainty,1.849
+us6000pi9w,2025-01-07T01:05:16Z,7.1,2025 Southern Tibetan Plateau Earthquake,Estimated depth,10
+us6000pi9w,2025-01-07T01:05:16Z,7.1,2025 Southern Tibetan Plateau Earthquake,Depth uncertainty,1.74
+us6000pkpn,2025-01-07T00:50:02Z,4.5,"109 km SSE of Miyakojima, Japan",Estimated depth,10
+us6000pkpn,2025-01-07T00:50:02Z,4.5,"109 km SSE of Miyakojima, Japan",Depth uncertainty,1.996
+us6000pi9f,2025-01-06T23:22:57Z,4.5,"33 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000pi9f,2025-01-06T23:22:57Z,4.5,"33 km NW of Āwash, Ethiopia",Depth uncertainty,1.643
+us6000pi8v,2025-01-06T21:20:45Z,5,"43 km WSW of Port-Vila, Vanuatu",Estimated depth,35
+us6000pi8v,2025-01-06T21:20:45Z,5,"43 km WSW of Port-Vila, Vanuatu",Depth uncertainty,1.883
+us6000pi8s,2025-01-06T21:18:56Z,4.6,"138 km WSW of Chimbote, Peru",Estimated depth,10
+us6000pi8s,2025-01-06T21:18:56Z,4.6,"138 km WSW of Chimbote, Peru",Depth uncertainty,1.886
+us6000pi8c,2025-01-06T19:28:39Z,4.9,"78 km NW of Mohr, Iran",Estimated depth,10
+us6000pi8c,2025-01-06T19:28:39Z,4.9,"78 km NW of Mohr, Iran",Depth uncertainty,1.867
+us6000pi7n,2025-01-06T17:24:06Z,4.8,"76 km SSW of Fīrūzābād, Iran",Estimated depth,10
+us6000pi7n,2025-01-06T17:24:06Z,4.8,"76 km SSW of Fīrūzābād, Iran",Depth uncertainty,1.882
+us6000pknx,2025-01-06T17:23:55Z,4.6,Pacific-Antarctic Ridge,Estimated depth,10
+us6000pknx,2025-01-06T17:23:55Z,4.6,Pacific-Antarctic Ridge,Depth uncertainty,1.903
+us6000pknh,2025-01-06T17:23:42Z,4.5,"78 km SSW of Fīrūzābād, Iran",Estimated depth,10
+us6000pknh,2025-01-06T17:23:42Z,4.5,"78 km SSW of Fīrūzābād, Iran",Depth uncertainty,1.875
+us6000pi7c,2025-01-06T16:59:50Z,5.2,"77 km SSW of Fīrūzābād, Iran",Estimated depth,10
+us6000pi7c,2025-01-06T16:59:50Z,5.2,"77 km SSW of Fīrūzābād, Iran",Depth uncertainty,1.644
+us6000pi7a,2025-01-06T16:44:39Z,5.1,"113 km E of Hasaki, Japan",Estimated depth,10
+us6000pi7a,2025-01-06T16:44:39Z,5.1,"113 km E of Hasaki, Japan",Depth uncertainty,1.824
+us6000pi67,2025-01-06T15:26:46Z,5.2,Tibetan Plateau,Estimated depth,10
+us6000pi67,2025-01-06T15:26:46Z,5.2,Tibetan Plateau,Depth uncertainty,1.777
+us6000pi65,2025-01-06T15:16:08Z,4.5,south of the Fiji Islands,Estimated depth,539.314
+us6000pi65,2025-01-06T15:16:08Z,4.5,south of the Fiji Islands,Depth uncertainty,9.613
+us6000pi5h,2025-01-06T12:29:34Z,4.7,"295 km ENE of Lospalos, Timor Leste",Estimated depth,138.613
+us6000pi5h,2025-01-06T12:29:34Z,4.7,"295 km ENE of Lospalos, Timor Leste",Depth uncertainty,7.196
+us6000pknd,2025-01-06T10:40:15Z,4.5,"Volcano Islands, Japan region",Estimated depth,119.31
+us6000pknd,2025-01-06T10:40:15Z,4.5,"Volcano Islands, Japan region",Depth uncertainty,7.791
+us6000pi50,2025-01-06T09:47:57Z,4.9,"9 km NNW of Kyparissía, Greece",Estimated depth,10
+us6000pi50,2025-01-06T09:47:57Z,4.9,"9 km NNW of Kyparissía, Greece",Depth uncertainty,1.843
+us6000pi4u,2025-01-06T08:46:56Z,4.5,"25 km SSW of Kéfalos, Greece",Estimated depth,150.935
+us6000pi4u,2025-01-06T08:46:56Z,4.5,"25 km SSW of Kéfalos, Greece",Depth uncertainty,7.117
+us6000pkn9,2025-01-06T07:34:21Z,4.5,"55 km NNE of Sarupathar, India",Estimated depth,10
+us6000pkn9,2025-01-06T07:34:21Z,4.5,"55 km NNE of Sarupathar, India",Depth uncertainty,1.863
+us6000pi4k,2025-01-06T07:17:57Z,4.5,"27 km E of Khulm, Afghanistan",Estimated depth,10
+us6000pi4k,2025-01-06T07:17:57Z,4.5,"27 km E of Khulm, Afghanistan",Depth uncertainty,1.868
+us6000pi3y,2025-01-06T03:59:11Z,4.6,"256 km SE of Katsuura, Japan",Estimated depth,10
+us6000pi3y,2025-01-06T03:59:11Z,4.6,"256 km SE of Katsuura, Japan",Depth uncertainty,1.91
+us6000pi3x,2025-01-06T03:54:15Z,4.5,"119 km NNE of Mīnāb, Iran",Estimated depth,10
+us6000pi3x,2025-01-06T03:54:15Z,4.5,"119 km NNE of Mīnāb, Iran",Depth uncertainty,1.897
+us6000pi4t,2025-01-06T03:24:58Z,4.7,"26 km SSW of Emiliano Zapata, Mexico",Estimated depth,10
+us6000pi4t,2025-01-06T03:24:58Z,4.7,"26 km SSW of Emiliano Zapata, Mexico",Depth uncertainty,1.915
+us6000pi3h,2025-01-06T02:43:23Z,4.6,"80 km SSW of Yonakuni, Japan",Estimated depth,14.126
+us6000pi3h,2025-01-06T02:43:23Z,4.6,"80 km SSW of Yonakuni, Japan",Depth uncertainty,4.164
+us6000pkn8,2025-01-06T02:00:30Z,4.7,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000pkn8,2025-01-06T02:00:30Z,4.7,southern Mid-Atlantic Ridge,Depth uncertainty,1.962
+us6000pkmy,2025-01-06T01:39:45Z,4.5,"257 km SE of Katsuura, Japan",Estimated depth,10
+us6000pkmy,2025-01-06T01:39:45Z,4.5,"257 km SE of Katsuura, Japan",Depth uncertainty,1.888
+us6000pi3d,2025-01-06T01:33:19Z,4.5,"30 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000pi3d,2025-01-06T01:33:19Z,4.5,"30 km NNW of Āwash, Ethiopia",Depth uncertainty,1.915
+us6000pi39,2025-01-06T00:52:11Z,5.2,"31 km S of Kirakira, Solomon Islands",Estimated depth,97.196
+us6000pi39,2025-01-06T00:52:11Z,5.2,"31 km S of Kirakira, Solomon Islands",Depth uncertainty,4.659
+us6000pi33,2025-01-06T00:01:19Z,4.5,"29 km N of Āwash, Ethiopia",Estimated depth,10
+us6000pi33,2025-01-06T00:01:19Z,4.5,"29 km N of Āwash, Ethiopia",Depth uncertainty,1.846
+us6000pkha,2025-01-05T22:40:25Z,4.6,"Volcano Islands, Japan region",Estimated depth,10
+us6000pkha,2025-01-05T22:40:25Z,4.6,"Volcano Islands, Japan region",Depth uncertainty,1.941
+us6000pi1x,2025-01-05T21:08:14Z,4.8,"136 km ENE of Fangale’ounga, Tonga",Estimated depth,10
+us6000pi1x,2025-01-05T21:08:14Z,4.8,"136 km ENE of Fangale’ounga, Tonga",Depth uncertainty,1.894
+us6000pkh3,2025-01-05T21:03:54Z,4.5,"163 km ENE of Pauanui, New Zealand",Estimated depth,10
+us6000pkh3,2025-01-05T21:03:54Z,4.5,"163 km ENE of Pauanui, New Zealand",Depth uncertainty,1.965
+us6000pkh4,2025-01-05T21:00:22Z,4.8,"163 km NNW of Hicks Bay, New Zealand",Estimated depth,10
+us6000pkh4,2025-01-05T21:00:22Z,4.8,"163 km NNW of Hicks Bay, New Zealand",Depth uncertainty,1.244
+us6000pi1m,2025-01-05T18:46:15Z,4.6,"111 km E of Hicks Bay, New Zealand",Estimated depth,10
+us6000pi1m,2025-01-05T18:46:15Z,4.6,"111 km E of Hicks Bay, New Zealand",Depth uncertainty,1.893
+us6000pi0k,2025-01-05T17:24:43Z,5,"73 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pi0k,2025-01-05T17:24:43Z,5,"73 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.871
+us6000pi09,2025-01-05T17:18:45Z,6.2,"56 km SSE of La Libertad, El Salvador",Estimated depth,46
+us6000pi09,2025-01-05T17:18:45Z,6.2,"56 km SSE of La Libertad, El Salvador",Depth uncertainty,1.95
+us6000pi02,2025-01-05T15:37:00Z,4.5,"88 km WSW of Kuqa, China",Estimated depth,10
+us6000pi02,2025-01-05T15:37:00Z,4.5,"88 km WSW of Kuqa, China",Depth uncertainty,1.934
+us6000phzr,2025-01-05T13:35:00Z,4.9,"246 km SE of Katsuura, Japan",Estimated depth,17.82
+us6000phzr,2025-01-05T13:35:00Z,4.9,"246 km SE of Katsuura, Japan",Depth uncertainty,4.846
+us6000pkhh,2025-01-05T12:31:27Z,4.5,Pacific-Antarctic Ridge,Estimated depth,10
+us6000pkhh,2025-01-05T12:31:27Z,4.5,Pacific-Antarctic Ridge,Depth uncertainty,1.926
+us6000phzf,2025-01-05T12:30:15Z,4.5,"33 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000phzf,2025-01-05T12:30:15Z,4.5,"33 km NW of Āwash, Ethiopia",Depth uncertainty,1.981
+us6000pkgn,2025-01-05T12:22:22Z,4.5,"23 km SW of Metahāra, Ethiopia",Estimated depth,10
+us6000pkgn,2025-01-05T12:22:22Z,4.5,"23 km SW of Metahāra, Ethiopia",Depth uncertainty,1.983
+us6000phzd,2025-01-05T12:14:59Z,4.5,"29 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000phzd,2025-01-05T12:14:59Z,4.5,"29 km NW of Āwash, Ethiopia",Depth uncertainty,1.9
+us6000phz2,2025-01-05T09:16:42Z,5.1,"40 km ENE of Pondaguitan, Philippines",Estimated depth,132.697
+us6000phz2,2025-01-05T09:16:42Z,5.1,"40 km ENE of Pondaguitan, Philippines",Depth uncertainty,5.669
+us6000phy6,2025-01-05T05:15:47Z,4.7,Fiji region,Estimated depth,546.314
+us6000phy6,2025-01-05T05:15:47Z,4.7,Fiji region,Depth uncertainty,10.378
+us6000phy5,2025-01-05T05:02:13Z,4.9,"23 km WNW of Port-Vila, Vanuatu",Estimated depth,49.503
+us6000phy5,2025-01-05T05:02:13Z,4.9,"23 km WNW of Port-Vila, Vanuatu",Depth uncertainty,4.991
+us6000phwv,2025-01-04T23:03:57Z,4.6,"13 km ESE of Metahāra, Ethiopia",Estimated depth,10
+us6000phwv,2025-01-04T23:03:57Z,4.6,"13 km ESE of Metahāra, Ethiopia",Depth uncertainty,1.98
+us6000pkfl,2025-01-04T22:53:59Z,4.5,"12 km ENE of Metahāra, Ethiopia",Estimated depth,10
+us6000pkfl,2025-01-04T22:53:59Z,4.5,"12 km ENE of Metahāra, Ethiopia",Depth uncertainty,2.01
+us6000pkfj,2025-01-04T22:40:07Z,4.6,southeast of the Loyalty Islands,Estimated depth,10
+us6000pkfj,2025-01-04T22:40:07Z,4.6,southeast of the Loyalty Islands,Depth uncertainty,1.972
+us6000phws,2025-01-04T22:23:37Z,5.3,"7 km E of Lakatoro, Vanuatu",Estimated depth,36.934
+us6000phws,2025-01-04T22:23:37Z,5.3,"7 km E of Lakatoro, Vanuatu",Depth uncertainty,7.123
+us6000pkfe,2025-01-04T20:05:45Z,4.6,"77 km SE of Katsuura, Japan",Estimated depth,51.23
+us6000pkfe,2025-01-04T20:05:45Z,4.6,"77 km SE of Katsuura, Japan",Depth uncertainty,8.173
+us6000phw1,2025-01-04T20:05:45Z,5,"35 km N of Āwash, Ethiopia",Estimated depth,10
+us6000phw1,2025-01-04T20:05:45Z,5,"35 km N of Āwash, Ethiopia",Depth uncertainty,1.858
+us6000phvy,2025-01-04T19:15:28Z,4.5,"21 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000phvy,2025-01-04T19:15:28Z,4.5,"21 km NNW of Āwash, Ethiopia",Depth uncertainty,1.841
+us6000phvc,2025-01-04T16:36:44Z,4.9,"52 km SSE of Metahāra, Ethiopia",Estimated depth,10
+us6000phvc,2025-01-04T16:36:44Z,4.9,"52 km SSE of Metahāra, Ethiopia",Depth uncertainty,1.878
+us6000pkf7,2025-01-04T15:55:12Z,4.6,"118 km E of ‘Ohonua, Tonga",Estimated depth,10
+us6000pkf7,2025-01-04T15:55:12Z,4.6,"118 km E of ‘Ohonua, Tonga",Depth uncertainty,1.883
+us6000pkfg,2025-01-04T15:50:41Z,4.5,South Sandwich Islands region,Estimated depth,67.136
+us6000pkfg,2025-01-04T15:50:41Z,4.5,South Sandwich Islands region,Depth uncertainty,11.959
+us6000phv2,2025-01-04T15:29:13Z,4.6,"26 km NNE of Metahāra, Ethiopia",Estimated depth,13.097
+us6000phv2,2025-01-04T15:29:13Z,4.6,"26 km NNE of Metahāra, Ethiopia",Depth uncertainty,5.15
+us6000phuy,2025-01-04T14:51:49Z,4.5,"19 km W of Bubanza, Burundi",Estimated depth,10
+us6000phuy,2025-01-04T14:51:49Z,4.5,"19 km W of Bubanza, Burundi",Depth uncertainty,1.889
+us6000phuu,2025-01-04T14:24:36Z,4.5,"28 km SSE of La Libertad, El Salvador",Estimated depth,74.061
+us6000phuu,2025-01-04T14:24:36Z,4.5,"28 km SSE of La Libertad, El Salvador",Depth uncertainty,7.11
+us6000phud,2025-01-04T10:59:07Z,4.6,Kuril Islands,Estimated depth,32.415
+us6000phud,2025-01-04T10:59:07Z,4.6,Kuril Islands,Depth uncertainty,8.609
+us6000phua,2025-01-04T10:27:18Z,4.5,"211 km SSE of Amahai, Indonesia",Estimated depth,228.17
+us6000phua,2025-01-04T10:27:18Z,4.5,"211 km SSE of Amahai, Indonesia",Depth uncertainty,5.726
+us6000phu8,2025-01-04T09:40:31Z,4.6,"7 km WSW of Āwash, Ethiopia",Estimated depth,10
+us6000phu8,2025-01-04T09:40:31Z,4.6,"7 km WSW of Āwash, Ethiopia",Depth uncertainty,1.929
+us6000phtp,2025-01-04T08:17:24Z,4.7,"9 km WNW of El Dovio, Colombia",Estimated depth,51.986
+us6000phtp,2025-01-04T08:17:24Z,4.7,"9 km WNW of El Dovio, Colombia",Depth uncertainty,7.78
+us6000phtm,2025-01-04T07:26:24Z,4.6,"20 km WNW of Āwash, Ethiopia",Estimated depth,10
+us6000phtm,2025-01-04T07:26:24Z,4.6,"20 km WNW of Āwash, Ethiopia",Depth uncertainty,1.962
+us6000phtf,2025-01-04T07:00:22Z,4.7,"22 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000phtf,2025-01-04T07:00:22Z,4.7,"22 km NW of Āwash, Ethiopia",Depth uncertainty,1.907
+us6000pht5,2025-01-04T06:03:39Z,4.9,northern Mid-Atlantic Ridge,Estimated depth,10
+us6000pht5,2025-01-04T06:03:39Z,4.9,northern Mid-Atlantic Ridge,Depth uncertainty,1.894
+us6000phsv,2025-01-04T05:14:36Z,4.5,"179 km SW of Nabire, Indonesia",Estimated depth,10
+us6000phsv,2025-01-04T05:14:36Z,4.5,"179 km SW of Nabire, Indonesia",Depth uncertainty,1.888
+us6000phsb,2025-01-04T03:12:23Z,4.5,"28 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000phsb,2025-01-04T03:12:23Z,4.5,"28 km NNW of Āwash, Ethiopia",Depth uncertainty,1.721
+us6000phrk,2025-01-04T00:52:21Z,5.7,"52 km N of Āwash, Ethiopia",Estimated depth,8
+us6000phrk,2025-01-04T00:52:21Z,5.7,"52 km N of Āwash, Ethiopia",Depth uncertainty,1.832
+us6000phr5,2025-01-03T22:55:26Z,5,Southwest Indian Ridge,Estimated depth,10
+us6000phr5,2025-01-03T22:55:26Z,5,Southwest Indian Ridge,Depth uncertainty,1.824
+us6000pk71,2025-01-03T20:46:52Z,4.5,Mariana Islands region,Estimated depth,135.202
+us6000pk71,2025-01-03T20:46:52Z,4.5,Mariana Islands region,Depth uncertainty,7.892
+us6000pk70,2025-01-03T20:32:03Z,4.5,"153 km E of Hihifo, Tonga",Estimated depth,10
+us6000pk70,2025-01-03T20:32:03Z,4.5,"153 km E of Hihifo, Tonga",Depth uncertainty,1.923
+us6000pk6z,2025-01-03T20:15:49Z,4.5,Southwest Indian Ridge,Estimated depth,10
+us6000pk6z,2025-01-03T20:15:49Z,4.5,Southwest Indian Ridge,Depth uncertainty,1.761
+us6000pk6y,2025-01-03T19:41:58Z,4.6,"65 km WSW of Port-Vila, Vanuatu",Estimated depth,35
+us6000pk6y,2025-01-03T19:41:58Z,4.6,"65 km WSW of Port-Vila, Vanuatu",Depth uncertainty,1.944
+us6000phpb,2025-01-03T17:59:54Z,4.5,"75 km NNE of Tobelo, Indonesia",Estimated depth,140.869
+us6000phpb,2025-01-03T17:59:54Z,4.5,"75 km NNE of Tobelo, Indonesia",Depth uncertainty,6.763
+us6000phnz,2025-01-03T17:01:46Z,5.5,"45 km NNE of Āwash, Ethiopia",Estimated depth,10
+us6000phnz,2025-01-03T17:01:46Z,5.5,"45 km NNE of Āwash, Ethiopia",Depth uncertainty,1.831
+us6000phm8,2025-01-03T15:56:45Z,4.7,"Kermadec Islands, New Zealand",Estimated depth,74.23
+us6000phm8,2025-01-03T15:56:45Z,4.7,"Kermadec Islands, New Zealand",Depth uncertainty,15.269
+us6000phl7,2025-01-03T14:44:43Z,4.8,"99 km SSW of Pagar Alam, Indonesia",Estimated depth,63.724
+us6000phl7,2025-01-03T14:44:43Z,4.8,"99 km SSW of Pagar Alam, Indonesia",Depth uncertainty,5.989
+us6000phl5,2025-01-03T14:27:16Z,5.2,"19 km NW of Metahāra, Ethiopia",Estimated depth,10
+us6000phl5,2025-01-03T14:27:16Z,5.2,"19 km NW of Metahāra, Ethiopia",Depth uncertainty,1.984
+us6000phj9,2025-01-03T13:51:02Z,4.5,"10 km SW of Alanya, Turkey",Estimated depth,10
+us6000phj9,2025-01-03T13:51:02Z,4.5,"10 km SW of Alanya, Turkey",Depth uncertainty,1.579
+us6000pk6q,2025-01-03T12:21:49Z,4.5,"63 km NNE of Port-Vila, Vanuatu",Estimated depth,10
+us6000pk6q,2025-01-03T12:21:49Z,4.5,"63 km NNE of Port-Vila, Vanuatu",Depth uncertainty,1.886
+us6000phew,2025-01-03T11:35:18Z,4.5,"254 km SE of Katsuura, Japan",Estimated depth,10
+us6000phew,2025-01-03T11:35:18Z,4.5,"254 km SE of Katsuura, Japan",Depth uncertainty,1.685
+us6000phem,2025-01-03T09:55:58Z,4.5,"61 km SSW of Ollagüe, Chile",Estimated depth,128.318
+us6000phem,2025-01-03T09:55:58Z,4.5,"61 km SSW of Ollagüe, Chile",Depth uncertainty,6.725
+us6000pk6n,2025-01-03T06:12:36Z,4.5,"91 km SW of Panguna, Papua New Guinea",Estimated depth,10
+us6000pk6n,2025-01-03T06:12:36Z,4.5,"91 km SW of Panguna, Papua New Guinea",Depth uncertainty,1.918
+us6000phdj,2025-01-03T04:45:19Z,4.8,"116 km WSW of Panguna, Papua New Guinea",Estimated depth,10
+us6000phdj,2025-01-03T04:45:19Z,4.8,"116 km WSW of Panguna, Papua New Guinea",Depth uncertainty,1.893
+us6000phde,2025-01-03T04:34:29Z,4.5,"23 km ENE of Yaguaraparo, Venezuela",Estimated depth,90.04
+us6000phde,2025-01-03T04:34:29Z,4.5,"23 km ENE of Yaguaraparo, Venezuela",Depth uncertainty,5.613
+us6000phdg,2025-01-03T04:33:02Z,4.8,"250 km SE of Katsuura, Japan",Estimated depth,10
+us6000phdg,2025-01-03T04:33:02Z,4.8,"250 km SE of Katsuura, Japan",Depth uncertainty,1.904
+us6000phdf,2025-01-03T04:32:38Z,5,"128 km SE of Phek, India",Estimated depth,154.635
+us6000phdf,2025-01-03T04:32:38Z,5,"128 km SE of Phek, India",Depth uncertainty,6.46
+us6000phdm,2025-01-03T04:24:10Z,4.5,"259 km SE of Katsuura, Japan",Estimated depth,10
+us6000phdm,2025-01-03T04:24:10Z,4.5,"259 km SE of Katsuura, Japan",Depth uncertainty,1.88
+us6000phdc,2025-01-03T04:20:43Z,4.7,"254 km SE of Katsuura, Japan",Estimated depth,10
+us6000phdc,2025-01-03T04:20:43Z,4.7,"254 km SE of Katsuura, Japan",Depth uncertainty,1.868
+us6000phcx,2025-01-03T02:52:35Z,4.5,"43 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000phcx,2025-01-03T02:52:35Z,4.5,"43 km NNW of Āwash, Ethiopia",Depth uncertainty,1.93
+us6000phce,2025-01-03T02:33:17Z,5.5,South Sandwich Islands region,Estimated depth,86
+us6000phce,2025-01-03T02:33:17Z,5.5,South Sandwich Islands region,Depth uncertainty,1.885
+us6000phcd,2025-01-03T02:10:35Z,4.5,"5 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000phcd,2025-01-03T02:10:35Z,4.5,"5 km NW of Āwash, Ethiopia",Depth uncertainty,1.882
+us6000phc9,2025-01-03T01:47:28Z,5.1,"71 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000phc9,2025-01-03T01:47:28Z,5.1,"71 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.787
+us6000phc7,2025-01-03T01:34:22Z,4.6,"12 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000phc7,2025-01-03T01:34:22Z,4.6,"12 km NW of Āwash, Ethiopia",Depth uncertainty,1.966
+us6000phc5,2025-01-03T01:20:04Z,4.5,"14 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000phc5,2025-01-03T01:20:04Z,4.5,"14 km NNW of Āwash, Ethiopia",Depth uncertainty,1.916
+us6000phbz,2025-01-03T00:55:08Z,4.5,"86 km NNW of Ollagüe, Chile",Estimated depth,135.38
+us6000phbz,2025-01-03T00:55:08Z,4.5,"86 km NNW of Ollagüe, Chile",Depth uncertainty,6.594
+us6000phbv,2025-01-03T00:18:00Z,4.5,"28 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000phbv,2025-01-03T00:18:00Z,4.5,"28 km NW of Āwash, Ethiopia",Depth uncertainty,1.955
+us6000phbi,2025-01-02T22:22:48Z,4.7,"17 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000phbi,2025-01-02T22:22:48Z,4.7,"17 km NNW of Āwash, Ethiopia",Depth uncertainty,1.823
+us6000pk04,2025-01-02T22:19:00Z,4.5,Carlsberg Ridge,Estimated depth,10
+us6000pk04,2025-01-02T22:19:00Z,4.5,Carlsberg Ridge,Depth uncertainty,1.894
+us6000phb3,2025-01-02T21:18:26Z,5.4,"52 km NNE of Āwash, Ethiopia",Estimated depth,10
+us6000phb3,2025-01-02T21:18:26Z,5.4,"52 km NNE of Āwash, Ethiopia",Depth uncertainty,1.87
+us6000phaz,2025-01-02T21:13:30Z,4.7,"52 km S of Labuha, Indonesia",Estimated depth,10
+us6000phaz,2025-01-02T21:13:30Z,4.7,"52 km S of Labuha, Indonesia",Depth uncertainty,1.9
+us6000phap,2025-01-02T20:43:35Z,6.1,"84 km NNW of Calama, Chile",Estimated depth,99
+us6000phap,2025-01-02T20:43:35Z,6.1,"84 km NNW of Calama, Chile",Depth uncertainty,1.884
+us6000phaa,2025-01-02T19:34:37Z,4.5,"Izu Islands, Japan region",Estimated depth,10
+us6000phaa,2025-01-02T19:34:37Z,4.5,"Izu Islands, Japan region",Depth uncertainty,1.888
+us6000ph9m,2025-01-02T17:28:58Z,4.9,"6 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000ph9m,2025-01-02T17:28:58Z,4.9,"6 km NNW of Āwash, Ethiopia",Depth uncertainty,1.868
+us6000ph9k,2025-01-02T17:15:43Z,4.7,"209 km SW of Merizo Village, Guam",Estimated depth,10
+us6000ph9k,2025-01-02T17:15:43Z,4.7,"209 km SW of Merizo Village, Guam",Depth uncertainty,1.902
+us6000ph8u,2025-01-02T16:26:07Z,4.6,"17 km NNW of Āwash, Ethiopia",Estimated depth,10
+us6000ph8u,2025-01-02T16:26:07Z,4.6,"17 km NNW of Āwash, Ethiopia",Depth uncertainty,1.854
+us6000ph9f,2025-01-02T15:57:07Z,5,"66 km WNW of Rabaul, Papua New Guinea",Estimated depth,19.054
+us6000ph9f,2025-01-02T15:57:07Z,5,"66 km WNW of Rabaul, Papua New Guinea",Depth uncertainty,1.302
+us6000ph6e,2025-01-02T15:30:59Z,4.5,"20 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000ph6e,2025-01-02T15:30:59Z,4.5,"20 km NW of Āwash, Ethiopia",Depth uncertainty,1.865
+us6000ph2v,2025-01-02T10:17:39Z,4.5,"11 km SE of Metahāra, Ethiopia",Estimated depth,10
+us6000ph2v,2025-01-02T10:17:39Z,4.5,"11 km SE of Metahāra, Ethiopia",Depth uncertainty,1.92
+us6000ph2s,2025-01-02T10:02:54Z,4.5,"30 km NNW of Metahāra, Ethiopia",Estimated depth,10
+us6000ph2s,2025-01-02T10:02:54Z,4.5,"30 km NNW of Metahāra, Ethiopia",Depth uncertainty,1.967
+us6000ph1g,2025-01-02T08:43:31Z,4.8,"13 km SW of Nanliang Nongchang, China",Estimated depth,10
+us6000ph1g,2025-01-02T08:43:31Z,4.8,"13 km SW of Nanliang Nongchang, China",Depth uncertainty,1.874
+us6000ph1c,2025-01-02T07:41:30Z,5.1,"33 km N of Āwash, Ethiopia",Estimated depth,10
+us6000ph1c,2025-01-02T07:41:30Z,5.1,"33 km N of Āwash, Ethiopia",Depth uncertainty,1.865
+us6000ph16,2025-01-02T07:06:39Z,5.4,"72 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000ph16,2025-01-02T07:06:39Z,5.4,"72 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.887
+us6000ph0l,2025-01-02T06:09:04Z,4.9,"61 km WSW of San Antonio de los Cobres, Argentina",Estimated depth,166.879
+us6000ph0l,2025-01-02T06:09:04Z,4.9,"61 km WSW of San Antonio de los Cobres, Argentina",Depth uncertainty,8.056
+us6000pjzq,2025-01-02T05:48:08Z,4.6,"65 km NW of Rabaul, Papua New Guinea",Estimated depth,7.888
+us6000pjzq,2025-01-02T05:48:08Z,4.6,"65 km NW of Rabaul, Papua New Guinea",Depth uncertainty,5.278
+us6000ph0e,2025-01-02T05:32:23Z,5.1,"110 km SE of Modisi, Indonesia",Estimated depth,56.271
+us6000ph0e,2025-01-02T05:32:23Z,5.1,"110 km SE of Modisi, Indonesia",Depth uncertainty,6.975
+us6000ph05,2025-01-02T04:40:49Z,4.5,"15 km E of Huocheng, China",Estimated depth,10
+us6000ph05,2025-01-02T04:40:49Z,4.5,"15 km E of Huocheng, China",Depth uncertainty,1.928
+us6000pgzq,2025-01-02T02:54:17Z,5.5,Balleny Islands region,Estimated depth,10
+us6000pgzq,2025-01-02T02:54:17Z,5.5,Balleny Islands region,Depth uncertainty,1.932
+nc75111126,2025-01-02T02:34:04Z,4.65,"4 km NW of Cobb, CA",Estimated depth,1.42
+nc75111126,2025-01-02T02:34:04Z,4.65,"4 km NW of Cobb, CA",Depth uncertainty,0.15
+us6000pgzd,2025-01-02T02:01:17Z,4.8,"6 km NNW of Yinchuan, China",Estimated depth,10
+us6000pgzd,2025-01-02T02:01:17Z,4.8,"6 km NNW of Yinchuan, China",Depth uncertainty,1.87
+us6000pjz6,2025-01-02T01:59:25Z,4.6,Southwest Indian Ridge,Estimated depth,10
+us6000pjz6,2025-01-02T01:59:25Z,4.6,Southwest Indian Ridge,Depth uncertainty,1.902
+us6000pgzb,2025-01-02T01:46:35Z,4.5,"12 km ENE of Metahāra, Ethiopia",Estimated depth,10
+us6000pgzb,2025-01-02T01:46:35Z,4.5,"12 km ENE of Metahāra, Ethiopia",Depth uncertainty,1.97
+us6000pgz7,2025-01-02T01:14:52Z,4.9,"53 km W of Neiafu, Tonga",Estimated depth,123.894
+us6000pgz7,2025-01-02T01:14:52Z,4.9,"53 km W of Neiafu, Tonga",Depth uncertainty,7.429
+us6000pgz5,2025-01-02T01:11:04Z,5.1,"111 km E of ‘Ohonua, Tonga",Estimated depth,10
+us6000pgz5,2025-01-02T01:11:04Z,5.1,"111 km E of ‘Ohonua, Tonga",Depth uncertainty,1.927
+us6000pjrv,2025-01-01T22:55:44Z,4.5,"92 km S of Lakatoro, Vanuatu",Estimated depth,11.248
+us6000pjrv,2025-01-01T22:55:44Z,4.5,"92 km S of Lakatoro, Vanuatu",Depth uncertainty,5.959
+us6000pgy5,2025-01-01T21:27:41Z,5.2,southern Mid-Atlantic Ridge,Estimated depth,10
+us6000pgy5,2025-01-01T21:27:41Z,5.2,southern Mid-Atlantic Ridge,Depth uncertainty,1.763
+us6000pjry,2025-01-01T18:39:33Z,4.6,"52 km E of San Julian, Philippines",Estimated depth,10
+us6000pjry,2025-01-01T18:39:33Z,4.6,"52 km E of San Julian, Philippines",Depth uncertainty,1.902
+us6000pgx5,2025-01-01T18:34:29Z,4.5,"51 km SSW of Labuha, Indonesia",Estimated depth,10
+us6000pgx5,2025-01-01T18:34:29Z,4.5,"51 km SSW of Labuha, Indonesia",Depth uncertainty,1.913
+us6000pjrn,2025-01-01T18:32:01Z,4.5,"16 km NE of Pilpichaca, Peru",Estimated depth,85.033
+us6000pjrn,2025-01-01T18:32:01Z,4.5,"16 km NE of Pilpichaca, Peru",Depth uncertainty,5.372
+us6000pgx1,2025-01-01T18:27:51Z,5.3,southeast of Easter Island,Estimated depth,10
+us6000pgx1,2025-01-01T18:27:51Z,5.3,southeast of Easter Island,Depth uncertainty,1.789
+us6000pgw3,2025-01-01T15:26:08Z,4.8,"23 km WNW of Āwash, Ethiopia",Estimated depth,10
+us6000pgw3,2025-01-01T15:26:08Z,4.8,"23 km WNW of Āwash, Ethiopia",Depth uncertainty,1.786
+us6000pgw0,2025-01-01T15:08:16Z,4.6,"52 km E of Sīrē, Ethiopia",Estimated depth,10
+us6000pgw0,2025-01-01T15:08:16Z,4.6,"52 km E of Sīrē, Ethiopia",Depth uncertainty,1.972
+us6000pjrj,2025-01-01T15:08:00Z,4.6,"8 km SSE of Metahāra, Ethiopia",Estimated depth,10
+us6000pjrj,2025-01-01T15:08:00Z,4.6,"8 km SSE of Metahāra, Ethiopia",Depth uncertainty,1.906
+us6000pgvu,2025-01-01T14:38:36Z,4.6,"31 km S of Āwash, Ethiopia",Estimated depth,10
+us6000pgvu,2025-01-01T14:38:36Z,4.6,"31 km S of Āwash, Ethiopia",Depth uncertainty,1.881
+us6000pgv4,2025-01-01T13:48:24Z,6.1,South Sandwich Islands region,Estimated depth,70
+us6000pgv4,2025-01-01T13:48:24Z,6.1,South Sandwich Islands region,Depth uncertainty,1.85
+us6000pjrm,2025-01-01T12:48:35Z,4.7,"72 km WNW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pjrm,2025-01-01T12:48:35Z,4.7,"72 km WNW of Rabaul, Papua New Guinea",Depth uncertainty,1.858
+us6000pgus,2025-01-01T12:37:08Z,4.9,"81 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pgus,2025-01-01T12:37:08Z,4.9,"81 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.899
+us6000pgup,2025-01-01T12:26:22Z,5.1,"74 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pgup,2025-01-01T12:26:22Z,5.1,"74 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.923
+us6000pgub,2025-01-01T10:18:01Z,4.7,South Sandwich Islands region,Estimated depth,134.294
+us6000pgub,2025-01-01T10:18:01Z,4.7,South Sandwich Islands region,Depth uncertainty,7.677
+us6000pgu4,2025-01-01T09:56:05Z,4.6,"24 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000pgu4,2025-01-01T09:56:05Z,4.6,"24 km NW of Āwash, Ethiopia",Depth uncertainty,1.901
+us6000pgu0,2025-01-01T09:39:42Z,5,"64 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pgu0,2025-01-01T09:39:42Z,5,"64 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.905
+us6000pgtu,2025-01-01T09:09:01Z,4.5,"88 km ENE of Los Andes, Chile",Estimated depth,118.551
+us6000pgtu,2025-01-01T09:09:01Z,4.5,"88 km ENE of Los Andes, Chile",Depth uncertainty,2.961
+us6000pgtj,2025-01-01T08:09:47Z,5,"13 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000pgtj,2025-01-01T08:09:47Z,5,"13 km NW of Āwash, Ethiopia",Depth uncertainty,1.921
+us6000pgtd,2025-01-01T07:54:19Z,4.7,"172 km E of Kuril’sk, Russia",Estimated depth,87.946
+us6000pgtd,2025-01-01T07:54:19Z,4.7,"172 km E of Kuril’sk, Russia",Depth uncertainty,7.197
+us6000pgt4,2025-01-01T07:05:53Z,4.9,"74 km NW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pgt4,2025-01-01T07:05:53Z,4.9,"74 km NW of Rabaul, Papua New Guinea",Depth uncertainty,1.891
+us6000pjr5,2025-01-01T04:59:10Z,4.5,central Mid-Atlantic Ridge,Estimated depth,10
+us6000pjr5,2025-01-01T04:59:10Z,4.5,central Mid-Atlantic Ridge,Depth uncertainty,1.937
+us6000pgsd,2025-01-01T04:39:18Z,5.5,"153 km S of Isangel, Vanuatu",Estimated depth,22
+us6000pgsd,2025-01-01T04:39:18Z,5.5,"153 km S of Isangel, Vanuatu",Depth uncertainty,1.909
+us6000pgse,2025-01-01T04:37:23Z,4.8,"18 km NW of Port-Vila, Vanuatu",Estimated depth,91.003
+us6000pgse,2025-01-01T04:37:23Z,4.8,"18 km NW of Port-Vila, Vanuatu",Depth uncertainty,8.926
+us6000pjr4,2025-01-01T04:28:16Z,4.6,"76 km WNW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pjr4,2025-01-01T04:28:16Z,4.6,"76 km WNW of Rabaul, Papua New Guinea",Depth uncertainty,1.828
+us6000pgs3,2025-01-01T04:02:34Z,4.5,"88 km NE of Hirara, Japan",Estimated depth,47.164
+us6000pgs3,2025-01-01T04:02:34Z,4.5,"88 km NE of Hirara, Japan",Depth uncertainty,6.633
+us6000pgs4,2025-01-01T03:58:24Z,4.7,Mid-Indian Ridge,Estimated depth,10
+us6000pgs4,2025-01-01T03:58:24Z,4.7,Mid-Indian Ridge,Depth uncertainty,1.846
+us6000pgs2,2025-01-01T03:56:39Z,4.9,"97 km WNW of El Aguilar, Argentina",Estimated depth,208.974
+us6000pgs2,2025-01-01T03:56:39Z,4.9,"97 km WNW of El Aguilar, Argentina",Depth uncertainty,6.217
+us6000pgs0,2025-01-01T03:27:56Z,4.5,"26 km NW of Āwash, Ethiopia",Estimated depth,10
+us6000pgs0,2025-01-01T03:27:56Z,4.5,"26 km NW of Āwash, Ethiopia",Depth uncertainty,1.917
+us6000pjr1,2025-01-01T02:00:06Z,4.5,"71 km WNW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pjr1,2025-01-01T02:00:06Z,4.5,"71 km WNW of Rabaul, Papua New Guinea",Depth uncertainty,1.901
+us6000pjqz,2025-01-01T01:46:59Z,4.7,"67 km WNW of Rabaul, Papua New Guinea",Estimated depth,10
+us6000pjqz,2025-01-01T01:46:59Z,4.7,"67 km WNW of Rabaul, Papua New Guinea",Depth uncertainty,1.901

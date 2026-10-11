@@ -1,0 +1,26 @@
+---
+title: "Approach — 01 Census Education"
+author: "Andre Thomson"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Show R code"
+    theme: flatly
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Dataset selection and plan
+
+I used the 2024 Census education table (B15003). The file I downloaded has numbers for the whole United States, so I compared education levels nationally. I also kept the margins of error in the data. I did not compare states because this file does not have state-level numbers.
+
+## Original source and planned output
+
+Official table: [2024 ACS B15003](https://data.census.gov/table/ACSDT5Y2024.B15003). I kept the original CSV under `data/raw/`. It contains the category labels and two wide measurement columns: the estimate and its margin of error.
+
+In the Code Base, I use `pivot_longer()`, make a summary table, and create a chart. I leave the downloaded CSV unchanged.

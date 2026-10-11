@@ -1,0 +1,26 @@
+---
+title: "Approach — 02 USGS Earthquakes"
+author: "Andre Thomson"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Show R code"
+    theme: flatly
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Dataset selection and plan
+
+I downloaded the USGS earthquake records for January 2025, keeping earthquakes with a magnitude of at least 4.5. I used the depth and depth-error columns for this part. I changed those two columns into long format and checked how many values were missing. They both use kilometers, but depth and depth error mean different things.
+
+## Original source and planned output
+
+Official CSV query: [USGS January 2025 magnitude 4.5+ earthquakes](https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=2025-01-01&endtime=2025-02-01&minmagnitude=4.5&orderby=time). The original download is saved without changes in `data/raw/`.
+
+In the Code Base, I use `pivot_longer()`, make a summary table, and create a chart. I leave the downloaded CSV unchanged.

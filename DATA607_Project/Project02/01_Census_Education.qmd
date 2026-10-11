@@ -1,0 +1,159 @@
+---
+title: "Project 2 Census Educational Attainment (2024)"
+author: "Andre Thomson"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Show R code"
+    theme: flatly
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Approach
+
+I used the 2024 Census education table (B15003). The file I downloaded has numbers for the whole United States, so I compared education levels nationally. I also kept the margins of error in the data. I did not compare states because this file does not have state-level numbers.
+
+## Load packages and create output folders
+
+```{r setup}
+library(tidyverse)
+library(knitr)
+
+# Each report must run from a fresh R session.
+dir.create("data/tidy", recursive = TRUE, showWarnings = FALSE)
+```
+
+## Source and data before tidying
+
+Official table: [2024 ACS B15003](https://data.census.gov/table/ACSDT5Y2024.B15003). I kept the original CSV under `data/raw/`. It contains the category labels and two wide measurement columns: the estimate and its margin of error.
+
+```{r census-import}
+# Read the original Census CSV as text first so commas and margin-of-error symbols stay intact.
+source_file <- "data/raw/01_census_acs_2024_education.csv"
+stopifnot(file.exists(source_file))
+raw <- read_csv(source_file, col_types = cols(.default = col_character()))
+# Check the exact columns before doing any cleaning. This avoids using the wrong export.
+expected <- c("Label (Grouping)", "United States!!Estimate", "United States!!Margin of Error")
+stopifnot(identical(names(raw), expected), nrow(raw) == 25L)
+cat("Original rows:", nrow(raw), " Columns:", ncol(raw), "\n")
+kable(head(raw, 6), caption = "Original Census data (unchanged)")
+```
+
+## Transform the wide data
+
+The original file has an estimate column and a margin-of-error column. I used `pivot_longer()` to put them into one value column, with another column showing which measurement it is. I cleaned the numbers after that. I kept the two types separate because the margin of error is not a population count.
+
+```{r census-tidy}
+# Start from the raw wide table; keep estimates separate from their margins of error.
+tidy <- raw %>%
+  # Use a clear variable name for the education categories.
+  rename(education = `Label (Grouping)`) %>%
+  # Remove extra/nonbreaking spaces from the downloaded labels.
+  mutate(education = str_squish(str_replace_all(education, "\u00a0", " "))) %>%
+  # Stack the two measurement columns instead of treating them as different people.
+  pivot_longer(
+    cols = c(`United States!!Estimate`, `United States!!Margin of Error`),
+    names_to = "measure", values_to = "reported_value"
+  ) %>%
+  # Give the measure readable labels and turn formatted numbers into numeric values.
+  mutate(
+    measure = recode(measure,
+      `United States!!Estimate` = "estimate",
+      `United States!!Margin of Error` = "margin_of_error"),
+    value = readr::parse_number(reported_value)
+  ) %>%
+  select(education, measure, value)
+# Each original education row must now have one estimate and one margin-of-error row.
+stopifnot(nrow(tidy) == nrow(raw) * 2, !anyNA(tidy$value),
+          n_distinct(tidy$education) == nrow(raw))
+dir.create("data/tidy", recursive = TRUE, showWarnings = FALSE)
+# Save a reusable tidy CSV; the setup chunk creates this folder when needed.
+write_csv(tidy, "data/tidy/01_census_education_tidy.csv")
+kable(head(tidy, 8), caption = "Tidy data: one educational category and one measurement per row")
+```
+
+## Analyze the tidy data
+
+For the percentages, I used only the rows marked `estimate`. I took the total number of adults from the `Total:` row. The percentages show the highest education level reported for adults age 25 and older. I did not add the margins of error to the counts.
+
+```{r census-analysis}
+# Use the published total adult population as the denominator for every percentage.
+total_adults <- tidy %>%
+  filter(education == "Total:", measure == "estimate") %>%
+  pull(value)
+stopifnot(length(total_adults) == 1L, total_adults > 0)
+
+# Analyze estimates only; margins of error are not population counts.
+shares <- tidy %>%
+  filter(measure == "estimate", education != "Total:") %>%
+  mutate(percent_adults = 100 * value / total_adults)
+# The detailed attainment categories should sum to the reported national total.
+stopifnot(abs(sum(shares$value) - total_adults) < 0.1)
+selected <- c("Regular high school diploma", "Associate's degree",
+              "Bachelor's degree", "Master's degree", "Doctorate degree")
+comparison <- shares %>%
+  filter(education %in% selected) %>%
+  arrange(desc(percent_adults))
+stopifnot(nrow(comparison) == 5L)
+kable(comparison, digits = 2,
+      col.names = c("Highest education completed", "Measurement", "Adults (people)", "Adults (%)"))
+
+# Based on the R Graph Gallery horizontal bar example: flip long labels, color each category,
+# and print the actual Census percentages at the end of the bars.
+ggplot(comparison, aes(x = reorder(education, percent_adults), y = percent_adults, fill = education)) +
+  geom_col(width = .7, color = "white", linewidth = 0.35) +
+  geom_text(aes(label = sprintf("%.1f%%", percent_adults)),
+            hjust = -0.15, size = 3.5, show.legend = FALSE) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.16))) +
+  scale_fill_manual(values = c(
+    "Regular high school diploma" = "#2671AF",
+    "Associate's degree" = "#137E8A",
+    "Bachelor's degree" = "#E29B32",
+    "Master's degree" = "#7A5195",
+    "Doctorate degree" = "#C44E52"
+  )) +
+  coord_flip() +
+  guides(fill = "none") +
+  labs(title = "Selected educational attainment levels in the United States",
+       subtitle = "2024 ACS five-year estimates, adults age 25 and older",
+       x = NULL, y = "Share of adults age 25+ (%)",
+       caption = "Source: U.S. Census Bureau, ACS B15003; selected categories only") +
+  theme_minimal()
+```
+
+## Conclusion
+
+```{r census-conclusion, results='asis'}
+get_share <- function(x) comparison$percent_adults[match(x, comparison$education)]
+cat(sprintf("The Census file reports **%s adults age 25 or older** in the U.S. A regular high school diploma is the highest level for **%.2f%%**, a bachelor's degree for **%.2f%%**, and a master's degree for **%.2f%%**. I divided each count by the full adult total, not just the five categories I selected. I kept the margins of error but did not count them as people. These five categories are selected examples, not a breakdown of all education levels.\n",
+            format(total_adults, big.mark=",", scientific=FALSE),
+            get_share("Regular high school diploma"),
+            get_share("Bachelor's degree"),
+            get_share("Master's degree")))
+```
+
+## Data checks and limits
+
+The 24 education categories add up to the published total for adults age 25 and older. I checked that before computing the percentages. The graph shows only five selected categories, so its bars are **not supposed to add up to 100%**. The ACS margins of error were kept in the tidy file but are not the same as additional adults; this chart shows point estimates, not confidence intervals.
+
+## Visualization reference
+
+The horizontal-bar layout and custom category colors are adapted from the R Graph Gallery's ggplot2 bar-chart examples. The DataDaft video is an additional tutorial reference for bar charts and `coord_flip()`. The graph is calculated from the Census CSV, not the tutorial data.
+
+## Reference
+
+U.S. Census Bureau. (2024). *2024 American Community Survey five-year estimates: Educational attainment (B15003)*. https://data.census.gov/table/ACSDT5Y2024.B15003
+
+The R Graph Gallery. (n.d.). *Basic barplot with ggplot2*. https://r-graph-gallery.com/218-basic-barplots-with-ggplot2
+
+DataDaft. (2019, October 14). *How to make a bar plot in R* [Video]. YouTube. https://www.youtube.com/watch?v=XBqnL2RUVcg
+
+## AI assistance
+
+I used ChatGPT to help organize and review the R and Quarto code and to draft presentation notes. The figures come from the original Census CSV. I checked the code decisions against the source fields.

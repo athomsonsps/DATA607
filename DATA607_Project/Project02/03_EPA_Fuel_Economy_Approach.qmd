@@ -1,0 +1,26 @@
+---
+title: "Approach — 03 EPA Fuel Economy"
+author: "Andre Thomson"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Show R code"
+    theme: flatly
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Dataset selection and plan
+
+I used the EPA vehicle file and kept the original CSV as downloaded. I narrowed the analysis to 2024 vehicles that use regular gasoline. Then I used `pivot_longer()` to put city, highway, and combined MPG into one column so I could compare them.
+
+## Original source and planned output
+
+Official source: [EPA FuelEconomy.gov vehicle CSV](https://www.fueleconomy.gov/feg/epadata/vehicles.csv). The raw CSV is preserved in `data/raw/`.
+
+In the Code Base, I use `pivot_longer()`, make a summary table, and create a chart. I leave the downloaded CSV unchanged.
