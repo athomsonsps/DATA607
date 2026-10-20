@@ -1,0 +1,350 @@
+---
+title: "P1: Chess Tournament Data"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-tools: true
+    df-print: paged
+execute:
+  warning: false
+  message: false
+---
+
+## Approach
+
+I used the chess tournament table provided for Project 1. Each player has two lines of information: the first gives the name, points, and round results; the second gives the state and ratings. I used R to separate those fields, match opponent numbers to player ratings, and create the CSV required for the assignment.
+
+Some rounds do not list an opponent. I left those out of the opponent-rating average. I also took the numeric rating before the arrow, even when the rating included a provisional marker such as `P17`.
+
+## Data source
+
+The original tournament table is in `tournamentinfo..pdf`. I included `tournamentinfo.txt`, a text version of the table that the R script reads. The file has 64 players and seven rounds. I did not collect a separate dataset.
+
+## Why the text needs cleaning
+
+The original file looks like a table, but it is not a regular CSV. A player's name, points, and round results are on one line. The state and rating are on the next line. The extra spaces are not consistent, so splitting on spaces could put values in the wrong columns. The vertical bars (`|`) give the parser more reliable boundaries.
+
+I kept **player number** as a working key. It is not one of the requested final columns, but I need it to match each round's opponent to the correct person. The final output has one row per player, while the intermediate rounds table has one row per player per round.
+
+## Packages and source data
+
+```{r}
+library(tidyverse)
+
+# Keep tournamentinfo.txt in the same folder as this Quarto file.
+lines <- read_lines("tournamentinfo.txt")
+length(lines)
+```
+
+## Find the two-line player records
+
+```{r}
+# Find the start of each player record. The next line holds the state and rating.
+# This follows the source layout instead of guessing based on spaces.
+start_rows <- which(str_detect(lines, "^\\s*[0-9]{1,2}\\s*\\|"))
+stopifnot(length(start_rows) == 64, all(start_rows < length(lines)))
+
+get_record <- function(i) {
+  # The | symbols mark table cells even when spacing changes.
+  first  <- str_split(lines[i], "\\|", simplify = FALSE)[[1]]
+  second <- str_split(lines[i + 1], "\\|", simplify = FALSE)[[1]]
+
+  stopifnot(length(first) >= 10, length(second) >= 2)
+
+  number <- as.integer(str_trim(first[1]))
+  name <- str_to_title(str_trim(first[2]))
+  points <- as.numeric(str_trim(first[3]))
+  state <- str_trim(second[1])
+
+  # Read the rating printed after R: and before the arrow.
+  # A provisional marker (for example, 1641P17) is not part of the rating.
+  rating <- str_match(second[2], "R:\\s*([0-9]+)")[, 2]
+  stopifnot(!is.na(rating))
+
+  # W, L and D have a numbered opponent. H, U, B and X do not.
+  # Keep the other results, but do not invent an opponent for them.
+  stopifnot(!is.na(number), !is.na(points), nzchar(name), nzchar(state))
+  round_cells <- first[4:10]
+  round_results <- str_match(str_trim(round_cells), "^([WLDHUBX])")[, 2]
+  opponent_numbers <- str_match(round_cells, "[WLD]\\s*([0-9]+)")[, 2]
+  # Every round must have a recognizable result. Only W/L/D has a player number.
+  stopifnot(length(round_cells) == 7, all(!is.na(round_results)),
+            all(!is.na(opponent_numbers[round_results %in% c("W", "L", "D")])),
+            all(is.na(opponent_numbers[!round_results %in% c("W", "L", "D")])))
+
+  tibble(
+    player_number = number,
+    player_name = name,
+    player_state = state,
+    total_points = points,
+    player_pre_rating = as.integer(rating),
+    round = seq_len(7),
+    round_result = round_results,
+    opponent_number = as.integer(opponent_numbers)
+  )
+}
+
+
+# The function returns seven round rows for each player.
+# Keep those rows for checking games, then make a separate player lookup.
+rounds <- map_dfr(start_rows, get_record)
+players <- rounds %>%
+  distinct(player_number, player_name, player_state, total_points, player_pre_rating)
+
+stopifnot(nrow(players) == 64, nrow(rounds) == 64 * 7,
+          n_distinct(players$player_number) == 64,
+          nrow(distinct(rounds, player_number, round)) == 64 * 7,
+          identical(sort(players$player_number), 1:64),
+          all(rounds$opponent_number[!is.na(rounds$opponent_number)] %in% players$player_number),
+          all(is.na(rounds$opponent_number) | rounds$player_number != rounds$opponent_number))
+stopifnot(all(players$player_state %in% c("MI", "ON", "OH")),
+          all(!is.na(players$player_pre_rating)),
+          all(players$player_pre_rating > 0))
+stopifnot(all(players$player_state %in% c("MI", "ON", "OH")),
+          all(!is.na(players$player_pre_rating)),
+          all(players$player_pre_rating > 0))
+knitr::kable(head(players, 10), caption = "Parsed player records")
+```
+
+## How I organized the data
+
+I used two intermediate tables rather than trying to calculate everything directly from the raw text:
+
+- **Players:** one record per player, with their name, state, points, and pre-rating.
+- **Rounds:** seven records per player, with a result code and, when available, an opponent number.
+
+The round codes `W`, `L`, and `D` identify a win, loss, or draw against a numbered opponent. The source also has `H`, `U`, `B`, and `X` entries that do not supply an opponent number. I keep those entries in the rounds table, but they cannot contribute an opponent pre-rating to the average. The recorded total points come straight from the source; I do not attempt to recalculate tournament scoring from those codes.
+
+## Match opponent ratings
+
+The number after a win, loss, or draw is the opponent's player number. I matched that number to the player list to get the rating before the tournament.
+
+```{r}
+# Opponent numbers are IDs, not ratings. Build a lookup from ID to pre-rating.
+opponent_lookup <- players %>%
+  transmute(opponent_number = player_number,
+            opponent_pre_rating = player_pre_rating)
+
+
+# A left join keeps all rounds, including byes and unplayed rounds.
+# Those rows will have NA for the opponent rating.
+rounds_with_ratings <- rounds %>%
+  left_join(opponent_lookup, by = "opponent_number")
+
+# A numbered opponent must always have a matching player.
+stopifnot(all(!is.na(rounds_with_ratings$opponent_pre_rating[
+  !is.na(rounds_with_ratings$opponent_number)
+])))
+
+rounds_with_ratings %>%
+  filter(player_number == 1) %>%
+  select(round, round_result, opponent_number, opponent_pre_rating)
+```
+
+## Why the join matters
+
+An entry such as `W 39` tells me the player won against **player number 39**. It does not provide that person's rating. To get the rating, I look up player 39 in the players table. This is why matching on the player number matters more than simply collecting the numbers in the round cells.
+
+I use the **pre-tournament** rating in that lookup. The post-tournament rating is also printed in the source, but including it would answer a different question from the one in the assignment.
+
+## Calculate average opponent pre-rating
+
+I averaged the pre-ratings of the opponents each player actually faced. I rounded the result to a whole number to match the assignment example.
+
+```{r}
+# Average only recorded opponents. NA does not count as a zero rating.
+# Keep the game count as an intermediate check, not a CSV output field.
+opponent_averages <- rounds_with_ratings %>%
+  group_by(player_number) %>%
+  summarise(
+    games_with_opponents = sum(!is.na(opponent_number)),
+    avg_opponent_pre_rating = if (all(is.na(opponent_pre_rating))) NA_real_
+                              else round(mean(opponent_pre_rating, na.rm = TRUE)),
+    .groups = "drop"
+  )
+
+chess_clean <- players %>%
+  left_join(opponent_averages, by = "player_number") %>%
+  arrange(player_number) %>%
+  select(player_name, player_state, total_points,
+         player_pre_rating, avg_opponent_pre_rating)
+
+knitr::kable(head(chess_clean, 10), caption = "First 10 players")
+```
+
+## Worked example: Gary Hua
+
+Gary Hua's seven opponents are numbered 39, 21, 18, 14, 7, 12, and 4. Their pre-tournament ratings are 1436, 1563, 1600, 1610, 1649, 1663, and 1716. The calculation is:
+
+\[
+\frac{1436 + 1563 + 1600 + 1610 + 1649 + 1663 + 1716}{7} \approx 1605.3
+\]
+
+Rounded to the nearest whole number, that is **1605**, matching the result shown in the assignment. This checks one complete example; it is not enough by itself to prove that every other row is right.
+
+## Check the results
+
+The assignment provides Gary Hua as a check: `Gary Hua, ON, 6.0, 1794, 1605`. I used that example and additional checks before saving the CSV.
+
+```{r}
+stopifnot(
+  nrow(chess_clean) == 64,
+  chess_clean$player_name[1] == "Gary Hua",
+  chess_clean$player_state[1] == "ON",
+  chess_clean$total_points[1] == 6.0,
+  chess_clean$player_pre_rating[1] == 1794,
+  chess_clean$avg_opponent_pre_rating[1] == 1605
+)
+
+# An opponent recorded in round r should also list this player in round r.
+paired_games <- rounds %>%
+  filter(!is.na(opponent_number)) %>%
+  select(player_number, round, opponent_number)
+# Check that a game listed for player A also appears for player B
+# in the same round. The join keys swap player/opponent roles.
+# This avoids the earlier bug caused by renaming columns in sequence.
+missing_reverse <- anti_join(
+  paired_games,
+  paired_games,
+  by = c(
+    "player_number" = "opponent_number",
+    "opponent_number" = "player_number",
+    "round" = "round"
+  )
+)
+stopifnot(nrow(missing_reverse) == 0,
+          nrow(paired_games) == 408)
+
+# The two records for a game must also agree about the result.
+# W versus L and D versus D are valid; anything else is an error.
+result_pairs <- rounds %>%
+  filter(!is.na(opponent_number)) %>%
+  select(player_number, round, opponent_number, round_result) %>%
+  left_join(rounds %>%
+              select(player_number, round, round_result) %>%
+              rename(opponent_number = player_number,
+                     opponent_result = round_result),
+            by = c("opponent_number", "round"))
+stopifnot(nrow(result_pairs) == nrow(paired_games),
+          all(!is.na(result_pairs$opponent_result)))
+stopifnot(all((result_pairs$round_result == "W" & result_pairs$opponent_result == "L") |
+              (result_pairs$round_result == "L" & result_pairs$opponent_result == "W") |
+              (result_pairs$round_result == "D" & result_pairs$opponent_result == "D")))
+
+# Each rating is the mean across numbered opponents, not all seven rounds.
+stopifnot(all(opponent_averages$games_with_opponents >= 1),
+          all(opponent_averages$games_with_opponents <= 7),
+          all(!is.na(chess_clean$avg_opponent_pre_rating)))
+
+cat("Players:", nrow(chess_clean), "\n")
+cat("Gary Hua's average opponent rating:",
+    chess_clean$avg_opponent_pre_rating[1], "\n")
+cat("Missing reverse game records:", nrow(missing_reverse), "\n")
+cat("Paired result records verified:", nrow(result_pairs), "\n")
+cat("Non-opponent rounds excluded:", sum(is.na(rounds$opponent_number)), "\n")
+```
+
+## What the validation does and does not prove
+
+The script checks the player count, opponent references, reciprocal match records, paired win/loss or draw results, and the Gary Hua example. Those tests are meant to catch common parsing and joining mistakes before exporting the CSV.
+
+There is still a limitation: two records can agree with each other even if the text was extracted incorrectly in the same way. For that reason, the original PDF stays in the project folder so selected records can be compared back to the source. A successful render and a spot-check against the PDF should be completed before submission.
+
+## Save the CSV
+
+```{r}
+# Export only the five fields requested in the assignment.
+write_csv(chess_clean, "chess_tournament_clean.csv")
+
+# Re-import the exported file to verify columns, row count, and values.
+read_back <- read_csv("chess_tournament_clean.csv", show_col_types = FALSE)
+stopifnot(identical(names(read_back), names(chess_clean)),
+          nrow(read_back) == 64,
+          isTRUE(all.equal(as.data.frame(read_back),
+                           as.data.frame(chess_clean),
+                           check.attributes = FALSE)))
+cat("Saved and verified chess_tournament_clean.csv\n")
+```
+
+## What the exported file contains
+
+The CSV keeps only the five requested fields. The intermediate player numbers and round details are useful for the calculation, but they are left out of the final file because the assignment does not request them. I read the saved CSV back into R and compare it with the table in memory to make sure the export kept the same rows and values.
+
+A database could use this as a starting player-level table. A separate rounds table would be needed if someone later wanted to query individual games rather than player summaries.
+
+## Quick data checks
+
+The output has the five required columns. I also looked at the numeric summaries to catch obvious problems. That is useful, but it does not replace checking the source table.
+
+```{r}
+summary(chess_clean[, c("total_points", "player_pre_rating", "avg_opponent_pre_rating")])
+```
+
+## Visualize the cleaned data
+
+I added two simple charts to inspect the cleaned results. The CSV is still the main deliverable. The charts are not a substitute for checking the source records.
+
+```{r}
+library(ggplot2)
+
+# Each point represents one player; this shows comparisons, not causation.
+ggplot(chess_clean, aes(x = player_pre_rating, y = avg_opponent_pre_rating)) +
+  geom_point(aes(color = player_state), alpha = 0.8, size = 2.6) +
+  scale_color_manual(values = c(MI = "#21618C", ON = "#138D75", OH = "#D68910")) +
+  labs(title = "Player Pre-Rating vs. Average Opponent Pre-Rating",
+       x = "Player pre-tournament rating",
+       y = "Average opponent pre-tournament rating",
+       color = "State / province",
+       caption = "Each point represents one player. Color shows state or province.") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+# Group player pre-ratings in intervals of 200 for an overview.
+# Bin width is a display choice, not another measure from the source.
+ggplot(chess_clean, aes(x = player_pre_rating)) +
+  geom_histogram(binwidth = 200, boundary = 0,
+                 fill = "#138D75", color = "white") +
+  labs(title = "Distribution of Player Pre-Tournament Ratings",
+       x = "Pre-tournament rating", y = "Number of players",
+       caption = "Bins are 200 rating points wide.") +
+  theme_minimal(base_size = 12)
+```
+
+## Reading the charts
+
+The scatterplot compares each player’s rating with the average rating of their opponents. Color identifies the state or province listed in the source, not how well someone played. The histogram groups the players into 200-point rating ranges. I used the charts to describe the output, not to prove that the tournament pairings followed a particular rule. The earlier checks are what test the parsing and joins.
+
+## Conclusion
+
+The main challenge was matching each opponent number to the correct pre-tournament rating. I used separate player and round tables so I could check those matches before exporting the results. The final CSV has 64 rows and the five requested fields. I also kept the original data and the validation code so someone else can repeat the process.
+
+## References
+
+DATA 607 course materials. (2026). *Project 1: Chess tournament data* [Course assignment and dataset]. CUNY School of Professional Studies.
+
+Grolemund, G. (2014). *Hands-on programming with R*. O’Reilly Media. https://rstudio-education.github.io/hopr/
+
+Posit Software, PBC. (n.d.-a). *Posit education*. https://education.rstudio.com/
+
+Posit Software, PBC. (n.d.-b). *Quarto documentation*. https://quarto.org/docs/
+
+Posit Software, PBC. (n.d.-c). *RStudio IDE user guide*. https://docs.posit.co/ide/user/
+
+R Graph Gallery. (n.d.). *The R graph gallery*. https://r-graph-gallery.com/
+
+The tidyverse team. (n.d.). *Learn the tidyverse*. https://tidyverse.org/learn/
+
+Wickham, H., Cetinkaya-Rundel, M., & Grolemund, G. (2023). *R for data science* (2nd ed.). O’Reilly Media. https://r4ds.hadley.nz/
+
+
+Posit PBC. (2023, May 12). *Get started with Quarto | Mine Çetinkaya-Rundel* [Video]. YouTube. https://www.youtube.com/watch?v=_f3latmOhew
+
+RichardOnData. (2020, October 26). *Manipulating text in R with stringr | R tutorial (2020)* [Video]. YouTube. https://www.youtube.com/watch?v=cVBvpi4qgc4
+
+## AI Assistance
+
+I used ChatGPT to help develop the R code, troubleshoot an earlier join error, and edit the report. The tournament data came from the course files. I included validation checks in the code. I have not completed a separate GitHub Copilot review.
