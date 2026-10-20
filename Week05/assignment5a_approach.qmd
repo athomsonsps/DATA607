@@ -1,0 +1,27 @@
+---
+title: "Assignment 5A Airline Delays: Approach"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+---
+
+## Approach
+
+For this assignment, I will recreate the airline delay table from the course PDF as a CSV file. I will keep the same wide layout at first, including the blank airline cells on the delayed rows.
+
+I will read the CSV into R and use `fill()` to fill in the missing airline names. Then I will use `pivot_longer()` to change the five city columns into a destination column and a flight-count column. This will make the data easier to group and compare.
+
+After the data is tidy, I will compare Alaska and AM West using delay percentages instead of only the number of delayed flights. I will look at the overall delay percentage and the percentage for each of the five cities. I will use simple tables and charts to show the results and explain why the overall comparison is different from the city-by-city comparison.
+
+## AI Use
+
+I used GitHub Copilot in Visual Studio Code to help review the R code, troubleshoot code, and improve comments. I reviewed the suggestions and kept the code I understood.
+
+## References
+
+- Fung, K. *Numbersense: How to Use Big Data to Your Advantage*. McGraw Hill, 2013. Source table provided in the DATA 607 assignment.
+- Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. *R for Data Science (2e)*. https://r4ds.hadley.nz/
