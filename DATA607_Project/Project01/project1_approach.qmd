@@ -1,0 +1,21 @@
+---
+title: "DATA 607 Project 1: Approach"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+---
+
+## Approach
+
+For this project, I will use the chess tournament text file from the course. It is not arranged like a normal CSV because each player uses two lines. The first line has the player's number, name, points, and round results. The second line has the state and pre-rating.
+
+I will read the file into R and find the lines that start with a player number. I will split those lines at the vertical bars and collect the name, points, and opponent numbers. I will use the next line for the state and pre-rating.
+
+Next, I will match each opponent number with that player's pre-rating and calculate the average. I will leave out byes and unplayed rounds because they do not have an opponent.
+
+The final dataframe will contain the player's name, state, total points, pre-rating, and average opponent pre-rating. I will check that there are 64 players, look for missing or duplicate values, compare Gary Hua's result with the example, and export the table to CSV.
