@@ -1,0 +1,44 @@
+---
+title: "Week 7 Approach"
+subtitle: "HTML and JSON"
+author: "Andre Thomosn"
+date: "2026-10-14"
+format:
+  html:
+    theme: none
+    toc: true
+    self-contained: true
+---
+
+## Topic
+
+I chose three books about the mathematical and statistical foundations of data science. For each book, I will use the title, authors, publication year, publisher, and ISBN. All three books have more than one author.
+
+## Files
+
+I will create the same records in two formats:
+
+- `books.html`, using an HTML table
+- `books.json`, using an array of JSON objects
+
+I will enter the files by hand so I can practice the structure of each format.
+
+## R process
+
+I will use `rvest` to read the HTML table and `jsonlite` to read the JSON file. After importing the files, I will check the number of rows and columns, column names, and data types.
+
+Before using `identical()`, I will put the columns in the same order. I will also make Year an integer and ISBN a character field in both data frames. ISBN is an identifier, so it should not be used as a numeric value.
+
+## Checks
+
+I will check for missing values and duplicate rows. I will also test the ISBN-13 check digits. The ISBN test only checks whether the number follows the ISBN-13 formula. It does not confirm the book title or edition.
+
+## Expected issue
+
+HTML and JSON may import the same value with different data types. If the data frames look the same but `identical()` returns `FALSE`, I will check their structure before changing any values.
+
+I will check the book information against the publishers' pages before I finish the files.
+
+## Expected result
+
+I expect both files to produce data frames with three rows and five columns. After the column order and types are consistent, I expect the two data frames to match.

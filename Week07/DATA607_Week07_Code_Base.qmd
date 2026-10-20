@@ -1,0 +1,188 @@
+---
+title: "WK7 Data Science Books"
+subtitle: "HTML and JSON"
+author: "Andre Thomosn"
+date: "2026-10-15"
+format:
+  html:
+    theme: none
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show or hide code"
+    code-tools: true
+    code-overflow: wrap
+    self-contained: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Introduction
+
+For this assignment I picked three books about the mathematical and statistical foundations of data science. I entered the same book information in an HTML table and a JSON file, then read both files into R to see if the results matched. I used title, authors, year, publisher, and ISBN. All three books have more than one author.
+
+## HTML file
+
+I used `rvest` to read the table from `books.html`.
+
+```{r}
+#| label: import-html
+library(rvest)
+library(jsonlite)
+
+# Read the local HTML file and select its first table.
+html_page <- read_html("books.html")
+
+html_data <- html_page |>
+  html_element("table") |>
+  html_table()
+
+# Convert the imported table to a regular data frame.
+# Use the same column types that will be used for the JSON data.
+html_data <- as.data.frame(html_data, stringsAsFactors = FALSE)
+html_data$Year <- as.integer(html_data$Year)
+html_data$ISBN <- as.character(html_data$ISBN)
+
+# Display the imported HTML records in the report.
+knitr::kable(
+  html_data,
+  col.names = c("Title", "Authors", "Publication Year", "Publisher", "ISBN-13"),
+  row.names = FALSE,
+  caption = "Books Imported from HTML"
+)
+```
+
+## JSON file
+
+I used `jsonlite` to read `books.json`.
+
+```{r}
+#| label: import-json
+# Read the array of book objects from the local JSON file.
+json_data <- fromJSON("books.json")
+
+# Convert the result to a data frame and standardize its types.
+json_data <- as.data.frame(json_data, stringsAsFactors = FALSE)
+json_data$Year <- as.integer(json_data$Year)
+json_data$ISBN <- as.character(json_data$ISBN)
+
+# Display the imported JSON records in the report.
+knitr::kable(
+  json_data,
+  col.names = c("Title", "Authors", "Publication Year", "Publisher", "ISBN-13"),
+  row.names = FALSE,
+  caption = "Books Imported from JSON"
+)
+```
+
+## Comparison
+
+Before comparing the data frames, I put the columns in the same order and made the Year and ISBN columns the same type.
+
+```{r}
+#| label: compare-data
+# Put both data frames in the same column order.
+columns <- c("Title", "Authors", "Year", "Publisher", "ISBN")
+
+html_data <- html_data[, columns]
+json_data <- json_data[, columns]
+
+# Record the size, structure, and exact-match results.
+comparison_summary <- data.frame(
+  Check = c(
+    "HTML dimensions",
+    "JSON dimensions",
+    "Column names match",
+    "Column classes match",
+    "All values and attributes match"
+  ),
+  Result = c(
+    paste(dim(html_data), collapse = " x "),
+    paste(dim(json_data), collapse = " x "),
+    identical(names(html_data), names(json_data)),
+    identical(vapply(html_data, class, character(1)),
+              vapply(json_data, class, character(1))),
+    identical(html_data, json_data)
+  ),
+  stringsAsFactors = FALSE
+)
+
+knitr::kable(comparison_summary, row.names = FALSE,
+             caption = "HTML and JSON Comparison")
+```
+
+Both data frames have three rows and five columns. The final comparison is `TRUE`.
+
+## A few checks
+
+I also checked for missing values, duplicate rows, and valid ISBN-13 check digits. The ISBN check only tests the number. It does not prove that the book information is correct.
+
+```{r}
+#| label: quality-checks
+# Check whether a value follows the ISBN-13 check-digit formula.
+validate_isbn13 <- function(isbn) {
+  # Remove punctuation so only the 13 digits remain.
+  isbn <- gsub("[^0-9]", "", isbn)
+
+  if (nchar(isbn) != 13) {
+    return(FALSE)
+  }
+
+  # Apply alternating weights of 1 and 3 to the first 12 digits.
+  digits <- as.integer(strsplit(isbn, "")[[1]])
+  weights <- rep(c(1, 3), 6)
+  total <- sum(digits[1:12] * weights)
+  check_digit <- (10 - (total %% 10)) %% 10
+
+  # The calculated check digit must equal the last digit.
+  check_digit == digits[13]
+}
+
+# Count missing cells and duplicated complete rows in each source.
+quality_summary <- data.frame(
+  Check = c("Missing cells", "Duplicate complete rows"),
+  HTML = c(sum(is.na(html_data)), sum(duplicated(html_data))),
+  JSON = c(sum(is.na(json_data)), sum(duplicated(json_data)))
+)
+
+# Run the ISBN-13 check on each book identifier.
+isbn_validation <- data.frame(
+  ISBN = html_data$ISBN,
+  Valid_ISBN13 = vapply(html_data$ISBN, validate_isbn13, logical(1)),
+  stringsAsFactors = FALSE
+)
+
+knitr::kable(quality_summary, row.names = FALSE,
+             caption = "Missing-Value and Duplicate Checks")
+knitr::kable(isbn_validation, row.names = FALSE,
+             col.names = c("ISBN-13", "Valid ISBN-13"),
+             caption = "ISBN-13 Check-Digit Results")
+```
+
+## Conclusion
+
+The two files gave me the same data after I fixed the column types and order. There were no missing values or duplicate rows, and the three ISBN numbers passed the check-digit test.
+
+The book details were checked against the publishers' pages. The HTML and JSON files match, but this comparison only shows that I entered the same values in both formats. It does not prove that every bookstore uses the same ISBN for every format.
+
+## Sources and AI use
+
+### Book sources
+
+- James, G., Witten, D., Hastie, T., and Tibshirani, R. (2021). *An Introduction to Statistical Learning: With Applications in R* (2nd ed.). [Springer](https://link.springer.com/book/10.1007/978-1-0716-1418-1). [Amazon and Kindle listing](https://www.amazon.com/Introduction-Statistical-Learning-Applications-Statistics/dp/1071614177).
+- Bruce, P., Bruce, A., and Gedeck, P. (2020). *Practical Statistics for Data Scientists* (2nd ed.). [O'Reilly](https://www.oreilly.com/library/view/practical-statistics-for/9781492072935/). [Amazon paperback listing](https://www.amazon.com/Practical-Statistics-Data-Scientists-Essential/dp/149207294X). The O'Reilly online edition uses ISBN `9781492072935`; the Amazon paperback uses ISBN `9781492072942`.
+- Blum, A., Hopcroft, J., and Kannan, R. (2020). *Foundations of Data Science*. [Cambridge University Press](https://www.cambridge.org/core/books/foundations-of-data-science/contents/D97A594E0184FB0F17C6C8C879D68E3C). [Amazon listing](https://www.amazon.com/Foundations-Data-Science-Avrim-Blum/dp/1108485065). [Kindle Store lookup](https://www.amazon.com/s?k=Foundations+of+Data+Science+Blum&i=digital-text).
+
+### Learning sources
+
+- Course module [YouTube video](https://www.youtube.com/watch?v=RADBdMm3S4s).
+- Wickham, H., Cetinkaya-Rundel, M., and Grolemund, G. [*R for Data Science* (2e)](https://r4ds.hadley.nz/).
+- rvest tutorial, [Web scraping 101](https://rvest.tidyverse.org/articles/rvest.html).
+- Ooms, J. (2014). [The jsonlite Package](https://arxiv.org/abs/1403.2805).
+- MDN Web Docs, [HTML table basics](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/HTML_table_basics) and [Working with JSON](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON).
+
+### AI assistance
+
+I used ChatGPT and VS Code with GitHub Copilot to review the code and look for errors. I checked the final results by running the R code. The book records came from the publisher and retailer sources listed above.
