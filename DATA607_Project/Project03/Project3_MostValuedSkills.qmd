@@ -1,0 +1,1376 @@
+---
+title: "Most Valued Data Science Skills"
+author: "Ozge Gundogan, Antik Salimullah, Andre Thomson"
+date: 2026-10-20
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+    css: table-styles.css
+execute:
+  echo: true
+  warning: false
+  message: false
+  fig-width: 9
+  fig-height: 5.5
+  fig-align: center
+editor: visual
+---
+
+# Introduction
+
+The goal of this project is to investigate which data science skills are requested most often in the supplied job-posting dataset.
+
+Our main research question is: Which data science skills are most frequently requested by employers, and how do these requirements differ across data science roles?
+
+We will analyze job postings to identify the most frequently requested technical skills and compare skill demand across Data Analyst, Data Engineer, and Data Scientist positions.
+
+We will use the frequency of skills mentioned in job postings as our measure of skill demand. This will help us understand which skills employers commonly request.
+
+Group Members: Ozge Gundogan, Antik Salimullah, Andre Thomson
+
+# Planned Approach
+
+We will use the "Data Science Job Postings & Skills (2024)" dataset from Kaggle for this project.
+
+Data Source: [https://www.kaggle.com/datasets/asaniczka/data-science-job-postings-and-skills](https://www.kaggle.com/datasets/asaniczka/data-science-job-postings-and-skills)
+
+We selected this dataset because it contains information about job postings, required skills, job titles, companies, and locations. We will use two CSV files from this dataset for our analysis: job_postings.csv and job_skills.csv.
+
+We will download the CSV files from Kaggle, upload them to GitHub, and load them into R using the read.csv() function. We will then examine the structure of the datasets and identify missing values and duplicate records. We will separate comma-separated skills stored in the same row into individual rows, standardize skill names, and check for duplicate job-skill combinations. We will also examine the number of skills listed in each job posting to identify potential outliers.
+
+We will use SQLite to organize the cleaned data into three related tables:
+
+- Jobs: Stores information about job postings.
+
+- Skills: Stores unique skills.
+
+- Job_Skills: Connects job postings with their required skills.
+
+We will use job_link and skill_id to connect the three tables and represent the many-to-many relationship between jobs and skills. The ER diagram below illustrates our proposed database structure and key relationships.
+
+```{mermaid}
+erDiagram    
+    Jobs ||--o{ Job_Skills : requires    
+    Skills ||--o{ Job_Skills : includes     
+
+    Jobs {        
+        string job_link PK        
+        string job_title        
+        string company        
+        string job_location        
+        string job_level        
+        string job_type    
+    }     
+
+    Skills {        
+        int skill_id PK        
+        string skill_name    
+    }     
+
+    Job_Skills {        
+        string job_link PK,FK        
+        int skill_id PK,FK    
+    }
+```
+
+We will analyze the frequency of technical skills mentioned in job postings to identify the most frequently requested skills. We will also compare skill demand across three job categories: Data Analyst, Data Engineer, and Data Scientist. We will calculate the percentage of job postings requiring each skill within each job category to make comparisons more meaningful. We will then use the ggplot2 package in R to visualize the results.
+
+We plan to use Gmail for group communication and GitHub for sharing code, documentation, and version control.
+
+# Anticipated Challenges
+
+One possible challenge is handling missing or incomplete data. Some job postings may contain empty fields or missing skill information.
+
+Another challenge is cleaning and standardizing skill names. Since multiple skills are stored in a single column, we will need to separate them into individual records, standardize capitalization, and remove duplicate job-skill combinations.
+
+# Code Base
+
+## Required Packages
+
+We will use R packages to load, clean, transform, and analyze the datasets.
+
+```{r}
+# These packages help us separate and clean the data, make the charts,
+# and build the SQLite database.
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(DBI)
+library(RSQLite)
+
+# Presentation settings only. These do not change the data or calculations.
+# These colors come from a color-blind-safe palette.
+chart_overall <- "#0072B2"
+chart_analyst <- "#009E73"
+chart_scientist <- "#D55E00"
+chart_engineer <- "#CC79A7"
+chart_outline <- "#1F2D3A"
+
+# This keeps the same simple look across all four charts.
+project_theme <- theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 15),
+    axis.title = element_text(face = "bold"),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.margin = margin(8, 28, 8, 8)
+  )
+```
+
+## Load the Datasets
+
+We will load the two CSV files from GitHub into R using read.csv().
+
+We are still loading every column from both files. To make the report easier to read, the first table only shows the columns that help us understand the job postings. Nothing is removed from the original data.
+
+```{r}
+# This tells R where the two files are located on GitHub.
+job_postings_url <- "https://raw.githubusercontent.com/OzgeG01/DATA607-Assignment/refs/heads/main/job_postings.csv"
+job_skills_url <- "https://raw.githubusercontent.com/OzgeG01/DATA607-Assignment/refs/heads/main/job_skills.csv"
+
+# This loads both files into R so we can work with them.
+job_postings <- read.csv(job_postings_url)
+job_skills <- read.csv(job_skills_url)
+
+# This only selects the columns we want to show in the preview table.
+# Nothing is deleted from the full job_postings data.
+job_postings_preview <- job_postings %>%
+  select(
+    job_title,
+    company,
+    job_location,
+    first_seen,
+    job_level,
+    job_type
+  ) %>%
+  head(6)
+
+# This turns the preview into a neat table for the report.
+knitr::kable(
+  job_postings_preview,
+  row.names = FALSE,
+  align = c("l", "l", "l", "c", "l", "l"),
+  col.names = c(
+    "Job title",
+    "Company",
+    "Location",
+    "First seen",
+    "Job level",
+    "Job type"
+  ),
+  caption = "Sample of the Job Postings Data"
+)
+
+# We leave the long job link out of this preview because it makes the table
+# hard to read. The link is still in the original job_skills data.
+knitr::kable(
+  head(job_skills) %>% select(job_skills),
+  row.names = FALSE,
+  align = "l",
+  col.names = "Skills listed in each source row",
+  caption = "Sample of the Job Skills Data"
+)
+```
+
+## Examining Dataset Structure
+
+Before cleaning the data, we will examine the structure of both datasets using the str() function. This will help us understand the number of observations, variable names, data types, and sample values.
+
+```{r}
+# This makes a simple list of each column and the type of data stored in it.
+job_postings_structure <- data.frame(
+  Variable = names(job_postings),
+  Type = vapply(job_postings, function(x) class(x)[1], character(1))
+)
+
+# str() checks the full structure. invisible() keeps the long console output
+# from repeating in the report.
+invisible(capture.output(str(job_postings)))
+
+# row.names = FALSE removes the extra duplicate column from the table.
+knitr::kable(
+  job_postings_structure,
+  row.names = FALSE,
+  align = c("l", "l"),
+  col.names = c("Column name", "Data type"),
+  caption = paste(
+    "Structure of job_postings:",
+    format(nrow(job_postings), big.mark = ",", scientific = FALSE),
+    "rows and", ncol(job_postings), "variables"
+  )
+)
+```
+
+The job_postings dataset contains 12,217 observations and 15 variables. All variables are stored as character values. Key variables for our analysis include job links, job titles, companies, job locations, job levels, and job types.
+
+```{r}
+# We repeat the same check for the job_skills data.
+job_skills_structure <- data.frame(
+  Variable = names(job_skills),
+  Type = vapply(job_skills, function(x) class(x)[1], character(1))
+)
+
+invisible(capture.output(str(job_skills)))
+
+# This turns the structure check into a small two-column table.
+knitr::kable(
+  job_skills_structure,
+  row.names = FALSE,
+  align = c("l", "l"),
+  col.names = c("Column name", "Data type"),
+  caption = paste(
+    "Structure of job_skills:",
+    format(nrow(job_skills), big.mark = ",", scientific = FALSE),
+    "rows and", ncol(job_skills), "variables"
+  )
+)
+```
+
+The job_skills dataset contains 12,217 observations and 2 variables: job_link and job_skills. Both variables are stored as character values. The job_skills column contains multiple skills separated by commas, which will need to be separated into individual records during data cleaning.
+
+## Checking Missing Values
+
+Before cleaning the datasets, we will check for missing values in each column. We will examine both NA values and empty strings because missing information may be represented in different ways.
+
+```{r}
+missing_na_summary <- bind_rows(
+  data.frame(
+    Dataset = "job_postings", Variable = names(job_postings),
+    Missing_NA = colSums(is.na(job_postings))
+  ),
+  data.frame(
+    Dataset = "job_skills", Variable = names(job_skills),
+    Missing_NA = colSums(is.na(job_skills))
+  )
+)
+
+# This combines the missing-value counts from both files into one table.
+knitr::kable(
+  missing_na_summary,
+  row.names = FALSE,
+  align = c("l", "l", "r"),
+  col.names = c("Dataset", "Variable", "Missing NA values"),
+  caption = "Missing NA values by dataset and variable"
+)
+```
+
+The results show that neither dataset contains any NA values.
+
+```{r}
+empty_string_summary <- bind_rows(
+  data.frame(
+    Dataset = "job_postings", Variable = names(job_postings),
+    Empty_Strings = colSums(job_postings == "", na.rm = TRUE)
+  ),
+  data.frame(
+    Dataset = "job_skills", Variable = names(job_skills),
+    Empty_Strings = colSums(job_skills == "", na.rm = TRUE)
+  )
+)
+
+# Empty strings are checked separately because R does not count them as NA.
+knitr::kable(
+  empty_string_summary,
+  row.names = FALSE,
+  align = c("l", "l", "r"),
+  col.names = c("Dataset", "Variable", "Empty strings"),
+  caption = "Empty strings by dataset and variable"
+)
+```
+
+The empty string check identified one missing job location in the job_postings dataset and five missing skill entries in the job_skills dataset. All other columns contain no empty strings.
+
+## Handling Missing Values
+
+We identified one empty value in the job_location column. Since our analysis focuses on the skills requested by employers rather than job locations, this missing value does not affect our main analysis. Therefore, instead of removing the job posting and losing its skill information, we will replace the empty location with "Unknown".
+
+```{r}
+# This replaces the one blank location with "Unknown" so we can keep the job.
+job_postings$job_location[job_postings$job_location == ""] <- "Unknown"
+```
+
+We identified five job postings with missing skill information. Since our analysis focuses on identifying the most frequently requested skills, we will exclude these five postings from both datasets used for analysis. Before removing these records, we will identify their corresponding job_link values. This will allow us to locate the same job postings in the job_postings dataset and remove them from both datasets.
+
+```{r}
+empty_skills <- job_skills[job_skills$job_skills == "", ]
+
+# This table shows the five source rows that do not have skill information.
+knitr::kable(
+  empty_skills,
+  row.names = FALSE,
+  align = c("l", "l"),
+  col.names = c("Job link", "Job skills"),
+  caption = "Job postings with missing skill information"
+)
+```
+
+After identifying the five records with missing skill information, we will use their job_link values to remove the corresponding job postings from both datasets. We will create cleaned copies to preserve the original data.
+
+```{r}
+# We make new cleaned copies so the original files stay untouched.
+# The same five job links are removed from both files so they still match.
+job_skills_clean <- job_skills[!(job_skills$job_link %in% empty_skills$job_link), ]
+job_postings_clean <- job_postings[!(job_postings$job_link %in% empty_skills$job_link), ]
+```
+
+After removing the five job postings with missing skill information, we will check both cleaned datasets to verify that no empty values remain.
+
+```{r}
+cleaned_empty_summary <- data.frame(
+  Dataset = c("job_postings_clean", "job_skills_clean"),
+  Empty_Strings = c(
+    sum(job_postings_clean == "", na.rm = TRUE),
+    sum(job_skills_clean == "", na.rm = TRUE)
+  )
+)
+
+# This confirms whether any blank values are left after cleaning.
+knitr::kable(
+  cleaned_empty_summary,
+  row.names = FALSE,
+  align = c("l", "r"),
+  col.names = c("Cleaned dataset", "Empty strings remaining"),
+  caption = "Empty-string check after cleaning"
+)
+```
+
+The results confirm that no empty strings remain in either cleaned dataset.
+
+## Checking Duplicate Records
+
+We will check for duplicate job_link values in both cleaned datasets because job_link will be used to connect job postings with their required skills. Duplicate links could cause some skills to be counted more than once and affect the accuracy of our analysis.
+
+```{r}
+duplicate_link_summary <- data.frame(
+  Dataset = c("job_postings_clean", "job_skills_clean"),
+  Duplicate_Job_Links = c(
+    sum(duplicated(job_postings_clean$job_link)),
+    sum(duplicated(job_skills_clean$job_link))
+  )
+)
+
+# This gives us one clear duplicate count for each cleaned file.
+knitr::kable(
+  duplicate_link_summary,
+  row.names = FALSE,
+  align = c("l", "r"),
+  col.names = c("Cleaned dataset", "Duplicate job links"),
+  caption = "Duplicate job-link check"
+)
+```
+
+The results show that there are no duplicate job_link values in either cleaned dataset, each job posting has a unique link.
+
+## Separating Job Skills
+
+The job_skills column contains multiple skills separated by commas. We will separate these skills into individual rows so that each row represents one skill associated with a job posting. This will allow us to count and analyze the frequency of each skill.
+
+```{r}
+# This splits the comma-separated list so each skill gets its own row.
+job_skills_long <- job_skills_clean %>%
+  separate_rows(job_skills, sep = ",")
+
+# This preview lets us check that each skill was moved to its own row.
+knitr::kable(
+  head(job_skills_long, 10),
+  row.names = FALSE,
+  align = c("l", "l"),
+  col.names = c("Job link", "Separated skill"),
+  caption = "Example skills after separating comma-separated values"
+)
+```
+
+The results show that the skills were successfully separated into individual rows. Each row now contains one job link and one skill.
+
+## Standardizing Skill Names
+
+We will remove extra spaces at the beginning and end of skill names and convert all skill names to lowercase to ensure accurate counting. This will prevent the same skill from being counted separately due to differences in capitalization or spacing.
+
+While standardizing skill names, we encountered an error caused by invalid UTF-8 characters in the dataset. To resolve this issue, we will convert the text to UTF-8 encoding and remove any characters that cannot be converted.
+
+```{r}
+# First, we fix unusual text characters. Then we remove extra spaces and
+# change the skill names to lowercase so matching names are counted together.
+job_skills_long <- job_skills_long %>%
+  mutate(
+    job_skills = iconv(job_skills, from = "", to = "UTF-8", sub = ""),
+    job_skills = tolower(trimws(job_skills))
+  )
+
+# This preview helps us check the lowercase and spacing changes.
+knitr::kable(
+  head(job_skills_long, 10),
+  row.names = FALSE,
+  align = c("l", "l"),
+  col.names = c("Job link", "Standardized skill"),
+  caption = "Example skill names after standardization"
+)
+```
+
+We will further standardize skill names by combining different expressions that refer to the same skill. For example, "powerbi" and "power bi" will be treated as one skill. This will help prevent duplicate categories and improve the accuracy of our skill frequency analysis.
+
+```{r}
+# These rules place common spelling variations under one skill name.
+job_skills_long <- job_skills_long %>%
+  mutate(
+    job_skills = case_when(
+      job_skills %in% c("powerbi", "power-bi", "power bi") ~ "power bi",
+      job_skills %in% c("communication skills", "communication") ~ "communication",
+      job_skills %in% c("ms excel", "microsoft excel", "excel") ~ "excel",
+      job_skills %in% c("ms sql server", "microsoft sql server") ~ "sql server",
+      job_skills %in% c("java script", "javascript") ~ "javascript",
+      job_skills %in% c("scikitlearn", "scikit learn", "scikit-learn") ~ "scikit-learn",
+      job_skills %in% c("data bricks", "databricks") ~ "databricks",
+      job_skills %in% c("tsql", "t-sql") ~ "t-sql",
+      job_skills %in% c(
+        "cloudbased data platforms",
+        "cloud-based data platforms"
+      ) ~ "cloud-based data platforms",
+      job_skills %in% c(
+        "mlspecific accelerators",
+        "ml-specific accelerators"
+      ) ~ "ml-specific accelerators",
+      job_skills %in% c(
+        "problem solving",
+        "problemsolving",
+        "problem-solving"
+      ) ~ "problem solving",
+      TRUE ~ job_skills
+    )
+  )
+```
+
+## Removing Non-Skill Entries
+
+Some entries in the skills dataset describe job requirements rather than actual skills, such as years of experience, work shifts, and educational qualifications. We will remove these entries from the skill-level data to improve the accuracy of our analysis.
+
+```{r}
+rows_before <- nrow(job_skills_long)
+
+# These filters remove experience, shift, and education requirements.
+job_skills_long <- job_skills_long %>%
+  filter(
+    !grepl(
+      "\\b(year|years)\\b.*\\bexperience\\b|\\bexperience\\b.*\\b(year|years)\\b",
+      job_skills
+    ),
+    !grepl(
+      "\\b(hour|hours)\\b.*\\bshift\\b|\\bshift\\b.*\\b(hour|hours)\\b",
+      job_skills
+    ),
+    !grepl(
+      paste(
+        "degree|diploma|bachelor|phd|doctorate|doctoral|baccalaureate|",
+        "\\bmasters\\b|\\bged\\b",
+        sep = ""
+      ),
+      job_skills
+    )
+  )
+
+non_skill_entries_removed <- rows_before - nrow(job_skills_long)
+# This shows how many requirement statements were removed from the skill list.
+knitr::kable(
+  data.frame(Measure = "Non-skill entries removed", Value = non_skill_entries_removed),
+  row.names = FALSE,
+  align = c("l", "r"),
+  caption = "Entries removed by the non-skill filters"
+)
+```
+
+A total of 5,331 entries related to experience requirements, work shifts, and educational qualifications were removed from the skill-level dataset. This filtering step helps focus the analysis on actual skills rather than general job requirements.
+
+## Checking and Removing Duplicate Job-Skill Pairs After Transformation
+
+We will check whether the same skill appears more than once for a single job posting. Duplicate job-skill pairs could cause some skills to be counted multiple times and affect the accuracy of our analysis.
+
+```{r}
+duplicate_pairs_before <- sum(duplicated(job_skills_long))
+# This records the number of repeated job-skill pairs before we remove them.
+knitr::kable(
+  data.frame(
+    Measure = "Duplicate job-skill pairs before removal",
+    Value = duplicate_pairs_before
+  ),
+  row.names = FALSE,
+  align = c("l", "r"),
+  caption = "Duplicate job-skill check before cleaning"
+)
+```
+
+We identified 2,749 duplicate job-skill pairs. We will remove these duplicates to ensure that each skill is counted only once per job posting.
+
+```{r}
+job_skills_long <- job_skills_long %>%
+  distinct(job_link, job_skills, .keep_all = TRUE)
+
+duplicate_pairs_after <- sum(duplicated(job_skills_long))
+# This confirms that no repeated job-skill pairs remain.
+knitr::kable(
+  data.frame(
+    Measure = "Duplicate job-skill pairs after removal",
+    Value = duplicate_pairs_after
+  ),
+  row.names = FALSE,
+  align = c("l", "r"),
+  caption = "Duplicate job-skill check after cleaning"
+)
+```
+
+After removing the duplicate job-skill pairs, the verification returned 0. This confirms that each skill now appears only once per job posting.
+
+## Checking Outliers in the Number of Skills per Job Posting
+
+We will calculate the number of skills listed in each job posting and examine unusually high values. This will help us evaluate the quality of our data.
+
+```{r}
+skills_per_job <- job_skills_long %>%
+  count(job_link, name = "skill_count")
+
+skill_count_summary <- data.frame(
+  Measure = c("Minimum", "First quartile", "Median", "Mean", "Third quartile", "Maximum"),
+  Value = as.numeric(summary(skills_per_job$skill_count))
+)
+
+# This turns the summary statistics into a table that is easier to explain.
+knitr::kable(
+  skill_count_summary,
+  row.names = FALSE,
+  align = c("l", "r"),
+  digits = 2,
+  caption = "Summary of the number of skills per job posting"
+)
+```
+
+The results show that job postings contain an average of 25.13 skills. The maximum is 218 skills, which is unusually high compared to the typical number of skills per posting. We will investigate potential outliers.
+
+We will use the Interquartile Range (IQR) method to identify potential outliers. IQR measures the spread of the middle 50% of the data (Q3 - Q1). We will calculate the upper limit using Q3 + 1.5 * IQR and count how many job postings exceed this limit.
+
+```{r}
+# Q1 and Q3 mark the middle half of the skill counts. The last line uses their
+# distance to set a reasonable cutoff for values that deserve a closer look.
+Q1 <- quantile(skills_per_job$skill_count, 0.25)
+Q3 <- quantile(skills_per_job$skill_count, 0.75)
+upper_limit <- unname(Q3 + 1.5 * (Q3 - Q1))
+
+# This shows the values used to calculate the outlier cutoff.
+knitr::kable(
+  data.frame(
+    Measure = c(
+      "First quartile (Q1)", "Third quartile (Q3)",
+      "IQR upper limit"
+    ),
+    Value = c(unname(Q1), unname(Q3), upper_limit)
+  ),
+  row.names = FALSE,
+  align = c("l", "r"),
+  digits = 2,
+  caption = "IQR calculation for potential skill-count outliers"
+)
+```
+
+Using the IQR method, we calculated an upper limit of 49.5 skills per job posting. Job postings with more than 49.5 skills will be considered potential outliers. We will count how many job postings exceed the upper limit of 49.5 skills to determine the number of potential outliers in our dataset.
+
+```{r}
+potential_outlier_count <- sum(skills_per_job$skill_count > upper_limit)
+# This shows how many postings are above the calculated cutoff.
+knitr::kable(
+  data.frame(
+    Measure = "Postings above the IQR upper limit",
+    Value = potential_outlier_count
+  ),
+  row.names = FALSE,
+  align = c("l", "r"),
+  caption = "Potential outlier count"
+)
+```
+
+We identified 468 job postings with more than 49.5 skills. These postings are considered potential outliers based on the IQR method. However, a high number of skills does not necessarily indicate incorrect data, so we will examine these records before deciding whether to remove them.
+
+```{r}
+highest_skill_counts <- skills_per_job %>%
+  arrange(desc(skill_count)) %>%
+  head(10)
+
+# This lists the ten postings with the largest number of skills.
+knitr::kable(
+  highest_skill_counts,
+  row.names = FALSE,
+  align = c("l", "r"),
+  col.names = c("Job link", "Number of skills"),
+  caption = "Ten job postings with the highest skill counts"
+)
+```
+
+The 10 job postings with the highest skill counts contain between 122 and 218 skills, which is considerably higher than the median of 23. We will examine these postings further before deciding whether to keep or remove them.
+
+```{r}
+top_job <- skills_per_job %>%
+  arrange(desc(skill_count)) %>%
+  slice(1)
+
+top_job_details <- job_postings_clean %>%
+  filter(job_link == top_job$job_link) %>%
+  select(job_title, company, job_level)
+
+top_job_skills <- job_skills_long %>%
+  filter(job_link == top_job$job_link) %>%
+  select(job_skills) %>%
+  head(50)
+
+# Split the 50 skills into two numbered columns. This keeps the same skills
+# and order, but the table takes up less space on the page.
+skill_values <- top_job_skills$job_skills
+halfway_point <- ceiling(length(skill_values) / 2)
+left_numbers <- seq_len(halfway_point)
+right_numbers <- if (halfway_point < length(skill_values)) {
+  seq.int(halfway_point + 1, length(skill_values))
+} else {
+  integer(0)
+}
+
+right_column <- rep("", halfway_point)
+right_column[seq_along(right_numbers)] <- paste0(
+  right_numbers, ". ", skill_values[right_numbers]
+)
+
+top_job_skills_display <- data.frame(
+  `Skills 1–25` = paste0(left_numbers, ". ", skill_values[left_numbers]),
+  `Skills 26–50` = right_column,
+  check.names = FALSE
+)
+
+# This identifies the posting we reviewed in more detail.
+knitr::kable(
+  top_job_details,
+  row.names = FALSE,
+  align = c("l", "l", "l"),
+  col.names = c("Job title", "Company", "Job level"),
+  caption = "Job posting with the highest skill count"
+)
+
+# This prints the two-column skill list in the report.
+knitr::kable(
+  top_job_skills_display,
+  row.names = FALSE,
+  align = c("l", "l"),
+  caption = "First 50 Skills from the Highest-Count Posting"
+)
+```
+
+We examined the job posting with the highest skill count (218 skills). The position is Data Engineer IV at ACV Auctions. The displayed skills include relevant technical skills such as SQL, AWS, and ETL. This suggests that the high skill count may reflect the broad technical requirements of the position rather than a data error.
+
+We decided to retain all 468 potential outliers because unusually high skill counts do not necessarily indicate data errors. Removing these postings could result in the loss of potentially valuable information about skill demand.
+
+## Creating a Relational Database with SQLite
+
+### Creating the SQLite Database
+
+We will connect to a SQLite database to store our cleaned data in three normalized tables: Jobs, Skills, and Job_Skills. To avoid errors when running the code multiple times, we will remove any existing versions of these tables before creating them again with the updated data.
+
+```{r}
+# This opens the database file. The next three lines clear the old tables so
+# the project can be run again without mixing old and new results.
+con <- dbConnect(RSQLite::SQLite(), "data_science_skills.sqlite")
+invisible(dbExecute(con, "DROP TABLE IF EXISTS Job_Skills"))
+invisible(dbExecute(con, "DROP TABLE IF EXISTS Skills"))
+invisible(dbExecute(con, "DROP TABLE IF EXISTS Jobs"))
+
+# This confirms that the old tables were cleared before rebuilding the database.
+knitr::kable(
+  data.frame(
+    Status = "Ready to rebuild",
+    Tables_Remaining = length(dbListTables(con))
+  ),
+  row.names = FALSE,
+  align = c("l", "r"),
+  col.names = c("Database status", "Tables remaining"),
+  caption = "SQLite database reset check"
+)
+```
+
+The database was successfully prepared for rebuilding. The result character(0) confirms that no tables remain before creating the updated Jobs, Skills, and Job_Skills tables.
+
+### Enabling Foreign Key Constraints
+
+Before creating the relational tables, we will enable foreign key constraints in SQLite to maintain referential integrity between the tables.
+
+```{r}
+# This tells SQLite to check that every connection between tables is valid.
+invisible(dbExecute(con, "PRAGMA foreign_keys = ON;"))
+```
+
+The command executed successfully and returned 0, indicating that no rows were affected.
+
+We will verify that foreign key constraints are enabled in our SQLite database.
+
+```{r}
+foreign_key_status <- dbGetQuery(con, "PRAGMA foreign_keys;")
+# This changes SQLite's 1 or 0 result into a simple Yes or No.
+knitr::kable(
+  data.frame(
+    Check = "Foreign keys enabled",
+    Result = ifelse(foreign_key_status[[1]] == 1, "Yes", "No")
+  ),
+  row.names = FALSE,
+  align = c("l", "c"),
+  caption = "SQLite foreign-key setting"
+)
+```
+
+The result returned 1, confirming that foreign key constraints are enabled in our SQLite database.
+
+### Preparing the Jobs Data
+
+We will prepare the Jobs table using the cleaned job postings dataset. This table will contain the job link, job title, company, location, job level, and job type. The job link will serve as the primary key because each job posting has a unique link.
+
+```{r}
+jobs <- job_postings_clean %>%
+  select(
+    job_link,
+    job_title,
+    company,
+    job_location,
+    job_level,
+    job_type
+  )
+
+# This preview shows the columns that will go into the Jobs table.
+knitr::kable(
+  head(jobs),
+  row.names = FALSE,
+  align = c("l", "l", "l", "l", "l", "l"),
+  col.names = c(
+    "Job link",
+    "Job title",
+    "Company",
+    "Location",
+    "Job level",
+    "Job type"
+  ),
+  caption = "Preview of the Jobs table"
+)
+```
+
+### Creating the Jobs Table in SQLite
+
+We will create the Jobs table in SQLite and define job_link as the primary key to ensure that each job posting is uniquely identified. Then, we will insert the cleaned job posting records into the table.
+
+```{r}
+# First, we create an empty Jobs table with the correct columns.
+invisible(dbExecute(con, "
+  CREATE TABLE Jobs (
+    job_link TEXT PRIMARY KEY,
+    job_title TEXT,
+    company TEXT,
+    job_location TEXT,
+    job_level TEXT,
+    job_type TEXT
+  )
+"))
+# Next, we add the cleaned job records and count how many were added.
+invisible(dbAppendTable(con, "Jobs", jobs))
+jobs_count <- dbGetQuery(con, "SELECT COUNT(*) AS total_jobs FROM Jobs")
+# This confirms how many job records were added to SQLite.
+knitr::kable(
+  jobs_count,
+  row.names = FALSE,
+  align = "r",
+  col.names = "Rows inserted",
+  caption = "Jobs table row count"
+)
+```
+
+The Jobs table was successfully created in SQLite with job_link as the primary key. A total of 12,212 job postings were inserted into the table.
+
+### Preparing the Skills Data
+
+We will create the Skills table by extracting unique skill names from job_skills_long. Each skill will be assigned a unique skill_id, which will serve as the primary key in our relational database.
+
+```{r}
+skills_table <- data.frame(
+  skill_id = seq_along(unique(job_skills_long$job_skills)),
+  skill_name = unique(job_skills_long$job_skills)
+)
+
+# This preview shows the skill ID and name stored in the Skills table.
+knitr::kable(
+  head(skills_table, 10),
+  row.names = FALSE,
+  align = c("r", "l"),
+  col.names = c("Skill ID", "Skill name"),
+  caption = "Preview of the Skills table"
+)
+```
+
+### Creating the Skills Table in SQLite
+
+We will create the Skills table in SQLite using skill_id as the primary key. Then, we will insert the unique skill names into the table.
+
+```{r}
+# First, we create an empty Skills table. UNIQUE prevents the same cleaned
+# skill name from being stored twice.
+invisible(dbExecute(con, "
+  CREATE TABLE Skills (
+    skill_id INTEGER PRIMARY KEY,
+    skill_name TEXT NOT NULL UNIQUE
+  )
+"))
+# Next, we add the skill records and count how many were added.
+invisible(dbAppendTable(con, "Skills", skills_table))
+skills_count <- dbGetQuery(con, "SELECT COUNT(*) AS total_skills FROM Skills")
+# This confirms how many unique skills were added to SQLite.
+knitr::kable(
+  skills_count,
+  row.names = FALSE,
+  align = "r",
+  col.names = "Rows inserted",
+  caption = "Skills table row count"
+)
+```
+
+The Skills table was successfully created in SQLite with skill_id as the primary key. A total of 62,752 unique skills were inserted into the table.
+
+### Preparing the Job_Skills Data
+
+We will create the Job_Skills table by matching each skill in job_skills_long with its corresponding skill_id from the Skills table. This table will connect job postings and skills using their identifiers.
+
+```{r}
+# This joins each cleaned skill name to its number, then keeps only the job link
+# and skill ID needed to connect the Jobs and Skills tables.
+job_skills_table <- job_skills_long %>%
+  left_join(skills_table, by = c("job_skills" = "skill_name")) %>%
+  select(job_link, skill_id)
+
+# This preview shows how a job link is connected to a skill ID.
+knitr::kable(
+  head(job_skills_table, 10),
+  row.names = FALSE,
+  align = c("l", "r"),
+  col.names = c("Job link", "Skill ID"),
+  caption = "Preview of the Job_Skills table"
+)
+```
+
+The Job_Skills table was successfully created. Each row contains a job link and its corresponding skill ID, allowing us to connect job postings with their required skills.
+
+### Creating the Job_Skills Table in SQLite
+
+We will create the Job_Skills table in SQLite using job_link and skill_id as foreign keys referencing the Jobs and Skills tables. Together, these columns will form a composite primary key to prevent duplicate job-skill pairs.
+
+```{r}
+# This table stores the connections between jobs and skills. The two foreign
+# keys make sure each connection points to a job and skill that really exist.
+invisible(dbExecute(con, "
+  CREATE TABLE Job_Skills (
+    job_link TEXT NOT NULL,
+    skill_id INTEGER NOT NULL,
+    PRIMARY KEY (job_link, skill_id),
+    FOREIGN KEY (job_link) REFERENCES Jobs(job_link),
+    FOREIGN KEY (skill_id) REFERENCES Skills(skill_id)
+  )
+"))
+# We add the connections and count how many were stored.
+invisible(dbAppendTable(con, "Job_Skills", job_skills_table))
+job_skills_count <- dbGetQuery(
+  con,
+  "SELECT COUNT(*) AS total_job_skills FROM Job_Skills"
+)
+# This confirms how many job-skill relationships were added.
+knitr::kable(
+  job_skills_count,
+  row.names = FALSE,
+  align = "r",
+  col.names = "Rows inserted",
+  caption = "Job_Skills table row count"
+)
+```
+
+The Job_Skills table was successfully created with a composite primary key and foreign keys referencing the Jobs and Skills tables. A total of 306,870 job-skill relationships were inserted.
+
+### Verifying Referential Integrity
+
+We will verify referential integrity to ensure that all job links and skill IDs in the Job_Skills table correctly reference existing records in the Jobs and Skills tables.
+
+```{r}
+foreign_key_violations <- dbGetQuery(con, "PRAGMA foreign_key_check;")
+# A result of 0 means every job-skill relationship points to a valid record.
+knitr::kable(
+  data.frame(
+    Check = "Foreign-key violations",
+    Result = nrow(foreign_key_violations)
+  ),
+  row.names = FALSE,
+  align = c("l", "r"),
+  caption = "Referential-integrity check"
+)
+```
+
+The foreign key check returned 0 rows, confirming that there are no foreign key violations in the database. All job-skill relationships correctly reference existing records in the Jobs and Skills tables.
+
+## Exploratory Data Analysis
+
+### Most Frequently Requested Technical Skills
+
+To identify the most frequently requested technical skills, we will first exclude non-technical skills and general competencies from the dataset.
+
+```{r}
+# These are useful workplace skills, but this section focuses on technical skills.
+non_technical_skills <- c(
+  "communication",
+  "problem solving",
+  "project management",
+  "teamwork",
+  "analytical skills",
+  "attention to detail",
+  "collaboration",
+  "leadership",
+  "agile",
+  "troubleshooting",
+  "data science",
+  "computer science",
+  "time management",
+  "engineering",
+  "interpersonal skills"
+)
+```
+
+We will use SQL to count the number of unique job postings mentioning each skill and calculate its percentage of total job postings. After excluding the non-technical categories identified above, we will select the 10 most frequently requested technical skills.
+
+```{r}
+# SQL connects the skill names to the job links and counts each job only once
+# for a skill. R then removes the non-technical items and keeps the top 10.
+technical_skills <- dbGetQuery(
+  con,
+  "
+  SELECT
+    s.skill_name,
+    COUNT(DISTINCT js.job_link) AS job_count,
+    ROUND(
+      100.0 * COUNT(DISTINCT js.job_link) /
+      (SELECT COUNT(*) FROM Jobs),
+      2
+    ) AS percentage
+  FROM Job_Skills js
+  JOIN Skills s ON js.skill_id = s.skill_id
+  GROUP BY s.skill_name
+  ORDER BY job_count DESC
+  "
+) %>%
+  filter(!skill_name %in% non_technical_skills) %>%
+  head(10)
+
+# This table shows both the posting count and percentage for each top skill.
+knitr::kable(
+  technical_skills,
+  row.names = FALSE,
+  align = c("l", "r", "r"),
+  digits = 2,
+  col.names = c("Technical skill", "Job postings", "Percentage (%)"),
+  caption = "Top 10 most requested technical skills"
+)
+```
+
+The results show that Python is the most frequently requested technical skill (38.94%), followed by SQL (37.01%), data analysis (26.42%), machine learning (21.55%), and data visualization (18.56%). Other frequently requested skills include AWS, data engineering, Tableau, R, and data modeling. Overall, these findings suggest that employers place strong emphasis on programming, data analysis, and data management capabilities.
+
+We will use a horizontal bar chart to visualize the 10 most frequently requested technical skills. The percentages represent the proportion of job postings that mention each skill.
+
+```{r}
+#| fig-alt: "Horizontal bar chart of the top 10 technical skills across all job postings. Python ranks first at 38.94 percent, followed by SQL at 37.01 percent. Every bar also has a percentage label."
+
+# Horizontal bars make the longer skill names easier to read.
+ggplot(
+  head(technical_skills, 10),
+  aes(
+    x = reorder(skill_name, percentage),
+    y = percentage
+  )
+) +
+  geom_col(
+    fill = chart_overall,
+    color = chart_outline,
+    linewidth = 0.25,
+    width = 0.72
+  ) +
+  geom_text(
+    aes(label = paste0(percentage, "%")),
+    hjust = -0.2,
+    size = 3.5
+  ) +
+  coord_flip(clip = "off") +
+  scale_y_continuous(
+    limits = c(0, 45),
+    breaks = seq(0, 40, 10),
+    expand = expansion(mult = c(0, 0.04))
+  ) +
+  labs(
+    title = "Top 10 Most Requested Technical Skills",
+    x = "Technical Skill",
+    y = "Job Postings (%)"
+  ) +
+  project_theme
+```
+
+### Technical Skill Demand by Job Role
+
+We will separately analyze job postings for three positions: Data Analyst, Data Scientist, and Data Engineer. For each position, we will identify the most frequently requested technical skills and compare their demand across the three roles.
+
+We will use SQL to count the job postings for Data Analyst, Data Scientist, and Data Engineer positions. Job titles containing these terms will be included regardless of experience level, such as Junior, Senior, or Lead.
+
+```{r}
+# This groups job titles into the three roles used in the comparison.
+role_counts <- dbGetQuery(
+  con,
+  "
+  SELECT
+    CASE
+      WHEN LOWER(job_title) LIKE '%data analyst%' THEN 'Data Analyst'
+      WHEN LOWER(job_title) LIKE '%data scientist%' THEN 'Data Scientist'
+      WHEN LOWER(job_title) LIKE '%data engineer%' THEN 'Data Engineer'
+    END AS job_role,
+    COUNT(*) AS job_count
+  FROM Jobs
+  WHERE
+    LOWER(job_title) LIKE '%data analyst%'
+    OR LOWER(job_title) LIKE '%data scientist%'
+    OR LOWER(job_title) LIKE '%data engineer%'
+  GROUP BY job_role
+  ORDER BY job_count DESC
+  "
+)
+
+# This gives the number of postings included in each role group.
+knitr::kable(
+  role_counts,
+  row.names = FALSE,
+  align = c("l", "r"),
+  col.names = c("Job role", "Job postings"),
+  caption = "Number of postings included in each role"
+)
+```
+
+The results show that Data Analyst has the highest number of job postings (1,888), followed by Data Engineer (1,751) and Data Scientist (807). We will use these three groups to compare technical skill requirements across different job roles.
+
+#### Top 10 Technical Skills for Data Analyst
+
+We will identify the 10 most frequently requested technical skills in Data Analyst job postings. Skill demand will be measured as the percentage of Data Analyst postings mentioning each skill, including Junior and Senior positions.
+
+```{r}
+# We divide each skill count by all Data Analyst postings. This gives us a fair
+# percentage for the role instead of only showing the raw count.
+data_analyst_skills <- dbGetQuery(
+  con,
+  "
+  SELECT
+    s.skill_name,
+    COUNT(DISTINCT js.job_link) AS job_count,
+    ROUND(
+      100.0 * COUNT(DISTINCT js.job_link) /
+      (
+        SELECT COUNT(*)
+        FROM Jobs
+        WHERE LOWER(job_title) LIKE '%data analyst%'
+      ),
+      2
+    ) AS percentage
+  FROM Jobs j
+  JOIN Job_Skills js ON j.job_link = js.job_link
+  JOIN Skills s ON js.skill_id = s.skill_id
+  WHERE LOWER(j.job_title) LIKE '%data analyst%'
+  GROUP BY s.skill_name
+  ORDER BY job_count DESC
+  "
+) %>%
+  filter(!skill_name %in% non_technical_skills) %>%
+  head(10)
+
+# This formats the Data Analyst results as a readable table.
+knitr::kable(
+  data_analyst_skills,
+  row.names = FALSE,
+  align = c("l", "r", "r"),
+  digits = 2,
+  col.names = c("Technical skill", "Job postings", "Percentage (%)"),
+  caption = "Top 10 technical skills for Data Analyst postings"
+)
+```
+
+The results show that data analysis (69.23%) is the most frequently requested skill for Data Analyst positions, followed by SQL (61.28%) and data visualization (51.75%). Python (43.06%) and Tableau (38.72%) are also among the top five. Power BI, R, and Excel are frequently mentioned, highlighting the importance of data analysis, querying, and visualization skills for this role.
+
+We will create a horizontal bar chart to visualize the 10 most frequently requested technical skills for Data Analyst positions. Each bar represents the percentage of Data Analyst job postings mentioning a particular skill.
+
+```{r}
+#| fig-alt: "Horizontal bar chart of the top 10 technical skills for Data Analyst postings. Data analysis ranks first at 69.23 percent, followed by SQL at 61.28 percent and data visualization at 51.75 percent. Every bar also has a percentage label."
+
+# The bars are ordered by percentage, and the exact value is printed at the end.
+ggplot(
+  data_analyst_skills,
+  aes(
+    x = reorder(skill_name, percentage),
+    y = percentage
+  )
+) +
+  geom_col(
+    fill = chart_analyst,
+    color = chart_outline,
+    linewidth = 0.25,
+    width = 0.72
+  ) +
+  geom_text(
+    aes(label = sprintf("%.2f%%", percentage)),
+    hjust = -0.1,
+    size = 3.5
+  ) +
+  coord_flip(clip = "off") +
+  scale_y_continuous(
+    limits = c(0, 100),
+    breaks = seq(0, 100, 20),
+    expand = expansion(mult = c(0, 0.04))
+  ) +
+  labs(
+    title = "Top 10 Technical Skills for Data Analyst",
+    x = "Technical Skill",
+    y = "Data Analyst Job Postings (%)"
+  ) +
+  project_theme
+```
+
+#### Top 10 Technical Skills for Data Scientist
+
+We will identify the 10 most frequently requested technical skills in Data Scientist job postings. Skill demand will be calculated as the percentage of Data Scientist postings mentioning each skill, including Junior and Senior positions.
+
+```{r}
+# We repeat the same calculation using all Data Scientist postings as the
+# comparison group.
+data_scientist_skills <- dbGetQuery(
+  con,
+  "
+  SELECT
+    s.skill_name,
+    COUNT(DISTINCT js.job_link) AS job_count,
+    ROUND(
+      100.0 * COUNT(DISTINCT js.job_link) /
+      (
+        SELECT COUNT(*)
+        FROM Jobs
+        WHERE LOWER(job_title) LIKE '%data scientist%'
+      ),
+      2
+    ) AS percentage
+  FROM Jobs j
+  JOIN Job_Skills js ON j.job_link = js.job_link
+  JOIN Skills s ON js.skill_id = s.skill_id
+  WHERE LOWER(j.job_title) LIKE '%data scientist%'
+  GROUP BY s.skill_name
+  ORDER BY job_count DESC
+  "
+) %>%
+  filter(!skill_name %in% non_technical_skills) %>%
+  head(10)
+
+# This formats the Data Scientist results as a readable table.
+knitr::kable(
+  data_scientist_skills,
+  row.names = FALSE,
+  align = c("l", "r", "r"),
+  digits = 2,
+  col.names = c("Technical skill", "Job postings", "Percentage (%)"),
+  caption = "Top 10 technical skills for Data Scientist postings"
+)
+```
+
+The results show that Python (83.44%) is the most frequently requested technical skill for Data Scientist positions, followed by machine learning (73.42%) and SQL (57.97%). R (48.70%) and data visualization (37.95%) complete the top five. Statistics (36.46%) is also frequently requested, highlighting the importance of programming, machine learning, and statistical analysis for this role.
+
+We will create a horizontal bar chart to visualize the 10 most frequently requested technical skills for Data Scientist positions. Each bar represents the percentage of Data Scientist job postings mentioning a particular skill.
+
+```{r}
+#| fig-alt: "Horizontal bar chart of the top 10 technical skills for Data Scientist postings. Python ranks first at 83.44 percent, followed by machine learning at 73.42 percent and SQL at 57.97 percent. Every bar also has a percentage label."
+
+# The bars are ordered by percentage, and the exact value is printed at the end.
+ggplot(
+  data_scientist_skills,
+  aes(
+    x = reorder(skill_name, percentage),
+    y = percentage
+  )
+) +
+  geom_col(
+    fill = chart_scientist,
+    color = chart_outline,
+    linewidth = 0.25,
+    width = 0.72
+  ) +
+  geom_text(
+    aes(label = sprintf("%.2f%%", percentage)),
+    hjust = -0.1,
+    size = 3.5
+  ) +
+  coord_flip(clip = "off") +
+  scale_y_continuous(
+    limits = c(0, 100),
+    breaks = seq(0, 100, 20),
+    expand = expansion(mult = c(0, 0.04))
+  ) +
+  labs(
+    title = "Top 10 Technical Skills for Data Scientist",
+    x = "Technical Skill",
+    y = "Data Scientist Job Postings (%)"
+  ) +
+  project_theme
+```
+
+#### Top 10 Technical Skills for Data Engineer
+
+We will identify the 10 most frequently requested technical skills in Data Engineer job postings. Skill demand will be calculated as the percentage of Data Engineer postings mentioning each skill, including Junior and Senior positions.
+
+```{r}
+# We repeat the same calculation using all Data Engineer postings as the
+# comparison group.
+data_engineer_skills <- dbGetQuery(
+  con,
+  "
+  SELECT
+    s.skill_name,
+    COUNT(DISTINCT js.job_link) AS job_count,
+    ROUND(
+      100.0 * COUNT(DISTINCT js.job_link) /
+      (
+        SELECT COUNT(*)
+        FROM Jobs
+        WHERE LOWER(job_title) LIKE '%data engineer%'
+      ),
+      2
+    ) AS percentage
+  FROM Jobs j
+  JOIN Job_Skills js ON j.job_link = js.job_link
+  JOIN Skills s ON js.skill_id = s.skill_id
+  WHERE LOWER(j.job_title) LIKE '%data engineer%'
+  GROUP BY s.skill_name
+  ORDER BY job_count DESC
+  "
+) %>%
+  filter(!skill_name %in% non_technical_skills) %>%
+  head(10)
+
+# This formats the Data Engineer results as a readable table.
+knitr::kable(
+  data_engineer_skills,
+  row.names = FALSE,
+  align = c("l", "r", "r"),
+  digits = 2,
+  col.names = c("Technical skill", "Job postings", "Percentage (%)"),
+  caption = "Top 10 technical skills for Data Engineer postings"
+)
+```
+
+The results show that Python (73.47%) is the most frequently requested technical skill for Data Engineer positions, followed by SQL (63.09%) and data engineering (51.63%). Spark (40.79%) and Java (37.76%) complete the top five. AWS, Scala, Snowflake, data warehousing, and Hadoop are also frequently requested, highlighting the importance of programming, cloud technologies, and large-scale data processing for this role.
+
+We will create a horizontal bar chart to visualize the 10 most frequently requested technical skills for Data Engineer positions. Each bar represents the percentage of Data Engineer job postings mentioning a particular skill.
+
+```{r}
+#| fig-alt: "Horizontal bar chart of the top 10 technical skills for Data Engineer postings. Python ranks first at 73.47 percent, followed by SQL at 63.09 percent and data engineering at 51.63 percent. Every bar also has a percentage label."
+
+# The bars are ordered by percentage, and the exact value is printed at the end.
+ggplot(
+  data_engineer_skills,
+  aes(
+    x = reorder(skill_name, percentage),
+    y = percentage
+  )
+) +
+  geom_col(
+    fill = chart_engineer,
+    color = chart_outline,
+    linewidth = 0.25,
+    width = 0.72
+  ) +
+  geom_text(
+    aes(label = sprintf("%.2f%%", percentage)),
+    hjust = -0.1,
+    size = 3.5
+  ) +
+  coord_flip(clip = "off") +
+  scale_y_continuous(
+    limits = c(0, 100),
+    breaks = seq(0, 100, 20),
+    expand = expansion(mult = c(0, 0.04))
+  ) +
+  labs(
+    title = "Top 10 Technical Skills for Data Engineer",
+    x = "Technical Skill",
+    y = "Data Engineer Job Postings (%)"
+  ) +
+  project_theme
+```
+
+```{r}
+#| include: false
+
+# Close the database connection after all queries are finished.
+dbDisconnect(con)
+```
+
+### Comparing Technical Skills Across Job Roles
+
+The results show both similarities and differences in technical skill demand across Data Analyst, Data Scientist, and Data Engineer positions.
+
+Python and SQL are among the most frequently requested skills across all three roles. Python is particularly common in Data Scientist (83.44%) and Data Engineer (73.47%) postings, while SQL is frequently requested in Data Analyst (61.28%), Data Scientist (57.97%), and Data Engineer (63.09%) positions.
+
+Data Analyst positions place greater emphasis on data analysis (69.23%), SQL (61.28%), data visualization (51.75%), Python (43.06%), and Tableau (38.72%). These are the five most frequently requested technical skills for this role, highlighting the importance of analyzing, querying, and visualizing data.
+
+Data Scientist positions show the highest demand for Python (83.44%), followed by machine learning (73.42%), SQL (57.97%), R (48.70%), and data visualization (37.95%). These findings highlight the importance of programming, machine learning, and data analysis for this role.
+
+Data Engineer positions most frequently request Python (73.47%), SQL (63.09%), data engineering (51.63%), Spark (40.79%), and Java (37.76%). These findings reflect the importance of programming, data infrastructure, and large-scale data processing for this role.
+
+Overall, the findings suggest that while all three roles share important technical skills, their priorities differ. Data Analysts focus more on analysis and visualization, Data Scientists on machine learning and statistical methods, and Data Engineers on data infrastructure and processing technologies.
+
+# Limitations
+
+This analysis has several limitations. First, the dataset contains job postings from 2024, so the results may not reflect current employer requirements.
+
+Second, skill names were standardized during data cleaning, but some variations may still remain. Additionally, the classification of technical and non-technical skills was based on a predefined exclusion list, which may not capture every non-technical skill.
+
+Finally, job postings were grouped by job title, including different experience levels. Therefore, the analysis does not distinguish between Junior, Senior, and other experience levels within each role.
+
+# Conclusion
+
+This project explored which technical data science skills are most valued by employers and how skill requirements differ across job roles.
+
+The overall analysis showed that Python and SQL were the most frequently requested technical skills, followed by data analysis, machine learning, and data visualization.
+
+The role-specific analysis revealed differences in employer requirements. Data Analyst positions emphasized data analysis, SQL, and visualization tools. Data Scientist positions focused more on Python, machine learning, and statistical skills, while Data Engineer positions placed greater emphasis on programming, data infrastructure, and large-scale data processing technologies.
+
+Overall, the findings suggest that Python and SQL are valuable across multiple data-related careers, while other technical skill requirements depend on the specific job role. Understanding these differences can help job seekers prioritize the skills most relevant to their career goals.
+
+# References
+
+asaniczka. (2024). *Data Science Job Postings & Skills (2024)* [Data set]. Kaggle. [https://www.kaggle.com/datasets/asaniczka/data-science-job-postings-and-skills](https://www.kaggle.com/datasets/asaniczka/data-science-job-postings-and-skills)
+
+Microsoft. (2026). *Visual Studio Code* [Computer software]. [https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+OpenAI. (2026). *ChatGPT* [Large language model]. [https://chatgpt.com/](https://chatgpt.com/)
+
+Peeling Back Data. (2020, August 23). *Bar and column graphs in R (using ggplot2)* [Video]. YouTube. [https://www.youtube.com/watch?v=5kRbNMmd7zc](https://www.youtube.com/watch?v=5kRbNMmd7zc)
+
+Posit PBC. (2022). *Beautiful reports and presentations with Quarto* [Video]. YouTube. [https://www.youtube.com/watch?v=hbf7Ai3jnxY](https://www.youtube.com/watch?v=hbf7Ai3jnxY)
+
+Quarto. (n.d.). *HTML code blocks*. [https://quarto.org/docs/output-formats/html-code.html](https://quarto.org/docs/output-formats/html-code.html)
+
+R CHARTS. (n.d.). *Bar plots with ggplot2*. [https://r-charts.com/ranking/bar-chart-ggplot2/](https://r-charts.com/ranking/bar-chart-ggplot2/)
+
+R Database Interface. (2020, February 27). *Introduction to DBI*. [https://dbi.r-dbi.org/articles/DBI.html](https://dbi.r-dbi.org/articles/DBI.html)
+
+RSQLite. (n.d.). *SQLite interface for R*. [https://rsqlite.r-dbi.org/](https://rsqlite.r-dbi.org/)
+
+The R Graph Gallery. (n.d.). *Barplot*. [https://r-graph-gallery.com/barplot.html](https://r-graph-gallery.com/barplot.html)
+
+Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). *R for Data Science* (2nd ed.). O'Reilly Media. [https://r4ds.hadley.nz/](https://r4ds.hadley.nz/)
+
+Wickham, H., Navarro, D., & Pedersen, T. L. (n.d.). *ggplot2: Elegant Graphics for Data Analysis* (3rd ed.). [https://ggplot2-book.org/](https://ggplot2-book.org/)
+
+**AI use.** ChatGPT and VS Code tools were used to help review the code, improve the documentation, and organize the tables and figures. The group reviewed the changes, and the data and calculated results come from the Kaggle files used in this project.

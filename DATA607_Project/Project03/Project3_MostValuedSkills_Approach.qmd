@@ -1,0 +1,108 @@
+---
+title: "Most Valued Data Science Skills"
+subtitle: "Project 3 Approach"
+author: "Ozge Gundogan, Antik Salimullah, Andre Thomson"
+date: 2026-10-20
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+editor: visual
+---
+
+# Introduction
+
+The goal of this project is to investigate which data science skills are requested most often in the supplied job-posting dataset.
+
+Our main research question is: **Which data science skills are most frequently requested by employers, and how do these requirements differ across data science roles?**
+
+We will analyze job postings to identify the most frequently requested technical skills and compare skill demand across Data Analyst, Data Engineer, and Data Scientist positions. We will use the percentage of job postings mentioning each skill as our measure of skill demand.
+
+**Group Members:** Ozge Gundogan, Antik Salimullah, Andre Thomson
+
+# Data Source
+
+We will use the *Data Science Job Postings & Skills (2024)* dataset from Kaggle. The two CSV files used in this project are `job_postings.csv` and `job_skills.csv`.
+
+The dataset includes job titles, companies, locations, job levels, job types, and skills listed in each posting. The CSV files are stored in the group's GitHub repository and will be loaded directly into R using `read.csv()`.
+
+**Data source:** [Data Science Job Postings & Skills (2024)](https://www.kaggle.com/datasets/asaniczka/data-science-job-postings-and-skills)
+
+# Planned Approach
+
+We will first examine the structure of both files and check for missing values, empty strings, and duplicate records. Skills listed together in one field will be separated into individual rows so that each skill can be counted. We will also standardize capitalization and spacing, combine common name variations such as “PowerBI” and “Power BI,” and remove entries that describe experience, shifts, or education instead of actual skills.
+
+After cleaning, we will check for repeated job-skill pairs and review postings with unusually large skill counts. Potential outliers will be examined before deciding whether they should be removed.
+
+We will use SQLite to organize the cleaned data into three related tables:
+
+- **Jobs:** Stores information about each job posting.
+- **Skills:** Stores one record for each cleaned skill name.
+- **Job_Skills:** Connects job postings with their required skills.
+
+```{mermaid}
+erDiagram
+    Jobs ||--o{ Job_Skills : requires
+    Skills ||--o{ Job_Skills : includes
+
+    Jobs {
+        string job_link PK
+        string job_title
+        string company
+        string job_location
+        string job_level
+        string job_type
+    }
+
+    Skills {
+        int skill_id PK
+        string skill_name
+    }
+
+    Job_Skills {
+        string job_link PK,FK
+        int skill_id PK,FK
+    }
+```
+
+The `job_link` and `skill_id` fields will connect the tables. We will enable SQLite foreign-key checks and confirm that every record in `Job_Skills` points to a valid job and skill.
+
+# Planned Analysis
+
+We will count the number of unique job postings mentioning each technical skill and calculate the percentage of postings requiring that skill. We will report the top 10 technical skills overall.
+
+We will then repeat the calculation for three job groups:
+
+- Data Analyst
+- Data Scientist
+- Data Engineer
+
+Job titles containing these role names will be included even when the title also contains terms such as Junior, Senior, Lead, or Principal. Using percentages within each role will make the comparison fair because the three groups contain different numbers of postings.
+
+The results will be presented in organized tables and horizontal bar charts. The charts will use accessible colors, direct percentage labels, and screen-reader descriptions.
+
+# Validation
+
+We will check that:
+
+- Blank skill records are removed from both files used in the analysis.
+- Each cleaned job link remains unique in the Jobs data.
+- Duplicate job-skill pairs are removed.
+- The SQLite tables can be rebuilt without errors.
+- Foreign keys are enabled and no relationship violations are found.
+- Counts and percentages are based on unique job postings.
+
+# Anticipated Challenges
+
+One challenge is that some skill entries may contain job requirements rather than actual skills. Another challenge is that the same skill may appear under different names or spellings. We will use clear cleaning rules, but some variations may remain because reviewing more than 60,000 unique entries individually is not practical.
+
+Job titles may also overlap or use different wording. For this project, we will use clear title matching for Data Analyst, Data Scientist, and Data Engineer roles and explain this limitation in the final report.
+
+# Collaboration
+
+We will use Gmail for group communication and GitHub for sharing the Quarto file, data files, documentation, and revisions. Each group member will review the final code and be prepared to explain the cleaning decisions, database structure, calculations, and charts during the presentation.
+
+# Reference
+
+asaniczka. (2024). *Data Science Job Postings & Skills (2024)* [Data set]. Kaggle. [https://www.kaggle.com/datasets/asaniczka/data-science-job-postings-and-skills](https://www.kaggle.com/datasets/asaniczka/data-science-job-postings-and-skills)
