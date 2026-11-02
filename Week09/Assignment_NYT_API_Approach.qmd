@@ -1,0 +1,27 @@
+---
+title: "NY Times API Approach"
+author: "Andre Thomson"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## Approach
+
+I will use the New York Times Most Popular API and the 30-day `viewed` endpoint. My question is: **Which New York Times sections appear most often among the most-viewed articles during the last 30 days?**
+
+The endpoint is `https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json`. I will store my API key in `.Renviron` and read it with `Sys.getenv("NYT_API_KEY")` so the key is not written in the Quarto document. I will use `httr` to make the request and check the response status and content type. I will then use `jsonlite` to parse the JSON response.
+
+I will convert the article records into a tidy data frame where each row represents one article. I will keep the fields needed for the question, including the article ID, publication date, section, title, byline, abstract, source, article type, and URL. I will convert the publication date into an R date, remove extra spaces, keep missing values visible, and remove duplicated article IDs.
+
+Before doing the analysis, I will check the required fields, row counts, duplicate article IDs, missing titles, and blank sections. I will then count the number and percentage of articles in each section. The final table and chart will show which sections appear most often. I will not write the final finding until the live API results have been reviewed.
+
+## Sources
+
+- The New York Times. *API documentation*. <https://developer.nytimes.com/apis>
+- *httr quickstart guide*. CRAN. <https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html>
+
+## AI Use
+
+I used ChatGPT to help review the planned steps and organize the documentation. I will review the code and results after running the live request.
