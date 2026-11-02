@@ -1,0 +1,401 @@
+---
+title: "Week 9 NY Times API"
+subtitle: "Code Base"
+author: "Andre Thomson"
+date: "2026-11-01"
+format:
+  html:
+    theme: none
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show or hide code"
+    code-tools: true
+    code-overflow: wrap
+    self-contained: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: visual
+---
+
+## Introduction
+
+For this assignment, I used the New York Times Most Popular API. I wanted to see which sections appeared most often in its 30-day list of most-viewed articles.
+
+My question is: **Which New York Times sections appear most often among the most-viewed articles during the last 30 days?**
+
+## Selected API
+
+I used the Most Popular API and selected the `viewed` endpoint with a 30-day period.
+
+- **Endpoint:** `https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json`
+- **Period:** 30 days
+- **Response format:** JSON
+- **Authentication:** New York Times API key stored in an environment variable
+
+The 30-day period is already part of the URL. The API key is the only query parameter I need to send.
+
+| Parameter | Value | Purpose |
+|----|---:|----|
+| Period | 30 days | Sets the time period used by the endpoint |
+| `api-key` | Stored privately | Authenticates the request without showing the key |
+
+## Approach
+
+I sent the request, read the JSON response, and turned the article records into a data frame. I checked the cleaned data before counting the articles by section. I used a table for the exact values and a chart to make the comparison easier to see.
+
+## Load the packages
+
+I used `httr` and `jsonlite` for the API response. The other packages help with cleaning, tables, and the chart.
+
+```{r}
+#| label: load-packages
+# httr sends the request to the API.
+# jsonlite changes the JSON response into R objects.
+# dplyr, stringr, and tidyr help clean and summarize the data.
+# ggplot2 creates the chart, and knitr formats the tables.
+library(httr)
+library(jsonlite)
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(ggplot2)
+library(knitr)
+```
+
+## Read the API key
+
+I did not place the API key in the code. It is stored in `.Renviron` and read when the document runs.
+
+```{r}
+#| label: read-api-key
+# Read the private key from the computer's environment.
+nyt_key <- Sys.getenv("NYT_API_KEY")
+
+# This value is used to decide whether the live API code can run.
+key_available <- nzchar(nyt_key)
+
+# Record the date only when the live request can be made.
+retrieval_date <- if (key_available) Sys.Date() else as.Date(NA)
+
+if (!key_available) {
+  message(
+    "NYT_API_KEY was not found. Add it to .Renviron, restart R, and render again."
+  )
+}
+```
+
+## Request the data
+
+`GET()` sends the request. I used `stop_for_status()` so the code stops if the request does not work.
+
+```{r}
+#| label: request-data
+nyt_url <- "https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json"
+
+if (key_available) {
+  nyt_response <- GET(
+    url = nyt_url,
+    query = list(`api-key` = nyt_key)
+  )
+
+  # Stop here if the request was not successful.
+  stop_for_status(nyt_response)
+
+  request_status <- status_code(nyt_response)
+} else {
+  nyt_response <- NULL
+  request_status <- NA_integer_
+}
+
+request_status
+```
+
+A successful request should return HTTP status `200`. The API key itself is never displayed.
+
+## Inspect the HTTP response
+
+I checked the status, header, and body because these are the three parts of the response covered in the course material. The table does not show the key or the full response.
+
+```{r}
+#| label: inspect-http-response
+if (key_available) {
+  response_headers <- headers(nyt_response)
+
+  http_summary <- tibble(
+    response_part = c("Status", "Header", "Body"),
+    value = c(
+      paste(request_status, http_status(nyt_response)$message),
+      paste("Content-Type:", response_headers[["content-type"]]),
+      "JSON article data returned by the API"
+    )
+  )
+
+  kable(
+    http_summary,
+    col.names = c("Response part", "What R received"),
+    caption = "Three parts of the New York Times API response",
+    align = c("l", "l")
+  )
+} else {
+  cat("The response summary will appear after a valid API key is added.\n")
+}
+```
+
+## Parse the JSON response
+
+The response arrives as JSON text. `fromJSON()` converts it into R objects, and `flatten = TRUE` makes the nested fields easier to work with.
+
+```{r}
+#| label: parse-json
+if (key_available) {
+  response_text <- content(
+    nyt_response,
+    as = "text",
+    encoding = "UTF-8"
+  )
+
+  nyt_json <- fromJSON(response_text, flatten = TRUE)
+
+  # The articles are stored inside the results part of the response.
+  raw_articles <- as_tibble(nyt_json$results) %>%
+    mutate(api_rank = row_number(), .before = 1)
+
+  # Stop with a clear message if the endpoint structure changes.
+  required_fields <- c(
+    "id", "published_date", "section", "subsection", "title",
+    "byline", "abstract", "source", "type", "url"
+  )
+
+  missing_fields <- setdiff(required_fields, names(raw_articles))
+
+  if (length(missing_fields) > 0) {
+    stop(
+      "The API response is missing required fields: ",
+      paste(missing_fields, collapse = ", ")
+    )
+  }
+} else {
+  raw_articles <- tibble()
+}
+
+if (nrow(raw_articles) > 0) {
+  cat("The API returned", nrow(raw_articles), "article records.\n")
+} else {
+  cat("No live records are displayed because NYT_API_KEY is not available.\n")
+}
+```
+
+## Create a tidy data frame
+
+I did not need every field returned by the API. I kept the fields related to the article, date, section, author, and source. Each row in the cleaned table represents one article.
+
+```{r}
+#| label: tidy-articles
+if (nrow(raw_articles) > 0) {
+  articles_tidy <- raw_articles %>%
+    transmute(
+      api_rank,
+      article_id = as.character(id),
+      published_date = as.Date(published_date),
+      section = str_squish(section),
+      subsection = str_squish(subsection),
+      title = str_squish(title),
+      byline = str_squish(str_remove(byline, regex("^By\\s+", ignore_case = TRUE))),
+      abstract = str_squish(abstract),
+      source,
+      article_type = type,
+      url
+    ) %>%
+    mutate(
+      section = na_if(section, ""),
+      section = replace_na(section, "Not listed"),
+      subsection = na_if(subsection, ""),
+      byline = na_if(byline, "")
+    ) %>%
+    distinct(article_id, .keep_all = TRUE)
+} else {
+  articles_tidy <- tibble()
+}
+```
+
+```{r}
+#| label: preview-articles
+if (nrow(articles_tidy) > 0) {
+  articles_tidy %>%
+    select(api_rank, published_date, section, title, byline) %>%
+    head(10) %>%
+    kable(
+      col.names = c("Rank", "Published", "Section", "Article title", "Author"),
+      caption = "First 10 articles in the cleaned data frame"
+    )
+} else {
+  cat("The cleaned table will appear after a valid API key is added.\n")
+}
+```
+
+## Check the cleaned data
+
+Before counting the sections, I checked the row counts, duplicate IDs, missing titles, and unlisted sections. This gives me a quick check of what is actually being counted.
+
+```{r}
+#| label: data-checks
+if (nrow(articles_tidy) > 0) {
+  validation_summary <- tibble(
+    check = c(
+      "Rows returned by the API",
+      "Rows in the cleaned data",
+      "Duplicate article IDs after cleaning",
+      "Missing article titles",
+      "Sections recorded as Not listed"
+    ),
+    result = c(
+      nrow(raw_articles),
+      nrow(articles_tidy),
+      sum(duplicated(articles_tidy$article_id)),
+      sum(is.na(articles_tidy$title) | articles_tidy$title == ""),
+      sum(articles_tidy$section == "Not listed")
+    )
+  )
+} else {
+  validation_summary <- tibble()
+}
+
+if (nrow(validation_summary) > 0) {
+  kable(
+    validation_summary,
+    col.names = c("Validation check", "Result"),
+    caption = "Checks performed before the analysis",
+    align = c("l", "r")
+  )
+} else {
+  cat("The validation table will appear after a valid API key is added.\n")
+}
+```
+
+## Cleaning decisions
+
+I made a few cleaning decisions:
+
+1.  I kept only the fields needed for the question.
+2.  I converted the date and cleaned extra spaces from the text fields.
+3.  I labeled blank sections as “Not listed” and left other missing values as `NA`.
+4.  I removed duplicate article IDs so the same article would not be counted twice.
+5.  I kept `api_rank` so the original API order was not lost.
+
+## Count articles by section
+
+I grouped the articles by section and calculated the count and percentage for each one.
+
+```{r}
+#| label: summarize-sections
+if (nrow(articles_tidy) > 0) {
+  section_summary <- articles_tidy %>%
+    count(section, name = "article_count", sort = TRUE) %>%
+    mutate(
+      percentage = round(100 * article_count / sum(article_count), 1)
+    )
+} else {
+  section_summary <- tibble()
+}
+```
+
+```{r}
+#| label: section-table
+if (nrow(section_summary) > 0) {
+  section_summary %>%
+    kable(
+      col.names = c("NY Times section", "Number of articles", "Percentage"),
+      caption = "Most-viewed articles by section",
+      align = c("l", "r", "r")
+    )
+} else {
+  cat("The section summary will appear after a valid API key is added.\n")
+}
+```
+
+The chart uses the same summary as the table. I added number labels so the chart does not depend on color alone.
+
+```{r}
+#| label: section-chart
+if (nrow(section_summary) > 0) {
+  ggplot(
+    section_summary,
+    aes(x = reorder(section, article_count), y = article_count)
+  ) +
+    geom_col(fill = "#0072B2", width = 0.7) +
+    geom_text(
+      aes(label = article_count),
+      hjust = -0.15,
+      size = 3.5
+    ) +
+    coord_flip() +
+    scale_y_continuous(
+      expand = expansion(mult = c(0, 0.12))
+    ) +
+    labs(
+      title = "Most-Viewed NY Times Articles by Section",
+      subtitle = "Articles returned by the 30-day Most Popular endpoint",
+      x = "Section",
+      y = "Number of articles",
+      caption = "Source: New York Times Most Popular API"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(
+      panel.grid.major.y = element_blank(),
+      plot.title.position = "plot"
+    )
+} else {
+  cat("The chart will appear after a valid API key is added.\n")
+}
+```
+
+## Findings
+
+The sentence below uses the first row of the live section summary. This keeps it matched with the table and chart.
+
+```{r}
+#| label: report-finding
+if (nrow(section_summary) > 0) {
+  top_section <- section_summary %>%
+    slice_head(n = 1)
+
+  cat(
+    "Based on data retrieved on ", format(retrieval_date, "%B %d, %Y"),
+    ", ", top_section$section,
+    " appeared most often among the articles returned by the 30-day ",
+    "Most Popular endpoint, with ", top_section$article_count,
+    " articles representing ", top_section$percentage,
+    "% of the results.",
+    sep = ""
+  )
+} else {
+  cat("The finding will appear after a valid API key is added and the document is rendered.\n")
+}
+```
+
+## Limitations
+
+This result only covers one New York Times endpoint and one 30-day period. It does not represent every New York Times article or other news organizations. The result may also change when the code is run on another date.
+
+## Tools and AI assistance
+
+I used R and Quarto to prepare the request, cleaning steps, checks, table, and chart. I used ChatGPT and GitHub Copilot in VS Code to help review the code and organize the documentation. I reviewed the changes, and the API response and calculated results came from the New York Times endpoint.
+
+## Sources
+
+Grolemund, G. (2016, November 9). *Easy ways to collect different types of data from the web with R: Part 1* \[Video\]. RStudio. <https://cloud.rstudio.com/resources/webinars/part-1-easy-ways-to-collect-different-types-of-data-from-the-web-with-r/>
+
+*httr quickstart guide*. (n.d.). CRAN. <https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html>
+
+Ooms, J. (2014). *The jsonlite package: A practical and consistent mapping between JSON data and R objects* \[PDF\]. arXiv. <https://arxiv.org/pdf/1403.2805>
+
+Quarto. (n.d.). *HTML code blocks*. <https://quarto.org/docs/output-formats/html-code.html>
+
+The New York Times. (n.d.). *API documentation*. NY Times Developer Network. <https://developer.nytimes.com/apis>
+
+Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). *R for data science* (2nd ed.). O’Reilly Media. <https://r4ds.hadley.nz/>
+
+Wickham, H., Navarro, D., & Pedersen, T. L. (n.d.). *ggplot2: Elegant graphics for data analysis* (3rd ed.). <https://ggplot2-book.org/>
