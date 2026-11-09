@@ -1,0 +1,152 @@
+---
+title: "Extension: Comparing City and Highway MPG"
+author: "Andre Thomson"
+date: "2026-11-08"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    theme: none
+    css: styles.css
+    code-fold: true
+    code-summary: "Show code"
+execute:
+  warning: false
+  message: false
+editor: visual
+---
+
+## Source
+
+I extended Patricio Romero's [Exploring Vehicle Fuel Efficiency with Tidyverse](https://github.com/DW8888/fall2027-data607-tidyverse-assignment/blob/main/vehicle_fuel_efficiency_tidyverse.qmd) vignette. His work uses `dplyr` and `ggplot2` to compare fuel efficiency by vehicle class.
+
+My extension adds `tidyr::pivot_longer()`. I use it to place city and highway MPG in the same column, then compare both values in one table and chart.
+
+## Load the data
+
+```{r}
+# tidyverse includes dplyr, tidyr, and ggplot2.
+# knitr is used to display the summary table.
+library(tidyverse)
+library(knitr)
+
+# The mpg dataset is included with ggplot2, so no separate CSV is needed.
+data("mpg", package = "ggplot2")
+```
+
+## Change the table from wide to long
+
+The original data stores city MPG in `cty` and highway MPG in `hwy`. I used `pivot_longer()` so both measurements use one `road_type` column and one `mpg` column.
+
+```{r}
+# Keep the vehicle class and the two MPG columns.
+# Rename cty and hwy so the labels are easier to understand.
+mpg_long <- mpg |>
+  select(class, city = cty, highway = hwy) |>
+  # Stack city and highway into one road-type column.
+  pivot_longer(
+    cols = c(city, highway),
+    names_to = "road_type",
+    values_to = "mpg"
+  ) |>
+  mutate(
+    class = recode(
+      class,
+      "2seater" = "Two Seater",
+      "compact" = "Compact",
+      "midsize" = "Mid-Size",
+      "minivan" = "Minivan",
+      "pickup" = "Pickup",
+      "subcompact" = "Subcompact",
+      "suv" = "SUV"
+    ),
+    road_type = str_to_title(road_type)
+  )
+
+mpg_long |>
+  slice_head(n = 8) |>
+  kable(
+    col.names = c("Vehicle class", "Road type", "MPG"),
+    caption = "City and highway MPG in a longer table"
+  )
+```
+
+The row count changes from 234 to 468 because every vehicle now has one city row and one highway row. No vehicle was added or removed.
+
+## Calculate the averages
+
+```{r}
+# Calculate one average for each vehicle class and road type.
+mpg_summary <- mpg_long |>
+  group_by(class, road_type) |>
+  summarise(
+    vehicles = n(),
+    average_mpg = round(mean(mpg), 1),
+    .groups = "drop"
+  ) |>
+  arrange(class, road_type)
+
+mpg_summary |>
+  kable(
+    col.names = c("Vehicle class", "Road type", "Vehicles", "Average MPG"),
+    caption = "Average city and highway MPG by vehicle class"
+  )
+```
+
+The table shows that every class has a higher highway average than city average. Compact and subcompact vehicles have the highest highway averages in this dataset.
+
+## Compare both road types in one chart
+
+```{r}
+#| label: fig-city-highway-extension
+#| fig-alt: "Grouped bar chart comparing average city and highway miles per gallon for seven vehicle classes. Highway MPG is higher for every class."
+#| fig-width: 8
+#| fig-height: 5
+# The two road types use charcoal and orange, with printed values for accessibility.
+# The value labels also show the difference without depending only on color.
+ggplot(
+  mpg_summary,
+  aes(
+    x = class,
+    y = average_mpg,
+    fill = road_type
+  )
+) +
+  geom_col(
+    position = position_dodge(width = 0.75),
+    width = 0.68,
+    color = "#333333"
+  ) +
+  geom_text(
+    aes(label = average_mpg),
+    position = position_dodge(width = 0.75),
+    hjust = -0.15,
+    size = 3.2
+  ) +
+  coord_flip() +
+  scale_fill_manual(values = c("City" = "#666666", "Highway" = "#E69F00")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(
+    title = "Average city and highway MPG by vehicle class",
+    x = NULL,
+    y = "Average miles per gallon",
+    fill = "Road type"
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(panel.grid.major.y = element_blank())
+```
+
+## Summary
+
+My extension adds a new Tidyverse step to the original work. `pivot_longer()` makes it possible to group city and highway values under one variable. This makes the comparison easier to summarize and graph without writing separate code for each road type.
+
+## Sources
+
+- Romero, P. (2026). *Exploring Vehicle Fuel Efficiency with Tidyverse* \[Quarto vignette\]. <https://github.com/DW8888/fall2027-data607-tidyverse-assignment/blob/main/vehicle_fuel_efficiency_tidyverse.qmd>
+- Wickham, H. (n.d.). *Fuel economy data from 1999 to 2008 for 38 popular models of cars*. ggplot2. <https://ggplot2.tidyverse.org/reference/mpg.html>
+- tidyr. (n.d.). *Pivot data from wide to long*. <https://tidyr.tidyverse.org/reference/pivot_longer.html>
+- R Programming 101. (2024, December 11). *Manipulate and clean your data in R with the dplyr package* \[Video\]. YouTube. <https://www.youtube.com/watch?v=uoqFm1Jyyvw>
+
+## AI use
+
+I used ChatGPT and VS Code to help draft, troubleshoot, and organize parts of the code and documentation.

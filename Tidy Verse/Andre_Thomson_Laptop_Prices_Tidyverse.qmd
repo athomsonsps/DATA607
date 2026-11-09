@@ -1,0 +1,220 @@
+---
+title: "Laptop Prices with Tidyverse"
+author: "Andre Thomson"
+date: "2026-11-08"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    theme: none
+    css: styles.css
+    code-fold: true
+    code-summary: "Show code"
+    df-print: paged
+execute:
+  warning: false
+  message: false
+editor: visual
+---
+
+## Purpose
+
+I used a laptop-price dataset because I work with computer equipment. My question is: **How can I use Tidyverse to organize laptop specifications and compare prices?**
+
+This is a programming example, not a purchasing recommendation. I use 16 GB of RAM and 512 GB of storage as an example standard so I can demonstrate filtering and comparison. It is not an official employer requirement.
+
+## Packages
+
+```{r}
+# tidyverse loads the tools used to import, clean, reshape, summarize, and graph the data.
+# knitr is used to display the final tables in a readable format.
+library(tidyverse)
+library(knitr)
+```
+
+These are the main functions I used:
+
+- `read_csv()` to import the CSV file.
+- `select()` to keep the columns needed for the example.
+- `mutate()` to clean the brand names and create the example group.
+- `count()`, `group_by()`, and `summarise()` to calculate totals and median prices.
+- `filter()` to keep laptops that meet the example standard.
+- `ggplot()` to make the charts.
+
+## Import the data
+
+```{r}
+# Read the laptop data stored in the data folder.
+# show_col_types = FALSE keeps the rendered report from printing a long import message.
+laptops_raw <- read_csv("data/laptops.csv", show_col_types = FALSE)
+
+# Display the first six rows, but only use columns that fit on the page.
+laptops_raw |>
+  select(brand, model, device_category, price, ram_gb, storage_gb) |>
+  slice_head(n = 6) |>
+  kable(
+    col.names = c("Brand", "Model", "Category", "Price (INR)", "RAM (GB)", "Storage (GB)"),
+    caption = "First six laptop records"
+  )
+```
+
+The file has 992 laptop records and 27 columns. The prices are in Indian rupees (INR), not U.S. dollars.
+
+## Check the data
+
+```{r}
+# Put the basic checks into one small table.
+# These checks confirm the size of the file and show whether any values are missing.
+data_check <- tibble(
+  check = c("Rows", "Columns", "Missing cells", "Duplicate rows"),
+  result = c(
+    nrow(laptops_raw),
+    ncol(laptops_raw),
+    sum(is.na(laptops_raw)),
+    sum(duplicated(laptops_raw))
+  )
+)
+
+data_check |>
+  kable(
+    col.names = c("Check", "Result"),
+    caption = "Basic data-quality checks"
+  )
+```
+
+I found no duplicate rows. Most of the missing values are in detailed CPU and GPU columns. The six fields used in my main comparison do not have missing values, so I kept all 992 rows.
+
+```{r}
+# First, count the missing cells in each column.
+missing_by_column <- laptops_raw |>
+  summarise(across(everything(), ~ sum(is.na(.x)))) |>
+  # Turn the wide result into two columns: column name and missing count.
+  pivot_longer(
+    cols = everything(),
+    names_to = "column",
+    values_to = "missing_values"
+  ) |>
+  # Keep only the columns that have at least one missing value.
+  filter(missing_values > 0) |>
+  arrange(desc(missing_values))
+
+missing_by_column |>
+  kable(
+    col.names = c("Column", "Missing values"),
+    caption = "Columns that contain missing values"
+  )
+```
+
+## Clean and organize the columns
+
+```{r}
+# Keep only the six columns used later in the report.
+laptops <- laptops_raw |>
+  select(
+    brand, model, device_category, price, ram_gb, storage_gb
+  ) |>
+  mutate(
+    # Change brand names to title case and correct the HP label.
+    brand = str_to_title(brand),
+    brand = if_else(brand == "Hp", "HP", brand),
+    # Mark the laptops that meet the RAM and storage example.
+    replacement_example = if_else(
+      ram_gb >= 16 & storage_gb >= 512,
+      "Meets 16 GB + 512 GB example",
+      "Does not meet example"
+    )
+  )
+```
+
+`if_else()` checks if each laptop has at least 16 GB of RAM and 512 GB of storage.
+
+## Summarize the example standard
+
+```{r}
+# Count both groups and calculate the percentage of all laptops in each group.
+standard_summary <- laptops |>
+  count(replacement_example, name = "laptops") |>
+  mutate(percent = scales::percent(laptops / sum(laptops), accuracy = 0.1))
+
+standard_summary |>
+  kable(
+    col.names = c("Example group", "Laptops", "Percent"),
+    caption = "Laptop records by the example replacement standard"
+  )
+```
+
+In this file, 769 of the 992 laptops (77.5%) meet the example. That does not mean all 769 would be a good purchase. I am only checking RAM and storage here.
+
+## Compare laptop categories
+
+```{r}
+# Group the records by laptop category.
+# The median is used because a few very expensive laptops can pull the average upward.
+category_summary <- laptops |>
+  group_by(device_category) |>
+  summarise(
+    laptops = n(),
+    median_price_inr = median(price),
+    .groups = "drop"
+  ) |>
+  arrange(desc(laptops))
+
+category_summary |>
+  mutate(median_price_inr = scales::comma(median_price_inr)) |>
+  kable(
+    col.names = c("Laptop category", "Number of laptops", "Median price (INR)"),
+    caption = "Laptop count and median price by category"
+  )
+```
+
+General laptops are the largest group with 390 records. Gaming laptops have a higher median price than the general, thin-and-light, and business groups in this file.
+
+```{r}
+#| label: fig-category-price
+#| fig-alt: "Horizontal dot chart of median laptop price in Indian rupees by category. Convertible is highest, followed by gaming, business, thin and light, and general."
+#| fig-width: 8
+#| fig-height: 4.8
+# Make a dot chart from the same category_summary table shown above.
+# The line helps connect each category to its value, and the exact median is printed.
+ggplot(
+  category_summary,
+  aes(x = median_price_inr, y = reorder(device_category, median_price_inr))
+) +
+  geom_point(color = "#009E73", size = 4) +
+  geom_text(
+    aes(label = scales::comma(median_price_inr)),
+    hjust = -0.08,
+    size = 3.5
+  ) +
+  scale_x_continuous(
+    labels = scales::label_number(big.mark = ","),
+    expand = expansion(mult = c(0, 0.18))
+  ) +
+  labs(
+    title = "Median laptop price by category",
+    subtitle = "Prices are listed in Indian rupees",
+    x = "Median price (INR)",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 11) +
+  theme(panel.grid.major.y = element_blank())
+```
+
+## Summary
+
+I used `mutate()` to make the comparison groups, `filter()` to apply the example standard, and `summarise()` to calculate median prices. My main takeaway is that Tidyverse made it easier to reduce a wide CSV file to the columns and summaries I needed.
+
+## Limitations
+
+The data covers laptop listings in India in 2025, and the prices may have changed. It does not represent the current U.S. market. My example standard only checks RAM and storage, so it should not be used as a final purchasing rule.
+
+## Sources
+
+- Abhinavflac. (2025). *Laptops Cleaned Dataset* \[Data set\]. Kaggle. <https://www.kaggle.com/datasets/githubmasterin/laptops-cleaned-dataset>
+- Wickham, H., Cetinkaya-Rundel, M., and Grolemund, G. (2023). *R for Data Science* (2nd ed.). <https://r4ds.hadley.nz/>
+- Wickham, H. et al. (n.d.). *dplyr: A grammar of data manipulation*. <https://dplyr.tidyverse.org/>
+- Wickham, H., Navarro, D., and Pedersen, T. L. (n.d.). *ggplot2: Elegant graphics for data analysis* (3rd ed.). <https://ggplot2-book.org/>
+
+## AI use
+
+I used ChatGPT and VS Code to help draft, troubleshoot, and organize parts of the code and documentation.
