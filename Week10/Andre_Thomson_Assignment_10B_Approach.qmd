@@ -1,0 +1,22 @@
+---
+title: "Assignment 10B NobelPrize.org: Approach"
+author: "Andre Thomson"
+date: 2026-11-10
+format:
+  html:
+    theme: none
+    embed-resources: true
+editor: visual
+---
+
+## Approach
+
+I will use the Nobel Prize API version 2.1 to retrieve Nobel Prize records in JSON format. I will keep the prize information in one table and separate the nested laureate information into a second table. This will make the data easier to check and allow me to join the two tables when needed.
+
+I will answer four questions. I will compare laureate entries across categories, examine how the average number of laureates per awarded prize changed by decade, identify categories with prize records that do not list a laureate, and find laureates who appear in more than one prize record. The fourth question will join the prize and laureate tables by a prize ID. I will include the request code, cleaning decisions, readable tables, and color-blind-friendly charts.
+
+## Source
+
+- Nobel Prize Outreach. (n.d.). *Developer zone*. NobelPrize.org. <https://www.nobelprize.org/about/developer-zone-2/>
+- Nobel Prize Outreach. (n.d.). *Nobel Prize API version 2.1*. <https://api.nobelprize.org/2.1/nobelPrizes>
+

@@ -1,0 +1,382 @@
+---
+title: "Assignment 10B: NobelPrize.org API"
+subtitle: "Four questions using Nobel Prize JSON data"
+author: "Andre Thomson"
+date: 2026-11-10
+format:
+  html:
+    theme: none
+    toc: true
+    number-sections: true
+    code-fold: true
+    code-summary: "Show code"
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+editor: visual
+---
+
+## API and questions
+
+I used the Nobel Prize API version 2.1 `nobelPrizes` endpoint. It returns one JSON object with prize records and a nested list of laureates for each prize.
+
+The endpoint used in this report is:
+
+<https://api.nobelprize.org/2.1/nobelPrizes?limit=1000>
+
+I used the data to answer these questions:
+
+1.  Which categories have the most laureate entries?
+2.  How has the average number of laureates per awarded prize changed by decade?
+3.  Which categories have the most prize records without a listed laureate?
+4.  Which laureates appear in more than one Nobel Prize record?
+
+## Packages
+
+```{r}
+#| label: load-packages
+# httr2 sends the API request. jsonlite reads the JSON. The tidyverse packages
+# separate the nested records, summarize the data, and make the charts.
+library(httr2)
+library(jsonlite)
+library(tidyverse)
+library(knitr)
+library(scales)
+```
+
+```{r}
+#| label: chart-settings
+# These colors come from a color-blind-friendly palette. Exact values are also
+# printed in the tables and on the charts, so color is not the only signal.
+blue_color <- "#0072B2"
+orange_color <- "#E69F00"
+teal_color <- "#009E73"
+
+theme_set(
+  theme_minimal(base_size = 12) +
+    theme(plot.title.position = "plot")
+)
+```
+
+## Retrieve the JSON
+
+The code requests the live API first. If the API is temporarily unavailable, it uses the dated JSON snapshot included with the report. The fallback keeps the report reproducible without hiding which source was used.
+
+```{r}
+#| label: retrieve-json
+api_url <- "https://api.nobelprize.org/2.1/nobelPrizes"
+snapshot_path <- "data/nobel_prizes_snapshot.json"
+
+# Try the public API. A 20-second timeout prevents the report from waiting
+# forever if the service or internet connection is unavailable.
+api_result <- tryCatch(
+  {
+    response <- request(api_url) |>
+      req_url_query(limit = 1000) |>
+      req_timeout(seconds = 20) |>
+      req_perform()
+
+    list(
+      json = resp_body_string(response),
+      source = "Live Nobel Prize API",
+      status = resp_status(response)
+    )
+  },
+  error = function(e) NULL
+)
+
+if (is.null(api_result)) {
+  raw_json <- paste(readLines(snapshot_path, warn = FALSE), collapse = "\n")
+  data_source_used <- "Included API snapshot"
+  request_status <- NA_integer_
+} else {
+  raw_json <- api_result$json
+  data_source_used <- api_result$source
+  request_status <- api_result$status
+}
+
+# simplifyVector = FALSE keeps the hierarchy visible so I can decide how to
+# turn each nested part into a table.
+nobel_raw <- fromJSON(raw_json, simplifyVector = FALSE)
+
+request_check <- tibble(
+  check = c("Source used", "HTTP status", "Prize records", "API version"),
+  result = c(
+    data_source_used,
+    if_else(is.na(request_status), "Not available", as.character(request_status)),
+    as.character(length(nobel_raw$nobelPrizes)),
+    "2.1"
+  )
+)
+
+kable(request_check, caption = "API retrieval check")
+```
+
+## Turn the nested JSON into two tables
+
+The prize table has one row per category and year. The laureate table has one row per laureate listed under a prize. I use `prize_id` to connect the tables.
+
+```{r}
+#| label: helper-function
+# Some names are stored as knownName, some as fullName, and organizations use
+# orgName. This helper returns the English text when it is available.
+get_english <- function(x) {
+  if (is.null(x) || is.null(x$en)) {
+    return(NA_character_)
+  }
+  x$en
+}
+```
+
+```{r}
+#| label: build-prize-table
+prizes_clean <- map_dfr(nobel_raw$nobelPrizes, function(prize) {
+  category_name <- get_english(prize$category)
+  award_year <- as.integer(prize$awardYear)
+
+  tibble(
+    prize_id = paste(category_name, award_year, sep = "-"),
+    award_year = award_year,
+    category = category_name,
+    date_awarded = if (is.null(prize$dateAwarded)) NA_character_ else prize$dateAwarded,
+    laureate_count = if (is.null(prize$laureates)) 0L else length(prize$laureates)
+  )
+})
+
+stopifnot(!anyDuplicated(prizes_clean$prize_id))
+
+kable(
+  head(prizes_clean, 8),
+  caption = "First eight rows of the cleaned prize table"
+)
+```
+
+```{r}
+#| label: build-laureate-table
+laureates_clean <- map_dfr(nobel_raw$nobelPrizes, function(prize) {
+  if (is.null(prize$laureates)) {
+    return(tibble())
+  }
+
+  category_name <- get_english(prize$category)
+  award_year <- as.integer(prize$awardYear)
+  prize_id <- paste(category_name, award_year, sep = "-")
+
+  map_dfr(prize$laureates, function(laureate) {
+    # Use the first available name field because people and organizations are
+    # stored differently in the API.
+    laureate_name <- coalesce(
+      get_english(laureate$knownName),
+      get_english(laureate$orgName),
+      get_english(laureate$fullName)
+    )
+
+    tibble(
+      prize_id = prize_id,
+      laureate_id = as.character(laureate$id),
+      laureate_name = laureate_name,
+      portion = laureate$portion
+    )
+  })
+})
+
+kable(
+  head(laureates_clean, 8),
+  caption = "First eight rows of the cleaned laureate table"
+)
+```
+
+## Data-quality checks
+
+```{r}
+#| label: data-quality
+data_quality <- tibble(
+  check = c(
+    "Prize rows",
+    "Duplicate prize IDs",
+    "Laureate rows",
+    "Missing laureate names",
+    "Prize records with no laureate",
+    "First award year",
+    "Last award year"
+  ),
+  result = c(
+    nrow(prizes_clean),
+    sum(duplicated(prizes_clean$prize_id)),
+    nrow(laureates_clean),
+    sum(is.na(laureates_clean$laureate_name)),
+    sum(prizes_clean$laureate_count == 0),
+    min(prizes_clean$award_year),
+    max(prizes_clean$award_year)
+  )
+)
+
+kable(data_quality, caption = "Checks completed before answering the questions")
+```
+
+The zero-laureate rows are not removed. They represent years and categories where the API has a prize record but does not list a laureate. I use them in Question 3.
+
+## Question 1: Which categories have the most laureate entries?
+
+One laureate entry means one laureate listed under one prize record. The same laureate can appear more than once if the person or organization received more than one prize.
+
+```{r}
+#| label: question-1-table
+category_totals <- prizes_clean |>
+  group_by(category) |>
+  summarise(
+    prize_records = n(),
+    laureate_entries = sum(laureate_count),
+    .groups = "drop"
+  ) |>
+  arrange(desc(laureate_entries))
+
+kable(
+  category_totals,
+  col.names = c("Category", "Prize records", "Laureate entries"),
+  caption = "Prize records and laureate entries by category"
+)
+```
+
+```{r}
+#| label: question-1-chart
+#| fig-width: 8
+#| fig-height: 4.8
+#| fig-alt: "A horizontal bar chart ranks Nobel Prize categories by laureate entries. Exact totals are printed at the ends of the bars."
+ggplot(
+  category_totals,
+  aes(x = laureate_entries, y = fct_reorder(category, laureate_entries))
+) +
+  geom_col(fill = blue_color, width = 0.7) +
+  geom_text(aes(label = comma(laureate_entries)), hjust = -0.15, size = 3.6) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.12))) +
+  labs(
+    title = "Nobel laureate entries by category",
+    x = "Laureate entries",
+    y = NULL
+  )
+```
+
+`r category_totals$category[1]` has the most laureate entries in the API data, with `r category_totals$laureate_entries[1]`. This is not the same as counting unique people because repeat laureates remain connected to each prize they received.
+
+## Question 2: How has the average number of laureates changed by decade?
+
+I exclude records with zero laureates from this average because those are unawarded records. The 2020s are incomplete, so they should not be compared with a full ten-year decade without that limitation in mind.
+
+```{r}
+#| label: question-2-data
+decade_summary <- prizes_clean |>
+  filter(laureate_count > 0) |>
+  mutate(decade = (award_year %/% 10) * 10) |>
+  group_by(decade) |>
+  summarise(
+    awarded_prizes = n(),
+    average_laureates = mean(laureate_count),
+    .groups = "drop"
+  )
+
+kable(
+  decade_summary,
+  digits = 2,
+  col.names = c("Decade", "Awarded prize records", "Average laureates per prize"),
+  caption = "Average laureates per awarded prize by decade"
+)
+```
+
+```{r}
+#| label: question-2-chart
+#| fig-width: 8
+#| fig-height: 4.8
+#| fig-alt: "A line chart shows that the average number of laureates per awarded Nobel Prize generally increased over time. Each decade is marked with a dot."
+ggplot(decade_summary, aes(x = decade, y = average_laureates)) +
+  geom_line(color = teal_color, linewidth = 1) +
+  geom_point(color = teal_color, size = 2.5) +
+  scale_x_continuous(breaks = decade_summary$decade) +
+  labs(
+    title = "Average laureates per awarded prize increased over time",
+    subtitle = "The 2020s are incomplete",
+    x = "Decade",
+    y = "Average laureates per prize"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+The largest decade average in the current data is `r round(max(decade_summary$average_laureates), 2)` laureates per awarded prize. The general increase means more prize records are being shared, but this table does not explain why.
+
+## Question 3: Which categories have the most records without a laureate?
+
+```{r}
+#| label: question-3
+unawarded_by_category <- prizes_clean |>
+  filter(laureate_count == 0) |>
+  count(category, name = "records_without_laureate", sort = TRUE)
+
+kable(
+  unawarded_by_category,
+  col.names = c("Category", "Records without a laureate"),
+  caption = "Nobel Prize records without a listed laureate"
+)
+```
+
+`r unawarded_by_category$category[1]` has the most records without a listed laureate, with `r unawarded_by_category$records_without_laureate[1]`. I kept these records because removing them would hide part of the Nobel Prize history represented by the API.
+
+## Question 4: Which laureates appear in more than one prize record?
+
+This question goes beyond a simple count. I join the laureate table to the prize table with `prize_id`, then compare the year and category attached to each laureate ID.
+
+```{r}
+#| label: question-4-join
+laureate_awards <- laureates_clean |>
+  inner_join(
+    prizes_clean |>
+      select(prize_id, award_year, category),
+    by = "prize_id",
+    relationship = "many-to-one"
+  )
+
+repeat_laureates <- laureate_awards |>
+  group_by(laureate_id, laureate_name) |>
+  summarise(
+    prize_records = n_distinct(prize_id),
+    awards = paste(
+      paste(award_year, category),
+      collapse = "; "
+    ),
+    .groups = "drop"
+  ) |>
+  filter(prize_records > 1) |>
+  arrange(desc(prize_records), laureate_name)
+
+kable(
+  repeat_laureates |>
+    select(laureate_name, prize_records, awards),
+  col.names = c("Laureate", "Prize records", "Years and categories"),
+  caption = "Laureates connected to more than one Nobel Prize record"
+)
+```
+
+The joined result contains `r nrow(repeat_laureates)` laureates who appear in more than one prize record. The ID is important because names alone may be spelled differently or may not uniquely identify a person or organization.
+
+## Data-cleaning decisions
+
+- I kept English labels from the multilingual JSON fields.
+- I made a unique `prize_id` from category and award year.
+- I separated nested laureates from prize records instead of forcing everything into one wide table.
+- I used the first available name field so both people and organizations could be included.
+- I kept records with no laureate because they answer one of the questions.
+
+## Limitations
+
+The API data can change when NobelPrize.org updates its records. The 2020s are also not a complete decade. Counts of laureate entries are not counts of unique people because some laureates appear in more than one prize record. This report describes the API data; it does not explain the historical reasons behind the patterns.
+
+## Sources
+
+- Nobel Prize Outreach. (n.d.). *Developer zone*. NobelPrize.org. <https://www.nobelprize.org/about/developer-zone-2/>
+- Nobel Prize Outreach. (n.d.). *Nobel Prize API version 2.1*. <https://api.nobelprize.org/2.1/nobelPrizes>
+- Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). *R for data science* (2nd ed.), Chapter 23: Rectangling. <https://r4ds.hadley.nz/rectangling.html>
+- tidyr authors. (n.d.). *Rectangling*. <https://tidyr.tidyverse.org/articles/rectangle.html>
+
+## AI use
+
+I used ChatGPT and VS Code to help draft, troubleshoot, and organize parts of the code and documentation.

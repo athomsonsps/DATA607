@@ -1,0 +1,22 @@
+---
+title: "Sentiment Analysis: Approach"
+author: "Andre Thomson"
+date: 2026-11-10
+format:
+  html:
+    theme: none
+    embed-resources: true
+editor: visual
+---
+
+## Approach
+
+I will first reproduce the main Chapter 2 sentiment analysis example from Text Mining with R. The example changes the Jane Austen text into one-word-per-row format, joins the words to the Bing sentiment lexicon, and compares positive and negative word counts across sections of the novels.
+
+I will extend the example by analyzing Moby Dick from Project Gutenberg. I will use the Bing lexicon again so I can compare the new corpus with the original example. I will also add the VADER lexicon and compare its result with Bing. I chose these two lexicons because they score words differently, which gives me a way to check how much the lexicon changes the result. I will present the comparison in tables and color-blind-friendly charts. I will also explain that a word-level method does not fully understand context, negation, or sarcasm.
+
+## Sources
+
+- Hutto, C. J., & Gilbert, E. (2014). *VADER: A parsimonious rule-based model for sentiment analysis of social media text*. Proceedings of the International AAAI Conference on Web and Social Media, 8(1), 216–225. <https://ojs.aaai.org/index.php/ICWSM/article/view/14550>
+- Melville, H. (1851). *Moby-Dick; or, The Whale*. Project Gutenberg. <https://www.gutenberg.org/ebooks/2701>
+- Silge, J., & Robinson, D. (2017). *Text mining with R: A tidy approach*. O'Reilly Media. <https://www.tidytextmining.com/sentiment>

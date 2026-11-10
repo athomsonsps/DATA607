@@ -1,0 +1,350 @@
+---
+title: "Assignment 10A: Sentiment Analysis"
+subtitle: "Reproducing and extending the Chapter 2 example"
+author: "Andre Thomson"
+date: 2026-11-10
+format:
+  html:
+    theme: none
+    toc: true
+    number-sections: true
+    code-fold: true
+    code-summary: "Show code"
+    embed-resources: true
+execute:
+  warning: false
+  message: false
+editor: visual
+---
+
+## Question and plan
+
+The first part of this report reproduces the main Chapter 2 example from *Text Mining with R*. The second part asks whether the result changes when I use a different book and an additional sentiment lexicon.
+
+I used *Moby-Dick* as the new text. I compared the Bing lexicon from the chapter with the VADER lexicon. A lexicon is a list of words with sentiment labels or scores.
+
+## Packages
+
+```{r}
+#| label: load-packages
+# These packages load the text, organize it, join the lexicons, and make the charts.
+library(tidyverse)
+library(tidytext)
+library(janeaustenr)
+library(knitr)
+```
+
+```{r}
+#| label: chart-settings
+# Blue and orange are used instead of red and green so the charts are easier
+# to read for people with common forms of color blindness.
+negative_color <- "#D55E00"
+positive_color <- "#0072B2"
+vader_color <- "#009E73"
+
+theme_set(
+  theme_minimal(base_size = 12) +
+    theme(plot.title.position = "plot")
+)
+```
+
+## Part 1: Reproduce the Chapter 2 example
+
+### Put the Jane Austen books into tidy text format
+
+The chapter uses the `janeaustenr` package. The code below keeps the book name and line number, then uses `unnest_tokens()` so each row contains one word.
+
+```{r}
+#| label: tidy-austen-books
+# Keep the line number before splitting the text. I need it later to keep the
+# words in the same order as the story.
+tidy_books <- austen_books() |>
+  group_by(book) |>
+  mutate(linenumber = row_number()) |>
+  ungroup() |>
+  unnest_tokens(word, text)
+
+kable(
+  head(tidy_books, 8),
+  caption = "First eight rows after changing the Austen books to one word per row"
+)
+```
+
+### Join the words to the Bing lexicon
+
+The inner join keeps only words found in the Bing lexicon. The chapter counts positive and negative words within blocks of 80 original lines. Net sentiment is positive words minus negative words.
+
+```{r}
+#| label: austen-sentiment
+bing_lexicon <- get_sentiments("bing")
+
+# A few Bing words appear under both labels. The relationship setting tells
+# dplyr that this comes from the source lexicon and is expected here.
+jane_austen_sentiment <- tidy_books |>
+  inner_join(bing_lexicon, by = "word", relationship = "many-to-many") |>
+  count(book, index = linenumber %/% 80, sentiment) |>
+  pivot_wider(
+    names_from = sentiment,
+    values_from = n,
+    values_fill = 0
+  ) |>
+  mutate(net_sentiment = positive - negative)
+
+kable(
+  head(jane_austen_sentiment, 8),
+  caption = "Sample of the reproduced Chapter 2 sentiment calculation"
+)
+```
+
+```{r}
+#| label: austen-chart
+#| fig-width: 9
+#| fig-height: 7
+#| fig-alt: "Six small bar charts show net sentiment across the narratives of Jane Austen's novels. Bars above zero are positive and bars below zero are negative."
+ggplot(
+  jane_austen_sentiment,
+  aes(x = index, y = net_sentiment, fill = net_sentiment >= 0)
+) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~book, ncol = 2, scales = "free_x") +
+  scale_fill_manual(values = c(negative_color, positive_color)) +
+  geom_hline(yintercept = 0, color = "gray35", linewidth = 0.3) +
+  labs(
+    title = "Sentiment changes across Jane Austen's novels",
+    subtitle = "Bing net sentiment within blocks of 80 original lines",
+    x = "Section of the book",
+    y = "Positive words minus negative words"
+  )
+```
+
+This reproduces the main pattern from Chapter 2. The bars move above and below zero as the narrative changes. The calculation is based on matched words, so it measures the lexicon's labels rather than a human reading of each scene.
+
+## Part 2: Use a different text corpus
+
+### Load and clean *Moby-Dick*
+
+I downloaded the plain-text Project Gutenberg edition. The next step removes the Gutenberg header and footer before splitting the book into words.
+
+```{r}
+#| label: load-moby-dick
+moby_path <- "data/moby_dick_project_gutenberg.txt"
+moby_lines_all <- read_lines(moby_path, progress = FALSE)
+
+# Find the official start and end markers instead of typing fixed row numbers.
+start_line <- which(str_detect(
+  moby_lines_all,
+  "\\*\\*\\* START OF THE PROJECT GUTENBERG"
+))[1] + 1
+
+end_line <- which(str_detect(
+  moby_lines_all,
+  "\\*\\*\\* END OF THE PROJECT GUTENBERG"
+))[1] - 1
+
+stopifnot(length(start_line) == 1, length(end_line) == 1, start_line < end_line)
+
+moby_words <- tibble(
+  linenumber = seq_len(end_line - start_line + 1),
+  text = moby_lines_all[start_line:end_line]
+) |>
+  unnest_tokens(word, text)
+
+moby_check <- tibble(
+  check = c("Book lines kept", "Word rows", "Unique words"),
+  result = c(
+    end_line - start_line + 1,
+    nrow(moby_words),
+    n_distinct(moby_words$word)
+  )
+)
+
+kable(moby_check, caption = "Checks after cleaning the Moby-Dick text")
+```
+
+### Analyze *Moby-Dick* with Bing
+
+I first reuse Bing so the new corpus can be compared with the Jane Austen example on the same basis.
+
+```{r}
+#| label: moby-bing
+moby_bing_words <- moby_words |>
+  inner_join(bing_lexicon, by = "word", relationship = "many-to-many")
+
+moby_bing_sections <- moby_bing_words |>
+  count(index = linenumber %/% 80, sentiment) |>
+  pivot_wider(
+    names_from = sentiment,
+    values_from = n,
+    values_fill = 0
+  ) |>
+  mutate(net_sentiment = positive - negative)
+```
+
+```{r}
+#| label: moby-bing-chart
+#| fig-width: 9
+#| fig-height: 4.5
+#| fig-alt: "A bar chart shows Bing net sentiment across Moby-Dick. Orange bars below zero mark sections with more negative words, and blue bars above zero mark sections with more positive words."
+ggplot(
+  moby_bing_sections,
+  aes(x = index, y = net_sentiment, fill = net_sentiment >= 0)
+) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c(negative_color, positive_color)) +
+  geom_hline(yintercept = 0, color = "gray35", linewidth = 0.3) +
+  labs(
+    title = "Bing sentiment across Moby-Dick",
+    subtitle = "Net sentiment within blocks of 80 original lines",
+    x = "Section of the book",
+    y = "Positive words minus negative words"
+  )
+```
+
+## Part 3: Add the VADER lexicon
+
+VADER assigns each entry a numeric value. Negative values indicate negative sentiment and positive values indicate positive sentiment. I keep one-word entries because this report uses one word per row.
+
+```{r}
+#| label: load-vader
+vader_lexicon <- read_tsv(
+  "data/vader_lexicon.txt",
+  col_names = c("word", "value", "standard_deviation", "ratings"),
+  col_types = "cddc",
+  quote = "",
+  show_col_types = FALSE
+) |>
+  transmute(word = str_to_lower(word), value) |>
+  filter(str_detect(word, "^[a-z']+$")) |>
+  distinct(word, .keep_all = TRUE)
+
+kable(
+  head(vader_lexicon, 8),
+  digits = 2,
+  caption = "Sample of the additional VADER lexicon"
+)
+```
+
+```{r}
+#| label: moby-vader
+moby_vader_words <- moby_words |>
+  inner_join(vader_lexicon, by = "word")
+
+moby_vader_sections <- moby_vader_words |>
+  group_by(index = linenumber %/% 80) |>
+  summarise(net_sentiment = sum(value), .groups = "drop")
+```
+
+```{r}
+#| label: moby-vader-chart
+#| fig-width: 9
+#| fig-height: 4.5
+#| fig-alt: "A teal and orange bar chart shows VADER sentiment scores across Moby-Dick. Bars above zero are positive and bars below zero are negative."
+ggplot(
+  moby_vader_sections,
+  aes(x = index, y = net_sentiment, fill = net_sentiment >= 0)
+) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c(negative_color, vader_color)) +
+  geom_hline(yintercept = 0, color = "gray35", linewidth = 0.3) +
+  labs(
+    title = "VADER sentiment across Moby-Dick",
+    subtitle = "The same text sections are scored with the additional lexicon",
+    x = "Section of the book",
+    y = "Sum of VADER word scores"
+  )
+```
+
+## Compare the results
+
+### Corpus comparison using Bing
+
+```{r}
+#| label: corpus-comparison
+corpus_comparison <- bind_rows(
+  tidy_books |>
+    inner_join(bing_lexicon, by = "word", relationship = "many-to-many") |>
+    summarise(
+      corpus = "Jane Austen novels",
+      matched_words = n(),
+      positive = sum(sentiment == "positive"),
+      negative = sum(sentiment == "negative")
+    ),
+  moby_bing_words |>
+    summarise(
+      corpus = "Moby-Dick",
+      matched_words = n(),
+      positive = sum(sentiment == "positive"),
+      negative = sum(sentiment == "negative")
+    )
+) |>
+  mutate(
+    percent_positive = 100 * positive / matched_words,
+    net_score = positive - negative
+  )
+
+kable(
+  corpus_comparison,
+  digits = 1,
+  col.names = c(
+    "Corpus", "Matched words", "Positive", "Negative",
+    "Positive (%)", "Net score"
+  ),
+  caption = "Bing comparison between the original and new corpora"
+)
+```
+
+Using the same Bing lexicon, `r round(corpus_comparison$percent_positive[corpus_comparison$corpus == "Jane Austen novels"], 1)`% of the matched Jane Austen words are positive, compared with `r round(corpus_comparison$percent_positive[corpus_comparison$corpus == "Moby-Dick"], 1)`% for *Moby-Dick*. This is a difference in the words matched by the lexicon. It does not mean that one author or book is objectively more positive.
+
+### Lexicon comparison on *Moby-Dick*
+
+```{r}
+#| label: lexicon-comparison
+lexicon_comparison <- bind_rows(
+  moby_bing_words |>
+    transmute(value = if_else(sentiment == "positive", 1, -1)) |>
+    summarise(
+      lexicon = "Bing",
+      matched_words = n(),
+      net_score = sum(value),
+      average_score = mean(value)
+    ),
+  moby_vader_words |>
+    summarise(
+      lexicon = "VADER",
+      matched_words = n(),
+      net_score = sum(value),
+      average_score = mean(value)
+    )
+)
+
+kable(
+  lexicon_comparison,
+  digits = 3,
+  col.names = c("Lexicon", "Matched words", "Net score", "Average matched-word score"),
+  caption = "How the two lexicons score Moby-Dick"
+)
+```
+
+Bing gives *Moby-Dick* a negative net score, while VADER gives it a positive score. The scores are not on the same scale, but the direction also changes. This is the main difference from the original example: changing the corpus changes the matched words, and changing the lexicon can change the overall interpretation.
+
+## Data-cleaning decisions
+
+- I removed the Project Gutenberg header and footer so they would not affect the word counts.
+- I converted the text to lowercase one-word tokens with `unnest_tokens()`.
+- I kept one-word VADER entries because the Chapter 2 method also works one word at a time.
+- I did not remove repeated words because their frequency is part of the sentiment calculation.
+
+## Limitations
+
+This method counts words without fully understanding the sentence around them. For example, it may treat “not good” as positive because it sees the word “good.” VADER was designed mainly for modern social-media language, so some of its vocabulary may not fit a nineteenth-century novel. The charts describe these texts and lexicons only. They do not measure the authors' intent.
+
+## Sources
+
+- Hutto, C. J., & Gilbert, E. (2014). *VADER: A parsimonious rule-based model for sentiment analysis of social media text*. Proceedings of the International AAAI Conference on Web and Social Media, 8(1), 216–225. <https://ojs.aaai.org/index.php/ICWSM/article/view/14550>
+- Melville, H. (1851). *Moby-Dick; or, The Whale*. Project Gutenberg. <https://www.gutenberg.org/ebooks/2701>
+- Silge, J., & Robinson, D. (2017). *Text mining with R: A tidy approach*. O'Reilly Media. <https://www.tidytextmining.com/sentiment>
+- tidytext authors. (n.d.). *Sentiment lexicons*. <https://juliasilge.github.io/tidytext/reference/get_sentiments.html>
+
+## AI use
+
+I used ChatGPT and VS Code to help draft, troubleshoot, and organize parts of the code and documentation.
