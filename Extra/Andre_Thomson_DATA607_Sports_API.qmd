@@ -1,0 +1,864 @@
+---
+title: "DATA607 Lab: Sports API"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+    embed-resources: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Sources and documentation
+
+Every dataset in this lab is retrieved from Wikipedia through the documented MediaWiki Action API. The links below identify both the API documentation and the exact source pages used in the code.
+
+**API and R documentation**
+
+- [MediaWiki Action API documentation](https://www.mediawiki.org/wiki/API:Action_API)
+- [MediaWiki `parse` module documentation](https://www.mediawiki.org/wiki/Special:ApiHelp/parse)
+- [Wikipedia API endpoint used by the lab](https://en.wikipedia.org/w/api.php)
+- [`httr2` documentation](https://httr2.r-lib.org/)
+
+**Wikipedia source pages retrieved through the API**
+
+- [NBA career scoring leaders](https://en.wikipedia.org/wiki/List_of_NBA_career_scoring_leaders)
+- [MLB career home-run leaders](https://en.wikipedia.org/wiki/List_of_Major_League_Baseball_career_home_run_leaders)
+- [NBA champions](https://en.wikipedia.org/wiki/List_of_NBA_champions)
+- [Super Bowl champions](https://en.wikipedia.org/wiki/List_of_Super_Bowl_champions)
+- [Stanley Cup champions](https://en.wikipedia.org/wiki/List_of_Stanley_Cup_champions)
+- [World Series champions](https://en.wikipedia.org/wiki/List_of_World_Series_champions)
+
+## Purpose
+
+In this lab, we will use `httr2` to request sports-history data from the documented MediaWiki API. We will:
+
+1.  pull all-time NBA regular-season scoring leaders and MLB home-run leaders;
+2.  save raw API responses and tidy tables in SQLite;
+3.  retrieve championship tables for the NBA, NFL, NHL, and MLB;
+4.  aggregate championships by the city where the team won; and
+5.  create an interactive U.S. state heat map whose hover text lists championship cities.
+
+Wikipedia is a community-maintained source. The reproducibility rule for this lab is to save the API URL, revision ID, retrieval time, and raw response before analyzing the data.
+
+## Packages
+
+```{r}
+# These packages request the API data, clean it, save it, and make the map.
+library(httr2)
+library(jsonlite)
+library(rvest)
+library(dplyr)
+library(tibble)
+library(stringr)
+library(ggplot2)
+library(DBI)
+library(RSQLite)
+library(plotly)
+library(knitr)
+```
+
+## A reusable `httr2` JSON request
+
+MediaWiki asks API clients to identify themselves with a useful User-Agent. The function below sends a documented HTTP request, checks the response, and returns both parsed JSON and the raw text needed for a reproducible SQLite snapshot.\
+
+```{r}
+# This function sends one documented MediaWiki API request and returns both parsed and raw response data.
+fetch_json <- function(base_url, ..., source_name) {
+  req <- request(base_url) |>
+    req_url_query(...) |>
+    req_user_agent("DATA607-week9-lab/1.0 (https://www.cuny.edu)") |>
+    req_headers(Accept = "application/json")
+
+  resp <- req |> req_perform()
+  raw_body <- resp_body_string(resp)
+  parsed_body <- jsonlite::fromJSON(raw_body, simplifyVector = FALSE)
+
+  list(
+    source_name = source_name,
+    request_url = resp_url(resp),
+    retrieved_at_utc = format(Sys.time(), tz = "UTC", usetz = TRUE),
+    raw_body = raw_body,
+    data = parsed_body
+  )
+}
+```
+
+## Save a raw API snapshot in SQLite
+
+```{r}
+# Open the SQLite database and create the raw-response audit table.
+con <- dbConnect(SQLite(), "week9_wikimedia_sports.sqlite")
+
+invisible(dbExecute(
+  con,
+  "CREATE TABLE IF NOT EXISTS raw_api_snapshots (
+     source_name TEXT,
+     request_url TEXT,
+     retrieved_at_utc TEXT,
+     raw_body TEXT
+   )"
+))
+
+# Start each render with a clean snapshot table so rerunning the file does not
+# add duplicate copies of the same API responses.
+invisible(dbExecute(con, "DELETE FROM raw_api_snapshots"))
+```
+
+## Pull all-time NBA points leaders
+
+The MediaWiki Parse API returns a page's rendered HTML and revision ID in JSON. This request is an API request, not a direct scrape of a web page.
+
+```{r}
+# Request the NBA career-scoring source and save its raw API response.
+nba_page <- fetch_json(
+  base_url = "https://en.wikipedia.org/w/api.php",
+  action = "parse",
+  page = "List_of_NBA_career_scoring_leaders",
+  prop = "text|revid",
+  format = "json",
+  formatversion = "2",
+  source_name = "Wikipedia: List of NBA career scoring leaders"
+)
+
+nba_raw_snapshot <- tibble(
+  source_name = nba_page$source_name,
+  request_url = nba_page$request_url,
+  retrieved_at_utc = nba_page$retrieved_at_utc,
+  raw_body = nba_page$raw_body
+)
+
+invisible(dbWriteTable(
+  con,
+  "raw_api_snapshots",
+  nba_raw_snapshot,
+  append = TRUE
+))
+
+kable(
+  tibble(
+    item = "Wikipedia revision ID",
+    value = nba_page$data$parse$revid
+  ),
+  col.names = c("Saved item", "Value"),
+  caption = "NBA API snapshot",
+  align = c("l", "r")
+)
+```
+
+## Turn API-returned HTML into tables
+
+The API returns rendered HTML inside its JSON body. We parse only that returned API content and then inspect the candidate tables before choosing one.
+
+```{r}
+# This function converts the HTML returned by the API into a list of Wikipedia-style tables.
+parse_wikitable_list <- function(api_page) {
+  document <- read_html(api_page$data$parse$text)
+  table_nodes <- html_elements(document, "table.wikitable")
+  tables <- lapply(table_nodes, html_table, convert = FALSE)
+
+  # Some Wikipedia tables repeat a column name, such as Coach.
+  # Unique names prevent dplyr from stopping when those tables are cleaned.
+  lapply(tables, function(table) {
+    names(table) <- make.unique(names(table))
+    table
+  })
+}
+
+nba_tables <- parse_wikitable_list(nba_page)
+
+# This function summarizes each candidate table so we can inspect its rows and columns.
+describe_tables <- function(tables) {
+  tibble(table_index = seq_along(tables)) |>
+    mutate(
+      rows = vapply(tables, nrow, integer(1)),
+      columns = vapply(
+        tables,
+        function(x) {
+          clean_names <- names(x) |>
+            str_replace("^\\.mw-parser-output.*$", "Reference") |>
+            str_remove_all("\\[[^]]*\\]") |>
+            str_squish()
+
+          paste(clean_names, collapse = "<br>")
+        },
+        character(1)
+      )
+    )
+}
+
+kable(
+  describe_tables(nba_tables) |>
+    mutate(selected = if_else(table_index == 2, "Used", "")),
+  col.names = c("Table", "Rows", "Columns found", "Selection"),
+  align = c("r", "r", "l", "l"),
+  escape = FALSE
+)
+```
+
+## Select and tidy the NBA top 10
+
+On the current source page, table 2 contains the career leaderboard. Inspect the previous output whenever Wikipedia revises its page layout.
+
+```{r}
+# Select, clean, display, and save the first ten NBA career scoring leaders.
+nba_leaders_raw <- nba_tables[[2]]
+
+kable(
+  tibble(
+    column = seq_along(names(nba_leaders_raw)),
+    name = names(nba_leaders_raw)
+  ),
+  col.names = c("Column", "Name"),
+  caption = "Columns in the selected NBA leaderboard",
+  align = c("r", "l")
+)
+
+nba_points_top10 <- nba_leaders_raw |>
+  transmute(
+    rank = seq_len(n()),
+    player = str_remove_all(
+      .data[[names(nba_leaders_raw)[grepl("Player", names(nba_leaders_raw))][1]]],
+      "[*^]"
+    ) |>
+      str_squish(),
+    points = as.numeric(gsub(
+      "[^0-9]",
+      "",
+      .data[[names(nba_leaders_raw)[grepl("Total points", names(nba_leaders_raw))][1]]]
+    ))
+  ) |>
+  slice_head(n = 10)
+
+kable(
+  nba_points_top10,
+  col.names = c("Rank", "Player", "Points"),
+  caption = "Top 10 NBA career scoring leaders",
+  align = c("r", "l", "r"),
+  format.args = list(big.mark = ",")
+)
+
+invisible(dbWriteTable(
+  con,
+  "nba_career_points_top10",
+  nba_points_top10,
+  overwrite = TRUE
+))
+```
+
+## Pull and tidy all-time MLB home-run leaders
+
+```{r}
+# Request, clean, display, and save the first ten MLB career home-run leaders.
+mlb_page <- fetch_json(
+  base_url = "https://en.wikipedia.org/w/api.php",
+  action = "parse",
+  page = "List_of_Major_League_Baseball_career_home_run_leaders",
+  prop = "text|revid",
+  format = "json",
+  formatversion = "2",
+  source_name = "Wikipedia: List of Major League Baseball career home run leaders"
+)
+
+invisible(dbWriteTable(
+  con,
+  "raw_api_snapshots",
+  tibble(
+    source_name = mlb_page$source_name,
+    request_url = mlb_page$request_url,
+    retrieved_at_utc = mlb_page$retrieved_at_utc,
+    raw_body = mlb_page$raw_body
+  ),
+  append = TRUE
+))
+
+mlb_tables <- parse_wikitable_list(mlb_page)
+
+kable(
+  describe_tables(mlb_tables) |>
+    mutate(selected = if_else(table_index == 2, "Used", "")),
+  col.names = c("Table", "Rows", "Columns found", "Selection"),
+  align = c("r", "r", "l", "l"),
+  escape = FALSE
+)
+
+mlb_leaders_raw <- mlb_tables[[2]]
+
+mlb_home_runs_top10 <- mlb_leaders_raw |>
+  transmute(
+    rank = as.integer(Rank),
+    player = str_remove_all(
+      .data[[names(mlb_leaders_raw)[grepl("Player", names(mlb_leaders_raw))][1]]],
+      "[*^]"
+    ) |>
+      str_squish(),
+    home_runs = as.integer(HR)
+  ) |>
+  slice_head(n = 10)
+
+kable(
+  mlb_home_runs_top10,
+  col.names = c("Rank", "Player", "Home runs"),
+  caption = "Top 10 MLB career home-run leaders",
+  align = c("r", "l", "r"),
+  format.args = list(big.mark = ",")
+)
+
+invisible(dbWriteTable(
+  con,
+  "mlb_career_home_runs_top10",
+  mlb_home_runs_top10,
+  overwrite = TRUE
+))
+```
+
+The source page labels active players for the upcoming 2027 season, but it says the statistics are updated through the 2026 season. I used only the career home-run totals in the `HR` column.
+
+## Championship sources for four leagues
+
+The next code retrieves four championship-history pages through the same HTTP API. The page formats differ, so we inspect the tables first rather than assuming every page uses the same column names.
+
+```{r}
+# Request and inspect the championship-history tables for the four leagues.
+championship_pages <- c(
+  NBA = "List_of_NBA_champions",
+  NFL = "List_of_Super_Bowl_champions",
+  NHL = "List_of_Stanley_Cup_champions",
+  MLB = "List_of_World_Series_champions"
+)
+
+championship_api_pages <- lapply(
+  names(championship_pages),
+  function(league) {
+    fetch_json(
+      base_url = "https://en.wikipedia.org/w/api.php",
+      action = "parse",
+      page = championship_pages[[league]],
+      prop = "text|revid",
+      format = "json",
+      formatversion = "2",
+      source_name = paste("Wikipedia championship history:", league)
+    )
+  }
+)
+
+names(championship_api_pages) <- names(championship_pages)
+
+championship_tables <- lapply(championship_api_pages, parse_wikitable_list)
+
+# Save the four championship responses before cleaning them.
+championship_raw_snapshots <- bind_rows(lapply(
+  championship_api_pages,
+  function(page) {
+    tibble(
+      source_name = page$source_name,
+      request_url = page$request_url,
+      retrieved_at_utc = page$retrieved_at_utc,
+      raw_body = page$raw_body
+    )
+  }
+))
+
+invisible(dbWriteTable(
+  con,
+  "raw_api_snapshots",
+  championship_raw_snapshots,
+  append = TRUE
+))
+
+championship_table_index <- lapply(championship_tables, describe_tables)
+
+# Stop with a clear message if Wikipedia changes the selected tables.
+stopifnot(
+  all(c("Year", "Western champion", "Eastern champion", "Result") %in%
+        names(championship_tables$NBA[[2]])),
+  all(c("Date (season)", "Winning team") %in%
+        names(championship_tables$NFL[[2]])),
+  all(c("Year", "Winning team") %in%
+        names(championship_tables$NHL[[3]])),
+  all(c("Year", "Winning team") %in%
+        names(championship_tables$MLB[[1]]))
+)
+
+kable(
+  championship_table_index$NBA |>
+    mutate(selected = if_else(table_index == 2, "Used", "")),
+  col.names = c("Table", "Rows", "Columns found", "Selection"),
+  align = c("r", "r", "l", "l"),
+  escape = FALSE
+)
+```
+
+## Challenges for a two-point final-grade boost
+
+Complete both challenges below. The lab gives you the API data; the work in these blocks is yours.
+
+## Challenge 1: Create the tables
+
+Create a table named `championships_clean` from the NBA, NFL, NHL, and MLB championship data. Each row must be one championship, with these columns: `league`, `season`, `winning_team`, `winning_city`, and `state_abbr`.
+
+Then display two tables:
+
+1.  championship totals by `winning_city`, `winning_team`, and `league`; and
+2.  the three cities with the most championships.
+
+Use the city where the team played when it won. For example, a Minneapolis Lakers title belongs to Minneapolis, MN.
+
+For this lab, I treated `winning_city` as the city or home market represented by the team during the championship season. I did not replace it with a separate suburb where the stadium happened to be located.
+
+** First table:**
+
+| league | season | winning_team       | winning_city | state_abbr |
+|--------|-------:|--------------------|--------------|------------|
+| NBA    |   1985 | Los Angeles Lakers | Los Angeles  | CA         |
+| NBA    |   1953 | Minneapolis Lakers | Minneapolis  | MN         |
+
+```{r}
+# Remove citations and record notes from team names before matching locations.
+clean_team_name <- function(x) {
+  x |>
+    str_replace_all("\\[[^]]*\\]", "") |>
+    str_replace("\\s*\\([^)]*\\).*$", "") |>
+    str_replace("\\.mw-parser-output.*$", "") |>
+    str_replace("†.*$", "") |>
+    str_squish()
+}
+
+# The NBA table lists both finalists, so the series score identifies the winner.
+nba_finals <- championship_tables$NBA[[2]]
+
+nba_championships <- nba_finals |>
+  mutate(
+    west_wins = as.integer(str_extract(Result, "^[0-9]+")),
+    east_wins = as.integer(str_extract(Result, "[0-9]+$")),
+    winning_team = if_else(
+      west_wins > east_wins,
+      `Western champion`,
+      `Eastern champion`
+    )
+  ) |>
+  transmute(
+    league = "NBA",
+    season = as.integer(str_extract(Year, "[0-9]{4}")),
+    winning_team = clean_team_name(winning_team)
+  )
+
+# The Super Bowl table already identifies the winning team.
+# Its final letter is a conference marker added by the source page.
+nfl_championships <- championship_tables$NFL[[2]] |>
+  transmute(
+    league = "NFL",
+    season = as.integer(str_match(`Date (season)`, "\\(([0-9]{4})")[, 2]),
+    winning_team = clean_team_name(`Winning team`) |>
+      str_replace("[ANan]$", "") |>
+      str_squish()
+  )
+
+# The NHL table includes one cancelled season, which was not a championship.
+nhl_championships <- championship_tables$NHL[[3]] |>
+  transmute(
+    league = "NHL",
+    season = as.integer(str_extract(Year, "[0-9]{4}")),
+    winning_team = clean_team_name(`Winning team`)
+  ) |>
+  filter(!str_detect(winning_team, regex("cancelled", ignore_case = TRUE)))
+
+# The MLB table includes seasons when the World Series was not played.
+mlb_championships <- championship_tables$MLB[[1]] |>
+  transmute(
+    league = "MLB",
+    season = as.integer(str_extract(Year, "[0-9]{4}")),
+    winning_team = clean_team_name(`Winning team`)
+  ) |>
+  filter(
+    winning_team != "",
+    !str_detect(
+      winning_team,
+      regex("not played|cancelled", ignore_case = TRUE)
+    )
+  )
+
+championships_raw <- bind_rows(
+  nba_championships,
+  nfl_championships,
+  nhl_championships,
+  mlb_championships
+) |>
+  mutate(
+    # Golden State played in Oakland for its earlier titles and in
+    # San Francisco after moving to Chase Center.
+    team_key = case_when(
+      winning_team == "Golden State Warriors" & season >= 2020 ~
+        "Golden State Warriors - San Francisco",
+      winning_team == "Golden State Warriors" ~
+        "Golden State Warriors - Oakland",
+      TRUE ~ winning_team
+    )
+  )
+
+# This lookup keeps historical team locations separate from the API data.
+# Canadian province codes are retained, but only U.S. state codes enter the map.
+team_locations <- tribble(
+  ~team_key, ~winning_city, ~state_abbr,
+  "Anaheim Angels", "Anaheim", "CA",
+  "Anaheim Ducks", "Anaheim", "CA",
+  "Arizona Diamondbacks", "Phoenix", "AZ",
+  "Atlanta Braves", "Atlanta", "GA",
+  "Baltimore Bullets", "Baltimore", "MD",
+  "Baltimore Colts", "Baltimore", "MD",
+  "Baltimore Orioles", "Baltimore", "MD",
+  "Baltimore Ravens", "Baltimore", "MD",
+  "Boston Americans", "Boston", "MA",
+  "Boston Braves", "Boston", "MA",
+  "Boston Bruins", "Boston", "MA",
+  "Boston Celtics", "Boston", "MA",
+  "Boston Red Sox", "Boston", "MA",
+  "Brooklyn Dodgers", "Brooklyn", "NY",
+  "Calgary Flames", "Calgary", "AB",
+  "Carolina Hurricanes", "Raleigh", "NC",
+  "Chicago Bears", "Chicago", "IL",
+  "Chicago Black Hawks", "Chicago", "IL",
+  "Chicago Blackhawks", "Chicago", "IL",
+  "Chicago Bulls", "Chicago", "IL",
+  "Chicago Cubs", "Chicago", "IL",
+  "Chicago White Sox", "Chicago", "IL",
+  "Cincinnati Reds", "Cincinnati", "OH",
+  "Cleveland Cavaliers", "Cleveland", "OH",
+  "Cleveland Indians", "Cleveland", "OH",
+  "Colorado Avalanche", "Denver", "CO",
+  "Dallas Cowboys", "Dallas", "TX",
+  "Dallas Mavericks", "Dallas", "TX",
+  "Dallas Stars", "Dallas", "TX",
+  "Denver Broncos", "Denver", "CO",
+  "Denver Nuggets", "Denver", "CO",
+  "Detroit Pistons", "Detroit", "MI",
+  "Detroit Red Wings", "Detroit", "MI",
+  "Detroit Tigers", "Detroit", "MI",
+  "Edmonton Oilers", "Edmonton", "AB",
+  "Florida Marlins", "Miami", "FL",
+  "Florida Panthers", "Sunrise", "FL",
+  "Golden State Warriors - Oakland", "Oakland", "CA",
+  "Golden State Warriors - San Francisco", "San Francisco", "CA",
+  "Green Bay Packers", "Green Bay", "WI",
+  "Houston Astros", "Houston", "TX",
+  "Houston Rockets", "Houston", "TX",
+  "Indianapolis Colts", "Indianapolis", "IN",
+  "Kansas City Chiefs", "Kansas City", "MO",
+  "Kansas City Royals", "Kansas City", "MO",
+  "Los Angeles Dodgers", "Los Angeles", "CA",
+  "Los Angeles Kings", "Los Angeles", "CA",
+  "Los Angeles Lakers", "Los Angeles", "CA",
+  "Los Angeles Raiders", "Los Angeles", "CA",
+  "Los Angeles Rams", "Los Angeles", "CA",
+  "Miami Dolphins", "Miami", "FL",
+  "Miami Heat", "Miami", "FL",
+  "Milwaukee Braves", "Milwaukee", "WI",
+  "Milwaukee Brewers", "Milwaukee", "WI",
+  "Milwaukee Bucks", "Milwaukee", "WI",
+  "Minneapolis Lakers", "Minneapolis", "MN",
+  "Minnesota Twins", "Minneapolis", "MN",
+  "Montreal Canadiens", "Montreal", "QC",
+  "Montreal Maroons", "Montreal", "QC",
+  "New England Patriots", "Foxborough", "MA",
+  "New Jersey Devils", "East Rutherford", "NJ",
+  "New Orleans Saints", "New Orleans", "LA",
+  "New York Giants", "New York", "NY",
+  "New York Islanders", "Uniondale", "NY",
+  "New York Jets", "New York", "NY",
+  "New York Knicks", "New York", "NY",
+  "New York Mets", "New York", "NY",
+  "New York Rangers", "New York", "NY",
+  "New York Yankees", "New York", "NY",
+  "Oakland Athletics", "Oakland", "CA",
+  "Oakland Raiders", "Oakland", "CA",
+  "Oklahoma City Thunder", "Oklahoma City", "OK",
+  "Ottawa Senators", "Ottawa", "ON",
+  "Philadelphia 76ers", "Philadelphia", "PA",
+  "Philadelphia Athletics", "Philadelphia", "PA",
+  "Philadelphia Eagles", "Philadelphia", "PA",
+  "Philadelphia Flyers", "Philadelphia", "PA",
+  "Philadelphia Phillies", "Philadelphia", "PA",
+  "Philadelphia Warriors", "Philadelphia", "PA",
+  "Pittsburgh Penguins", "Pittsburgh", "PA",
+  "Pittsburgh Pirates", "Pittsburgh", "PA",
+  "Pittsburgh Steelers", "Pittsburgh", "PA",
+  "Portland Trail Blazers", "Portland", "OR",
+  "Rochester Royals", "Rochester", "NY",
+  "San Antonio Spurs", "San Antonio", "TX",
+  "San Francisco 49ers", "San Francisco", "CA",
+  "San Francisco Giants", "San Francisco", "CA",
+  "Seattle Seahawks", "Seattle", "WA",
+  "Seattle SuperSonics", "Seattle", "WA",
+  "St. Louis Blues", "St. Louis", "MO",
+  "St. Louis Cardinals", "St. Louis", "MO",
+  "St. Louis Hawks", "St. Louis", "MO",
+  "St. Louis Rams", "St. Louis", "MO",
+  "Syracuse Nationals", "Syracuse", "NY",
+  "Tampa Bay Buccaneers", "Tampa", "FL",
+  "Tampa Bay Lightning", "Tampa", "FL",
+  "Texas Rangers", "Arlington", "TX",
+  "Toronto Blue Jays", "Toronto", "ON",
+  "Toronto Maple Leafs", "Toronto", "ON",
+  "Toronto Raptors", "Toronto", "ON",
+  "Vegas Golden Knights", "Las Vegas", "NV",
+  "Washington Bullets", "Washington", "DC",
+  "Washington Capitals", "Washington", "DC",
+  "Washington Nationals", "Washington", "DC",
+  "Washington Redskins", "Washington", "DC",
+  "Washington Senators", "Washington", "DC"
+)
+
+unmatched_teams <- anti_join(championships_raw, team_locations, by = "team_key")
+
+if (nrow(unmatched_teams) > 0) {
+  stop(
+    paste0(
+      "Missing location lookup: ",
+      paste(
+        unmatched_teams$league,
+        unmatched_teams$season,
+        shQuote(unmatched_teams$team_key),
+        collapse = "; "
+      )
+    )
+  )
+}
+
+championships_clean <- championships_raw |>
+  left_join(team_locations, by = "team_key") |>
+  select(league, season, winning_team, winning_city, state_abbr) |>
+  arrange(league, season)
+
+# Save the completed challenge table in the same SQLite database.
+invisible(dbWriteTable(
+  con,
+  "championships_clean",
+  championships_clean,
+  overwrite = TRUE
+))
+
+# Confirm that every league-season is unique and every location was matched.
+snapshot_count <- dbGetQuery(
+  con,
+  "SELECT COUNT(*) AS total FROM raw_api_snapshots"
+)$total[[1]]
+
+challenge_checks <- tibble(
+  check = c(
+    "Championship records",
+    "Duplicate league-season rows",
+    "Missing city or region codes",
+    "Raw API snapshots saved"
+  ),
+  result = c(
+    nrow(championships_clean),
+    sum(duplicated(championships_clean[c("league", "season")])),
+    sum(is.na(championships_clean$winning_city) |
+          is.na(championships_clean$state_abbr)),
+    snapshot_count
+  )
+)
+
+kable(
+  challenge_checks,
+  col.names = c("Check", "Result"),
+  caption = "Challenge 1 data checks",
+  align = c("l", "r")
+)
+
+championship_totals <- championships_clean |>
+  count(winning_city, winning_team, league, name = "championships") |>
+  arrange(desc(championships), winning_city, winning_team, league)
+
+kable(
+  championship_totals,
+  col.names = c("Winning city", "Winning team", "League", "Championships"),
+  caption = "Championship totals by city, team, and league",
+  align = c("l", "l", "l", "r")
+)
+
+top_three_cities <- championships_clean |>
+  count(winning_city, state_abbr, name = "championships") |>
+  arrange(desc(championships), winning_city) |>
+  slice_head(n = 3)
+
+kable(
+  top_three_cities,
+  col.names = c("City", "State or province", "Championships"),
+  caption = "Three cities with the most championships",
+  align = c("l", "l", "r")
+)
+```
+
+## Challenge 2: Create the map
+
+Use `championships_clean` to create an interactive U.S. heat map. When someone hovers over a state, the tooltip must show the state abbreviation, its championship total, and the cities in that state that won championships.
+
+**Example tooltip:**
+
+```
+CA
+Championships: 45
+Cities: Anaheim, Los Angeles, Oakland, San Francisco
+```
+
+I used `championships_clean` for the table, chart, and map. I grouped the same records by state so the totals match. The table uses the same Viridis colors as the map, but the numbers are also shown.
+
+```{r}
+# Summarize U.S. championships by state and keep the city list for hover text.
+state_championships <- championships_clean |>
+  filter(state_abbr %in% state.abb) |>
+  group_by(state_abbr) |>
+  summarise(
+    championship_total = n(),
+    cities = paste(sort(unique(winning_city)), collapse = ", "),
+    .groups = "drop"
+  )
+
+# Include every state so zero-championship states are still visible on the map.
+state_map <- tibble(state_abbr = state.abb) |>
+  left_join(state_championships, by = "state_abbr") |>
+  mutate(
+    championship_total = if_else(
+      is.na(championship_total),
+      0L,
+      championship_total
+    ),
+    cities = if_else(is.na(cities), "None in this dataset", cities),
+    hover_text = paste0(
+      state_abbr,
+      "<br>Championships: ", championship_total,
+      "<br>Cities: ", cities
+    )
+  )
+
+# Match each table total to the same Viridis color scale used in the map.
+viridis_colors <- viridisLite::viridis(256)
+maximum_total <- max(state_map$championship_total)
+
+state_table <- state_map |>
+  arrange(desc(championship_total), state_abbr) |>
+  slice_head(n = 10) |>
+  mutate(
+    color_index = 1L + round(255 * championship_total / maximum_total),
+    map_color = viridis_colors[color_index],
+    text_color = if_else(
+      championship_total / maximum_total > 0.55,
+      "#111111",
+      "#FFFFFF"
+    ),
+    championship_display = paste0(
+      "<span style='display:inline-block;min-width:3rem;",
+      "padding:0.15rem 0.45rem;text-align:center;",
+      "border:1px solid #555;background:", map_color, ";",
+      "color:", text_color, ";font-weight:600;'>",
+      championship_total, "</span>"
+    )
+  )
+
+# The colored total matches the map, while the printed number keeps the table
+# readable without relying on color.
+kable(
+  state_table |>
+    select(state_abbr, championship_display, cities),
+  col.names = c("State", "Championships (map color)", "Winning cities"),
+  caption = "Ten states with the largest championship totals. Colors match the map below.",
+  align = c("l", "r", "l"),
+  escape = FALSE
+)
+```
+
+The bar chart shows the same ten states as the table.
+
+```{r}
+#| fig-alt: "Horizontal bar chart of the ten states with the most championships. New York has 53, California has 45, and Massachusetts has 40. Bar colors match the table and heat map."
+#| fig-width: 8
+#| fig-height: 5
+
+ggplot(
+  state_table,
+  aes(
+    x = reorder(state_abbr, championship_total),
+    y = championship_total,
+    fill = map_color
+  )
+) +
+  geom_col(color = "#333333", width = 0.7) +
+  geom_text(
+    aes(label = championship_total),
+    hjust = -0.2,
+    size = 3.5
+  ) +
+  coord_flip() +
+  scale_fill_identity() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "States with the Most Championships",
+    subtitle = "Same totals and colors as the table and map",
+    x = "State",
+    y = "Championships"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.major.y = element_blank())
+```
+
+```{r}
+
+# Viridis is readable for common forms of color-vision deficiency.
+plot_geo(state_map, locationmode = "USA-states") |>
+  add_trace(
+    z = ~championship_total,
+    locations = ~state_abbr,
+    text = ~hover_text,
+    hoverinfo = "text",
+    type = "choropleth",
+    colorscale = "Viridis",
+    marker = list(line = list(color = "white", width = 0.7)),
+    colorbar = list(
+      title = "Championships",
+      thickness = 14,
+      len = 0.65
+    )
+  ) |>
+  layout(
+    title = list(text = "NBA, NFL, NHL, and MLB Championships by U.S. State"),
+    geo = list(
+      scope = "usa",
+      projection = list(type = "albers usa"),
+      showlakes = TRUE,
+      lakecolor = "white"
+    ),
+    margin = list(l = 0, r = 0, t = 70, b = 0),
+    paper_bgcolor = "white",
+    font = list(color = "#222222")
+  )
+```
+
+## Close the database connection
+
+```{r}
+# `dbDisconnect()` closes the SQLite connection and releases the database file.
+dbDisconnect(con)
+```
+
+## Final reflection
+
+This lab showed me that getting data from an API is only the first step. The MediaWiki API returned JSON, but the championship records were stored inside HTML tables. I had to inspect each league separately because the tables did not use the same column names or layout. The hardest part was matching older team names to the correct city. This mattered for teams that moved, such as the Minneapolis Lakers and Golden State Warriors. I created a separate location lookup and checked for unmatched teams before calculating the totals. The final table contained `r nrow(championships_clean)` championship records. The checks also found zero duplicate league-season records and zero missing locations. If I rebuilt `championships_clean`, I would place the team-location history in a separate table with start and end years. This would make team moves easier to manage instead of handling them inside the cleaning code. My main takeaway is that an API can provide the data, but I still have to inspect, clean, and check it before using the results.
+
+## Sources, textbook, and AI-use disclosure
+
+- Codecademy. (n.d.). *Learn R*. <https://www.codecademy.com/learn/learn-r>
+- freeCodeCamp.org. (2019, June 6). *R programming tutorial—Learn the basics of statistical computing* [Video]. YouTube. <https://www.youtube.com/watch?v=_V8eKsto3Ug>
+- Major League Baseball. (n.d.). *All-time MLB player hitting stat leaders*. <https://www.mlb.com/stats/all-time-totals>
+- Plotly. (n.d.). *Choropleth maps in R*. <https://plotly.com/r/choropleth-maps/>
+- R CHARTS. (n.d.). *The ggplot2 package*. <https://r-charts.com/ggplot2/>
+- Sievert, C. (2020). *Interactive web-based data visualization with R, plotly, and shiny*. Chapman and Hall/CRC. <https://plotly-r.com/>
+- The R Graph Gallery. (n.d.). *Basic barplot with ggplot2*. <https://r-graph-gallery.com/218-basic-barplots-with-ggplot2.html>
+- W3Schools. (n.d.). *R data frames*. <https://www.w3schools.com/r/r_data_frames.asp>
+- Wickham, H., Navarro, D., & Pedersen, T. L. (n.d.). *ggplot2: Elegant graphics for data analysis* (3rd ed.). <https://ggplot2-book.org/>
+
+I used ChatGPT and VS Code to help troubleshoot the code and organize the tables. I ran the file and checked the results against the MediaWiki API output.
