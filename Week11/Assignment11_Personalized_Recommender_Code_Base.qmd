@@ -1,0 +1,434 @@
+---
+title: "Code Base: Personalized Recommender"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+editor: visual
+execute:
+  warning: false
+  message: false
+---
+
+## Question and method
+
+I used user-to-user collaborative filtering to predict movie ratings from participants with similar rating patterns. Pearson correlation measures similarity. I tested the system by hiding one rating at a time and predicting it from the other 35 ratings.
+
+I also recalculated the Week 3 Global Baseline Estimate for every same training split. This gives both methods the same 36 test cases and prevents the held-out value from entering either calculation.
+
+## Load and verify the data
+
+```{r}
+#| label: load-and-check
+
+library(tidyverse)
+library(knitr)
+
+ratings <- read_csv(
+  "movie_ratings_query.csv",
+  show_col_types = FALSE
+)
+
+required_columns <- c("participant_id", "movie_title", "rating")
+
+stopifnot(
+  identical(names(ratings), required_columns),
+  nrow(ratings) == 36,
+  n_distinct(ratings$participant_id) == 6,
+  n_distinct(ratings$movie_title) == 6,
+  !anyNA(ratings),
+  all(ratings$rating %in% 1:5),
+  !anyDuplicated(ratings[c("participant_id", "movie_title")])
+)
+
+data_check <- ratings |>
+  summarise(
+    participants = n_distinct(participant_id),
+    movies = n_distinct(movie_title),
+    ratings = n(),
+    missing_values = sum(is.na(rating)),
+    minimum_rating = min(rating),
+    maximum_rating = max(rating)
+  )
+
+kable(data_check)
+```
+
+The file has `r data_check$ratings` ratings from `r data_check$participants` participants for `r data_check$movies` movies. There are no missing values or duplicate participant-movie pairs.
+
+## Personalized prediction function
+
+The function first calculates the target participant's mean from the training data. It then compares the target participant with each other participant who rated the held-out movie. Similarity is based only on movies that both participants rated in the training data.
+
+```{r}
+#| label: personalized-function
+
+predict_personalized <- function(train, target_user, target_movie) {
+  target_ratings <- train |>
+    filter(participant_id == target_user)
+
+  target_mean <- mean(target_ratings$rating)
+
+  candidate_ratings <- train |>
+    filter(
+      movie_title == target_movie,
+      participant_id != target_user
+    )
+
+  similarities <- map_dfr(
+    candidate_ratings$participant_id,
+    function(other_user) {
+      other_ratings <- train |>
+        filter(participant_id == other_user)
+
+      shared <- inner_join(
+        target_ratings,
+        other_ratings,
+        by = "movie_title",
+        suffix = c("_target", "_neighbor")
+      )
+
+      similarity <- NA_real_
+
+      if (
+        nrow(shared) >= 3 &&
+        sd(shared$rating_target) > 0 &&
+        sd(shared$rating_neighbor) > 0
+      ) {
+        similarity <- cor(
+          shared$rating_target,
+          shared$rating_neighbor,
+          method = "pearson"
+        )
+      }
+
+      tibble(
+        participant_id = other_user,
+        similarity = similarity,
+        neighbor_mean = mean(other_ratings$rating)
+      )
+    }
+  )
+
+  usable_neighbors <- candidate_ratings |>
+    inner_join(similarities, by = "participant_id") |>
+    filter(!is.na(similarity), similarity > 0)
+
+  if (nrow(usable_neighbors) > 0) {
+    estimate <- target_mean +
+      sum(
+        usable_neighbors$similarity *
+          (usable_neighbors$rating - usable_neighbors$neighbor_mean)
+      ) / sum(usable_neighbors$similarity)
+
+    method <- "Pearson collaborative filtering"
+  } else {
+    estimate <- target_mean
+    method <- "User mean fallback"
+  }
+
+  tibble(
+    personalized_prediction = pmin(5, pmax(1, estimate)),
+    prediction_method = method,
+    neighbors_used = nrow(usable_neighbors)
+  )
+}
+```
+
+## Fair Week 3 baseline function
+
+The earlier baseline used the global mean plus participant bias plus movie bias. I use the same formula here, recalculated from each 35-row training set.
+
+```{r}
+#| label: baseline-function
+
+predict_global_baseline <- function(train, target_user, target_movie) {
+  global_mean <- mean(train$rating)
+
+  user_mean <- train |>
+    filter(participant_id == target_user) |>
+    summarise(value = mean(rating)) |>
+    pull(value)
+
+  movie_mean <- train |>
+    filter(movie_title == target_movie) |>
+    summarise(value = mean(rating)) |>
+    pull(value)
+
+  estimate <- global_mean +
+    (user_mean - global_mean) +
+    (movie_mean - global_mean)
+
+  pmin(5, pmax(1, estimate))
+}
+```
+
+## Leave-one-out evaluation
+
+Each loop removes exactly one row. Both models receive the same remaining rows and predict the same held-out rating.
+
+```{r}
+#| label: leave-one-out
+
+predictions <- map_dfr(
+  seq_len(nrow(ratings)),
+  function(i) {
+    held_out <- ratings[i, ]
+    training <- ratings[-i, ]
+
+    personalized <- predict_personalized(
+      training,
+      held_out$participant_id,
+      held_out$movie_title
+    )
+
+    baseline <- predict_global_baseline(
+      training,
+      held_out$participant_id,
+      held_out$movie_title
+    )
+
+    bind_cols(held_out, personalized) |>
+      mutate(
+        baseline_prediction = baseline,
+        personalized_error = rating - personalized_prediction,
+        personalized_absolute_error = abs(personalized_error),
+        personalized_squared_error = personalized_error^2,
+        baseline_error = rating - baseline_prediction,
+        baseline_absolute_error = abs(baseline_error),
+        baseline_squared_error = baseline_error^2
+      )
+  }
+)
+
+stopifnot(
+  nrow(predictions) == 36,
+  all(between(predictions$personalized_prediction, 1, 5)),
+  all(between(predictions$baseline_prediction, 1, 5)),
+  !anyNA(predictions)
+)
+
+write_csv(
+  predictions,
+  "results/leave_one_out_predictions.csv"
+)
+
+kable(
+  predictions |>
+    select(
+      participant_id,
+      movie_title,
+      rating,
+      personalized_prediction,
+      baseline_prediction,
+      prediction_method,
+      neighbors_used
+    ),
+  digits = 3
+)
+```
+
+## Accuracy results
+
+```{r}
+#| label: accuracy-results
+
+n_cases <- nrow(predictions)
+
+model_metrics <- tibble(
+  model = c(
+    "Personalized recommender",
+    "Week 3 global baseline"
+  ),
+  MAE = c(
+    mean(predictions$personalized_absolute_error),
+    mean(predictions$baseline_absolute_error)
+  ),
+  RMSE = c(
+    sqrt(mean(predictions$personalized_squared_error)),
+    sqrt(mean(predictions$baseline_squared_error))
+  ),
+  predictions = n_cases
+)
+
+method_counts <- predictions |>
+  count(prediction_method, name = "predictions")
+
+write_csv(model_metrics, "results/model_metrics.csv")
+write_csv(method_counts, "results/prediction_method_counts.csv")
+
+kable(model_metrics, digits = 3)
+kable(method_counts)
+```
+
+The personalized system had an MAE of `r sprintf("%.3f", model_metrics$MAE[1])` and an RMSE of `r sprintf("%.3f", model_metrics$RMSE[1])`. The same-split Global Baseline Estimate had an MAE of `r sprintf("%.3f", model_metrics$MAE[2])` and an RMSE of `r sprintf("%.3f", model_metrics$RMSE[2])`.
+
+The Pearson calculation was available for `r sum(predictions$prediction_method == "Pearson collaborative filtering")` predictions. The user-mean fallback was used for `r sum(predictions$prediction_method == "User mean fallback")` predictions. The model with the lower MAE was `r model_metrics$model[which.min(model_metrics$MAE)]`.
+
+```{r}
+#| label: metric-plot
+#| fig-cap: "Lower MAE and RMSE indicate predictions closer to the actual ratings. Values are printed above each bar."
+
+metric_plot_data <- model_metrics |>
+  pivot_longer(
+    cols = c(MAE, RMSE),
+    names_to = "metric",
+    values_to = "error"
+  )
+
+metric_plot <- ggplot(
+  metric_plot_data,
+  aes(x = metric, y = error, fill = model)
+) +
+  geom_col(
+    position = position_dodge(width = 0.75),
+    width = 0.65,
+    color = "black"
+  ) +
+  geom_text(
+    aes(label = sprintf("%.3f", error)),
+    position = position_dodge(width = 0.75),
+    vjust = -0.35,
+    size = 4
+  ) +
+  scale_fill_manual(values = c("#0072B2", "#E69F00")) +
+  coord_cartesian(ylim = c(0, max(metric_plot_data$error) * 1.18)) +
+  labs(
+    title = "Leave-One-Out Error on the Same 36 Ratings",
+    x = "Error metric",
+    y = "Rating points",
+    fill = "Model"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+
+ggsave(
+  "results/model_error_comparison.png",
+  metric_plot,
+  width = 8,
+  height = 5,
+  dpi = 300
+)
+
+metric_plot
+```
+
+## Actual and predicted ratings
+
+```{r}
+#| label: actual-predicted-plot
+#| fig-cap: "The dashed line represents a perfect prediction. Shape and color both identify the model."
+
+actual_plot_data <- predictions |>
+  select(
+    actual_rating = rating,
+    `Personalized recommender` = personalized_prediction,
+    `Week 3 global baseline` = baseline_prediction
+  ) |>
+  pivot_longer(
+    cols = -actual_rating,
+    names_to = "model",
+    values_to = "predicted_rating"
+  )
+
+actual_plot <- ggplot(
+  actual_plot_data,
+  aes(
+    x = actual_rating,
+    y = predicted_rating,
+    color = model,
+    shape = model
+  )
+) +
+  geom_jitter(width = 0.08, height = 0.08, alpha = 0.72, size = 2.7) +
+  geom_abline(
+    slope = 1,
+    intercept = 0,
+    linetype = "dashed",
+    color = "black"
+  ) +
+  scale_color_manual(values = c("#0072B2", "#E69F00")) +
+  scale_shape_manual(values = c(16, 17)) +
+  coord_equal(xlim = c(1, 5), ylim = c(1, 5)) +
+  scale_x_continuous(breaks = 1:5) +
+  scale_y_continuous(breaks = 1:5) +
+  labs(
+    title = "Actual and Predicted Movie Ratings",
+    x = "Actual rating",
+    y = "Predicted rating",
+    color = "Model",
+    shape = "Model"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+
+ggsave(
+  "results/actual_vs_predicted.png",
+  actual_plot,
+  width = 8,
+  height = 6,
+  dpi = 300
+)
+
+actual_plot
+```
+
+## Simulated top-three output
+
+Because every person already rated every movie, these rankings show the three highest leave-one-out predictions for each participant. They demonstrate the requested recommendation output, but they are not new viewing suggestions.
+
+```{r}
+#| label: simulated-recommendations
+
+recommendations <- predictions |>
+  group_by(participant_id) |>
+  arrange(
+    desc(personalized_prediction),
+    movie_title,
+    .by_group = TRUE
+  ) |>
+  slice_head(n = 3) |>
+  mutate(rank = row_number()) |>
+  ungroup() |>
+  select(
+    participant_id,
+    rank,
+    movie_title,
+    personalized_prediction,
+    prediction_method
+  )
+
+write_csv(
+  recommendations,
+  "results/simulated_top3_recommendations.csv"
+)
+
+kable(recommendations, digits = 3)
+```
+
+## Conclusion
+
+The comparison shows whether this small personalized model improves on the earlier baseline. The evaluation covers every rating, uses the same held-out cases, and reports fallback use instead of treating every prediction as Pearson-based.
+
+The main limitation is the size and structure of the survey. There are only six participants, and everyone rated the same six movies. These are simulated predictions of known ratings, not recommendations for movies the participants have not seen. More participants, more movies, and a naturally sparse ratings table would provide a stronger test.
+
+## Tools and AI assistance
+
+I used R and Quarto to run the calculations and create the report. AI assisted with code review, editing, and packaging.
+
+## Sources
+
+- Thomson, A. *movie_ratings_query.csv*. Week 3 course repository. <https://github.com/athomsonsps/DATA607/blob/main/Week03/movie_ratings_query.csv>
+- Thomson, A. *Assignment 3A: Global Baseline Estimate*. Week 3 course repository. <https://github.com/athomsonsps/DATA607/blob/main/Week03/Assignment3A_Global_Baseline_Code_Base.qmd>
+- Wickham, H., Çetinkaya-Rundel, M., and Grolemund, G. “Data Visualization.” *R for Data Science*, 2nd ed., Chapter 1. <https://r4ds.hadley.nz/data-visualize>
+- Wickham, H., Cetinkaya-Rundel, M., and Grolemund, G. “Layers.” *R for Data Science*, 2nd ed., Chapter 9. <https://r4ds.hadley.nz/layers>
+- R CHARTS. “Scatter Plot in ggplot2.” <https://r-charts.com/correlation/scatter-plot-ggplot2/>
+- R CHARTS. “Grouped Bar Chart in ggplot2.” <https://r-charts.com/ranking/grouped-bar-chart-ggplot2/>
+- R Graph Gallery. “Grouped Barplot with ggplot2.” <https://r-graph-gallery.com/48-grouped-barplot-with-ggplot2>
+- R Core Team. *Correlation, Variance and Covariance*. R stats::cor documentation. <https://stat.ethz.ch/R-manual/R-devel/library/stats/html/cor.html>
+- Posit. *Tutorial: Hello, Quarto*. <https://quarto.org/docs/get-started/hello/rstudio.html>
+- Wickham, H., Navarro, D., and Pedersen, T. L. *Points* and *Bar Charts*. ggplot2 reference. <https://ggplot2.tidyverse.org/reference/geom_point.html>

@@ -1,0 +1,33 @@
+---
+title: "Approach: Personalized Recommender"
+author: "Andre Thomson"
+format:
+  html:
+    toc: true
+    embed-resources: true
+editor: visual
+---
+
+## Approach
+
+I used the same movie ratings I collected for my Week 2 assignment and used again in Week 3. The data contains 36 ratings from six participants for six movies.
+
+For this assignment, I used user-to-user collaborative filtering. I compared participants who rated the same movies in similar ways and used their ratings to predict a held-out rating. Pearson correlation measures the similarity between two participants. I required at least three shared movies and kept only positive correlations so the neighbors represented similar rather than opposite rating patterns.
+
+Everyone rated all six movies, so there are no new movies to recommend in the original data. I used leave-one-out evaluation instead. I removed one rating, calculated the model from the other 35 ratings, predicted the missing value, and repeated this process for all 36 ratings. If no positively correlated neighbor was available, the recommender used that participant's mean from the training data and labeled the result as a fallback.
+
+The output includes each actual rating, the personalized prediction, the prediction method, the number of neighbors, and the prediction error. I also ranked each participant's held-out predictions to create a simulated top-three list. These are not recommendations for unseen movies because every participant had already rated every movie.
+
+I evaluated the recommender with Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE). Lower values indicate predictions that are closer to the actual ratings. I compared the personalized system with the Week 3 Global Baseline Estimate on the exact same 36 held-out ratings. For every split, both models used only the same 35 training rows.
+
+This survey is useful for showing how the method works, but it is too small to represent a larger audience or a production recommendation service.
+
+## Sources
+
+- Thomson, A. *movie_ratings_query.csv*. Week 3 course repository. <https://github.com/athomsonsps/DATA607/blob/main/Week03/movie_ratings_query.csv>
+- Thomson, A. *Assignment 3A: Global Baseline Estimate*. Week 3 course repository. <https://github.com/athomsonsps/DATA607/blob/main/Week03/Assignment3A_Global_Baseline_Code_Base.qmd>
+- Wickham, H., Çetinkaya-Rundel, M., and Grolemund, G. “Data Visualization.” *R for Data Science*, 2nd ed., Chapter 1. <https://r4ds.hadley.nz/data-visualize>
+- Wickham, H., Çetinkaya-Rundel, M., and Grolemund, G. “Layers.” *R for Data Science*, 2nd ed., Chapter 9. <https://r4ds.hadley.nz/layers>
+- R CHARTS. “Scatter Plot in ggplot2.” <https://r-charts.com/correlation/scatter-plot-ggplot2/>
+- R CHARTS. “Grouped Bar Chart in ggplot2.” <https://r-charts.com/ranking/grouped-bar-chart-ggplot2/>
+- R Graph Gallery. “Grouped Barplot with ggplot2.” <https://r-graph-gallery.com/48-grouped-barplot-with-ggplot2>
