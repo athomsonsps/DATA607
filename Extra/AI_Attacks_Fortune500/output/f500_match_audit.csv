@@ -1,0 +1,28 @@
+id,f500_company_2019,found_by,verdict,reason
+INC-02622,Alphabet,affected field,NOT a victim,AI Overviews surfaced a scam number; Google is the channel
+INC-02639,Alphabet,affected field,NOT a victim,Google reporting misuse of Gemini; Google is the tool
+INC-02642,Alphabet,affected field,NOT a victim,Google Veo3 was the tool used to make deepfakes
+INC-03827,Alphabet,affected field,NOT a victim,Google TAG is the reporter; targets were US/Israel officials
+INC-04819,Alphabet,affected field,NOT a victim,Listed as an LLM developer in hallucinated-package case
+INC-04899,Alphabet,affected field,NOT a victim,Study: Bard generated phishing/ransomware; Google is the tool
+INC-13073,Alphabet,affected field,NOT a victim,Gemini used to build phishing sites; Google is the tool
+INC-03119,Facebook,affected field,NOT a victim,Deepfake ads on Instagram; victims were consumers
+INC-04600,Facebook,affected field,NOT a victim,Deepfake scam ads hosted on Facebook; victims were consumers
+INC-04819,Facebook,affected field,NOT a victim,Listed as an LLM developer in hallucinated-package case
+INC-14469,Facebook,affected field,NOT a victim,"Same case as INC-14602: Meta system abused, users harmed"
+INC-14602,Facebook,affected field,NOT a victim,Meta AI support bot was the abused tool; victims were Instagram account holders
+INC-03681,Microsoft,affected field,NOT a victim,Copilot output harmed a journalist; not an attack on Microsoft
+INC-03994,Microsoft,affected field,NOT a victim,Research showing Copilot can be turned into a phishing tool
+INC-14339,Crown Holdings,description text,NOT a victim,"False hit: ""Crown Prince"", not Crown Holdings"
+INC-02261,JPMorgan Chase,description text,NOT a victim,JPMorgan account used to move funds; investor was the victim
+INC-00874,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-02277,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-03071,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-03083,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-03094,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-03383,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-03973,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-06297,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-14481,News Corp.,description text,NOT a victim,"False hit: the word ""News"", not News Corp."
+INC-01652,Tesla,description text,NOT a victim,Policy ban on vehicles; no attack
+INC-04476,Walmart,description text,NOT a victim,"FTC fraud case; Walmart named as a sales channel, not attacked"
