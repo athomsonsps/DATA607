@@ -1,0 +1,39 @@
+---
+title: "Discussion 11: YouTube Recommender System"
+author: "Andre Thomson"
+format:
+  html:
+    toc: false
+    embed-resources: true
+editor: visual
+---
+
+I chose YouTube because the recommendation system is easy to see on the Home page and in the Up Next panel. The main users are people trying to find something useful or interesting without searching through thousands of videos. Their goal may be learning a skill, following a creator, or just finding something to watch. YouTube uses watch history, likes, subscriptions, and feedback to narrow the choices. It also lets people select *Not interested* or *Don't recommend channel* when the results are off (Google, n.d.; YouTube, n.d.).
+
+For the customer side of Scenario Design, I think the system works best when it understands why someone is watching. A person researching one topic for school may not want that subject filling the Home page afterward. YouTube tells users they can pause or delete watch history, but that puts the work on the viewer. A clearer temporary-session option would make more sense. The viewer could mark a session as school research, troubleshooting, or shopping, and those views would not change the long-term profile.
+
+For YouTube as the organization, the users also include creators. Viewers want relevant videos, while creators want their work shown to people who may care about it. YouTube wants people to have a useful experience and return to the site. The recommender helps by first finding a smaller group of possible videos and then ranking them. Covington, Adams, and Sargin (2016) described this as candidate generation followed by ranking. The current system is probably more complicated, but that explanation still makes sense as a basic model.
+
+The paper also explains that the ranking stage considered expected watch time and not only whether someone clicked a video. To me, this shows why a video that gets attention but is quickly abandoned may not stay highly ranked (Covington et al., 2016).
+
+From the interface, I can see some of the signals but not the exact formula. A recommendation may change after someone watches, likes, subscribes, or gives negative feedback. The video currently playing also affects Up Next. I cannot see the model weights, so I would not claim to know exactly how much each action counts.
+
+I would make three improvements. First, I would add the temporary-session option. Second, I would show a short reason beside a recommendation, such as because you watched this video or because you follow this channel. The user should be able to correct that reason with one click. Third, I would add a simple choice between familiar content and something new. To me, these changes would give the viewer more control without asking the person to understand the algorithm.
+
+YouTube could test these changes with a small group of users. It could compare satisfaction feedback, use of *Not interested*, recommendation diversity, and whether people return to the site. I would not use watch time alone because watching longer does not always mean the recommendation was useful.
+
+My main takeaway is that YouTube already has several feedback tools, but they are spread across menus and history settings. Scenario Design changes the question from how to keep someone watching to how to help that person accomplish a viewing goal.
+
+RPubs: <https://rpubs.com/AndreT/1479192>
+
+GitHub: <https://github.com/athomsonsps/DATA607/tree/main/Week11>
+
+## References
+
+Covington, P., Adams, J., & Sargin, E. (2016). Deep neural networks for YouTube recommendations. *Proceedings of the 10th ACM Conference on Recommender Systems*. <https://research.google/pubs/deep-neural-networks-for-youtube-recommendations/>
+
+Google. (n.d.). Manage your recommendations and search results. *YouTube Help*. <https://support.google.com/youtube/answer/6342839?hl=en>
+
+YouTube. (n.d.). Recommendations. *How YouTube Works*. <https://www.youtube.com/howyoutubeworks/recommendations/>
+
+Temkin, B. D. (2004). *Scenario design: A disciplined approach to customer experience*. Forrester Research.
